@@ -11,8 +11,8 @@ a project means editing JSON, dropping in a video and pushing.
 | Framework | Flutter Web, same Flutter as Remix (3.41.6 / Dart 3.11.4) |
 | Content | `assets/data/profile.json` + `assets/data/projects.json` |
 | Videos | Compressed MP4 in the repo, under `web/media/`, each with a poster image |
-| Hosting | GitHub Pages at `https://mostafamahmoudali.github.io` |
-| Repo | New repo `MostafaMahmoudAli.github.io` on the personal account |
+| Hosting | GitHub Pages at `https://mostafamahmoudali.github.io/portofolio-/` |
+| Repo | `MostafaMahmoudAli/portofolio-` (public). Renaming it to `MostafaMahmoudAli.github.io` moves the site to the root URL; the workflow uses the repo name as base href, so no code change |
 | URLs | Hash links (`/#/projects/remix`), Flutter Web's default, so no 404 trick |
 | Theme | Light / dark toggle, starts from the system setting, choice remembered |
 | Look | Animated, modern, gradient accents (see Design) |
