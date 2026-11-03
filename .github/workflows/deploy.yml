@@ -31,7 +31,9 @@ jobs:
 
       - run: flutter pub get
 
-      - run: flutter build web --wasm --release
+      # Project site lives at /<repo-name>/. Use "/" if the repo is renamed
+      # to MostafaMahmoudAli.github.io.
+      - run: flutter build web --wasm --release --base-href "/${{ github.event.repository.name }}/"
 
       - uses: actions/upload-pages-artifact@v3
         with:
