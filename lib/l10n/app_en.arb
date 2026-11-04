@@ -1,0 +1,22 @@
+{
+  "@@locale": "en",
+  "appTitle": "Mostafa Mahmoud — Flutter Developer",
+  "navAbout": "About",
+  "navProjects": "Projects",
+  "navExperience": "Experience",
+  "navSkills": "Skills",
+  "navContact": "Contact",
+  "resume": "Resume",
+  "menu": "Menu",
+  "closeMenu": "Close menu",
+  "themeToDark": "Switch to dark theme",
+  "themeToLight": "Switch to light theme",
+  "languageToggleLabel": "ع",
+  "languageToggleTooltip": "التبديل إلى العربية",
+  "sectionComingSoon": "Coming soon",
+  "projectComingSoon": "The page for {slug} is coming soon.",
+  "@projectComingSoon": { "placeholders": { "slug": { "type": "String" } } },
+  "notFoundTitle": "Page not found",
+  "notFoundBody": "This page doesn't exist.",
+  "backHome": "Back to home"
+}

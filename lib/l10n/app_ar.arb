@@ -1,0 +1,21 @@
+{
+  "@@locale": "ar",
+  "appTitle": "مصطفى محمود — مطوّر Flutter",
+  "navAbout": "نبذة",
+  "navProjects": "المشاريع",
+  "navExperience": "الخبرات",
+  "navSkills": "المهارات",
+  "navContact": "تواصل",
+  "resume": "السيرة الذاتية",
+  "menu": "القائمة",
+  "closeMenu": "إغلاق القائمة",
+  "themeToDark": "التبديل إلى الوضع الداكن",
+  "themeToLight": "التبديل إلى الوضع الفاتح",
+  "languageToggleLabel": "EN",
+  "languageToggleTooltip": "Switch to English",
+  "sectionComingSoon": "قريبًا",
+  "projectComingSoon": "صفحة {slug} قريبًا.",
+  "notFoundTitle": "الصفحة غير موجودة",
+  "notFoundBody": "هذه الصفحة غير موجودة.",
+  "backHome": "العودة إلى الرئيسية"
+}
