@@ -14,6 +14,7 @@ Future<void> showNavMenuSheet(
   return showModalBottomSheet(
     context: context,
     showDragHandle: true,
+    isScrollControlled: true,
     builder: (_) => NavMenuSheet(onSectionTap: onSectionTap),
   );
 }
@@ -52,11 +53,16 @@ class NavMenuSheet extends StatelessWidget {
                   onSectionTap(s);
                 },
               ),
-            Row(
+            Wrap(
+              spacing: 12,
+              runSpacing: 8,
+              alignment: WrapAlignment.spaceBetween,
+              crossAxisAlignment: WrapCrossAlignment.center,
               children: [
-                const LanguageToggle(),
-                const ThemeToggle(),
-                const Spacer(),
+                const Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [LanguageToggle(), ThemeToggle()],
+                ),
                 FilledButton(
                   onPressed: () => openLink('resume.pdf'),
                   child: Text(l10n.resume),

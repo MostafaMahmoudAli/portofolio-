@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../presentation/pages/home_page.dart';
+import '../../presentation/pages/home_section.dart';
 import '../../presentation/pages/not_found_page.dart';
 import '../../presentation/pages/project_page.dart';
 import '../app_scope.dart';
@@ -12,7 +13,14 @@ GoRouter createRouter({String? initialLocation}) => GoRouter(
   routes: [
     GoRoute(
       path: '/',
-      pageBuilder: (context, state) => _page(context, state, const HomePage()),
+      pageBuilder: (context, state) => _page(
+        context,
+        state,
+        HomePage(
+          section: HomeSection.values
+              .asNameMap()[state.uri.queryParameters['section']],
+        ),
+      ),
       routes: [
         GoRoute(
           path: 'projects/:slug',

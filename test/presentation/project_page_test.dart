@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:go_router/go_router.dart';
 import 'package:portfolio/core/app_scope.dart';
@@ -11,14 +12,23 @@ import 'package:portfolio/core/models/project_video.dart';
 import 'package:portfolio/core/router/app_router.dart';
 import 'package:portfolio/core/theme/app_theme.dart';
 import 'package:portfolio/core/theme/theme_controller.dart';
+import 'package:portfolio/core/utils/project_accent.dart';
 import 'package:portfolio/l10n/app_localizations.dart';
 import 'package:portfolio/presentation/pages/home_page.dart';
+import 'package:portfolio/presentation/pages/home_section.dart';
 import 'package:portfolio/presentation/pages/not_found_page.dart';
 import 'package:portfolio/presentation/pages/project_page.dart';
 import 'package:portfolio/presentation/widgets/glass_card.dart';
+import 'package:portfolio/presentation/widgets/nav_bar.dart';
+import 'package:portfolio/presentation/widgets/nav_menu_sheet.dart';
+import 'package:portfolio/presentation/widgets/page_title.dart';
+import 'package:portfolio/presentation/widgets/project_media_frame.dart';
+import 'package:portfolio/presentation/widgets/project_placeholder.dart';
 import 'package:portfolio/presentation/widgets/project_poster.dart';
 import 'package:portfolio/presentation/widgets/project_video_gallery.dart';
 import 'package:portfolio/presentation/widgets/project_video_player.dart';
+import 'package:portfolio/presentation/widgets/section_placeholder.dart';
+import 'package:portfolio/presentation/sections/about_section.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:video_player_platform_interface/video_player_platform_interface.dart';
 import 'package:visibility_detector/visibility_detector.dart';
@@ -103,7 +113,7 @@ Future<void> bottom(WidgetTester tester) async {
   }
 }
 
-Project testProject(int videos) => Project(
+Project testProject(int videos, {String? cover}) => Project(
   slug: 'gallery-test',
   title: const LocalizedText(en: 'Gallery test', ar: 'اختبار المعرض'),
   subtitle: const LocalizedText(en: 'Subtitle', ar: 'عنوان فرعي'),
@@ -114,7 +124,7 @@ Project testProject(int videos) => Project(
   bullets: const [],
   tech: const [],
   status: null,
-  cover: null,
+  cover: cover,
   videos: [
     for (var i = 0; i < videos; i++)
       ProjectVideo(
@@ -145,11 +155,11 @@ Future<void> main() async {
     expect(find.byType(HomePage), findsNothing);
     expect(find.byType(HomePage, skipOffstage: false), findsOneWidget);
     expect(router.canPop(), isTrue);
-    final title = tester.widget<Title>(
+    final title = tester.widget<PageTitle>(
       find
           .ancestor(
             of: find.byType(ProjectVideoGallery),
-            matching: find.byType(Title),
+            matching: find.byType(PageTitle),
           )
           .first,
     );
@@ -194,6 +204,196 @@ Future<void> main() async {
     expect(find.byType(NotFoundPage), findsOneWidget);
     await unmount(tester);
   });
+
+  for (final language in ['en', 'ar']) {
+    testWidgets('browser title restored after Back, nav and 404 in $language', (
+      tester,
+    ) async {
+      final labels = <String>[];
+      tester.binding.defaultBinaryMessenger.setMockMethodCallHandler(
+        SystemChannels.platform,
+        (call) async {
+          if (call.method == 'SystemChrome.setApplicationSwitcherDescription') {
+            labels.add((call.arguments as Map)['label'] as String);
+          }
+          return null;
+        },
+      );
+      addTearDown(
+        () => tester.binding.defaultBinaryMessenger.setMockMethodCallHandler(
+          SystemChannels.platform,
+          null,
+        ),
+      );
+      final router = await pumpPage(tester, location: '/', language: language);
+      final l10n = AppLocalizations.of(tester.element(find.byType(HomePage)));
+      expect(labels.last, l10n.appTitle);
+      router.go('/projects/remix');
+      await frames(tester);
+      expect(
+        labels.last,
+        '${content.projects.firstWhere((p) => p.slug == 'remix').title.of(Locale(language))} — ${l10n.appTitle}',
+      );
+      await tester.tap(find.byType(BackButton));
+      await frames(tester);
+      expect(labels.last, l10n.appTitle);
+      router.go('/projects/remix');
+      await frames(tester);
+      await tester.tap(
+        find.descendant(of: find.byType(NavBar), matching: find.text('MM')),
+      );
+      await frames(tester);
+      expect(labels.last, l10n.appTitle);
+      for (final path in ['/projects/unknown', '/unknown']) {
+        router.go('/projects/remix');
+        await frames(tester);
+        router.go(path);
+        await frames(tester, 16);
+        expect(labels.last, '${l10n.notFoundTitle} — ${l10n.appTitle}');
+      }
+      await tester.tap(find.text(l10n.backHome));
+      await frames(tester, 16);
+      expect(labels.last, l10n.appTitle);
+      await unmount(tester);
+    });
+
+    for (final width in [375.0, 1440.0]) {
+      testWidgets(
+        'project nav reaches each home section at $width in $language',
+        (tester) async {
+          final router = await pumpPage(
+            tester,
+            language: language,
+            width: width,
+          );
+          final l10n = AppLocalizations.of(
+            tester.element(find.byType(ProjectPage)),
+          );
+          for (final section in HomeSection.values) {
+            router.go('/projects/remix');
+            await frames(tester);
+            if (width < 600) {
+              await tester.tap(find.byIcon(Icons.menu_rounded));
+              await frames(tester);
+            }
+            await tester.tap(
+              find.descendant(
+                of: find.byType(width < 600 ? NavMenuSheet : NavBar),
+                matching: find.text(section.label(l10n)),
+              ),
+            );
+            await frames(tester, 24);
+            expect(find.byType(HomePage), findsOneWidget);
+            expect(
+              router
+                  .routeInformationProvider
+                  .value
+                  .uri
+                  .queryParameters['section'],
+              section.name,
+            );
+            expect(scrollOf(tester, HomePage).pixels, greaterThan(0));
+            final target = switch (section) {
+              HomeSection.about => find.byType(AboutSection),
+              HomeSection.projects => find.text(l10n.featuredProjects),
+              _ => find.byWidgetPredicate(
+                (w) => w is SectionPlaceholder && w.section == section,
+              ),
+            };
+            final rect = tester.getRect(target);
+            expect(rect.bottom, greaterThan(72));
+            expect(rect.top, lessThan(900));
+            expect(tester.takeException(), isNull);
+          }
+          await unmount(tester);
+        },
+      );
+    }
+  }
+
+  testWidgets('pasted section link scrolls after first layout', (tester) async {
+    await pumpPage(tester, location: '/?section=skills', reducedMotion: true);
+    final target = find.byWidgetPredicate(
+      (w) => w is SectionPlaceholder && w.section == HomeSection.skills,
+    );
+    expect(tester.getRect(target).top, inInclusiveRange(-0.001, 900));
+    expect(scrollOf(tester, HomePage).pixels, greaterThan(0));
+    await unmount(tester);
+  });
+
+  for (final cover in [null, 'media/custom/alternate.jpg']) {
+    testWidgets('cover uses JSON field $cover with null placeholder', (
+      tester,
+    ) async {
+      final project = testProject(0, cover: cover);
+      await pumpPage(
+        tester,
+        location: '/projects/${project.slug}',
+        data: Content(profile: content.profile, projects: [project]),
+      );
+      final poster = tester.widget<ProjectPoster>(find.byType(ProjectPoster));
+      expect(poster.path, cover);
+      expect(poster.accentColor, project.accentColor);
+      if (cover == null) {
+        expect(find.byType(ProjectPlaceholder), findsOneWidget);
+        expect(
+          find.descendant(
+            of: find.byType(ProjectPoster),
+            matching: find.byType(Image),
+          ),
+          findsNothing,
+        );
+      } else {
+        final image = tester.widget<Image>(
+          find.descendant(
+            of: find.byType(ProjectPoster),
+            matching: find.byType(Image),
+          ),
+        );
+        expect(
+          (image.image as NetworkImage).url,
+          Uri.base.resolve(cover).toString(),
+        );
+      }
+      await unmount(tester);
+    });
+  }
+
+  testWidgets(
+    'poster and player share viewport bounds and accent placeholder',
+    (tester) async {
+      platform.failCreate = true;
+      final project = testProject(1);
+      await pumpPage(
+        tester,
+        location: '/projects/${project.slug}',
+        data: Content(profile: content.profile, projects: [project]),
+      );
+      await tester.ensureVisible(find.byType(ProjectVideoGallery));
+      await frames(tester);
+      final media = find.byType(ProjectMediaFrame);
+      final poster = find.descendant(
+        of: media,
+        matching: find.byType(ProjectPoster),
+      );
+      final player = find.descendant(
+        of: media,
+        matching: find.byType(ProjectVideoPlayer),
+      );
+      expect(tester.getRect(poster), tester.getRect(player));
+      final placeholders = tester.widgetList<ProjectPlaceholder>(
+        find.descendant(of: media, matching: find.byType(ProjectPlaceholder)),
+      );
+      expect(placeholders.length, 2);
+      expect(
+        placeholders.every((p) => p.accentColor == project.accentColor),
+        isTrue,
+      );
+      expect(project.accentColor, const Color(0xFF7C5CFF));
+      expect(tester.takeException(), isNull);
+      await unmount(tester);
+    },
+  );
 
   testWidgets('Back falls back to home when no page is underneath', (
     tester,

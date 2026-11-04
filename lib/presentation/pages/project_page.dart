@@ -7,9 +7,11 @@ import '../../core/app_scope.dart';
 import '../../core/models/project_link.dart';
 import '../../core/theme/app_colors.dart';
 import '../../core/utils/open_link.dart';
+import '../../core/utils/project_accent.dart';
 import '../../l10n/app_localizations.dart';
 import '../widgets/glass_card.dart';
 import '../widgets/nav_bar.dart';
+import '../widgets/page_title.dart';
 import '../widgets/project_poster.dart';
 import '../widgets/project_video_gallery.dart';
 import '../widgets/reveal_on_scroll.dart';
@@ -31,17 +33,14 @@ class ProjectPage extends StatelessWidget {
     final l10n = AppLocalizations.of(context);
     final palette = AppPalette.of(context);
     final textTheme = Theme.of(context).textTheme;
-    final accent = Color(
-      0xFF000000 | int.parse(project.accent.substring(1), radix: 16),
-    );
+    final accent = project.accentColor;
     final previous = projects[(index - 1 + projects.length) % projects.length];
     final next = projects[(index + 1) % projects.length];
     final padding = EdgeInsetsDirectional.symmetric(
       horizontal: math.max(24, (MediaQuery.sizeOf(context).width - 1200) / 2),
     );
-    return Title(
+    return PageTitle(
       title: '${project.title.of(locale)} — ${l10n.appTitle}',
-      color: palette.background,
       child: Scaffold(
         body: Stack(
           children: [
@@ -72,7 +71,10 @@ class ProjectPage extends StatelessWidget {
                         ),
                         child: SizedBox(
                           height: 180,
-                          child: ProjectPoster(path: 'media/$slug/cover.jpg'),
+                          child: ProjectPoster(
+                            path: project.cover,
+                            accentColor: accent,
+                          ),
                         ),
                       ),
                       const SizedBox(height: 24),
@@ -205,7 +207,8 @@ class ProjectPage extends StatelessWidget {
               start: 0,
               end: 0,
               child: NavBar(
-                onSectionTap: (_) => context.go('/'),
+                onSectionTap: (section) =>
+                    context.go('/?section=${section.name}'),
                 onLogoTap: () => context.go('/'),
               ),
             ),

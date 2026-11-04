@@ -29,7 +29,7 @@ class ProjectMediaFrame extends StatelessWidget {
     final poster = PhoneFrame(
       width: width,
       accent: accent,
-      child: ProjectPoster(path: video.poster),
+      child: ProjectPoster(path: video.poster, accentColor: accent),
     );
     final route = ModalRoute.of(context);
     return AnimatedBuilder(
@@ -58,21 +58,12 @@ class ProjectMediaFrame extends StatelessWidget {
               else
                 poster,
               if (settled)
-                PositionedDirectional(
-                  top: 22,
-                  bottom: 16,
-                  start: 2,
-                  end: 2,
-                  child: ClipRRect(
-                    borderRadius: const BorderRadiusDirectional.all(
-                      Radius.circular(28),
-                    ),
-                    child: ProjectVideoPlayer(
-                      key: ValueKey(video.src),
-                      video: video,
-                      title: project.title.of(Localizations.localeOf(context)),
-                      accentColor: accent,
-                    ),
+                PhoneFrame.mediaLayer(
+                  child: ProjectVideoPlayer(
+                    key: ValueKey(video.src),
+                    video: video,
+                    title: project.title.of(Localizations.localeOf(context)),
+                    accentColor: accent,
                   ),
                 ),
             ],

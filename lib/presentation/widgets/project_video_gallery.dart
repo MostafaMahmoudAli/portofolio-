@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../core/models/project.dart';
 import '../../core/theme/app_colors.dart';
 import '../../core/utils/breakpoints.dart';
+import '../../core/utils/project_accent.dart';
 import '../../l10n/app_localizations.dart';
 import 'project_media_frame.dart';
 import 'project_poster.dart';
@@ -49,9 +50,7 @@ class _ProjectVideoGalleryState extends State<ProjectVideoGallery> {
     final palette = AppPalette.of(context);
     final locale = Localizations.localeOf(context);
     final l10n = AppLocalizations.of(context);
-    final accent = Color(
-      0xFF000000 | int.parse(project.accent.substring(1), radix: 16),
-    );
+    final accent = project.accentColor;
     final width = phone ? 240.0 : 300.0;
     Widget frame(int index) => Center(
       child: ProjectMediaFrame(
@@ -135,7 +134,10 @@ class _ProjectVideoGalleryState extends State<ProjectVideoGallery> {
                                     ),
                                   ),
                                 )
-                              : ProjectPoster(path: project.videos[i].poster),
+                              : ProjectPoster(
+                                  path: project.videos[i].poster,
+                                  accentColor: accent,
+                                ),
                         ),
                       ),
                     ),

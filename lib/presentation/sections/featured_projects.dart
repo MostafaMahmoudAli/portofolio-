@@ -8,6 +8,7 @@ import '../../core/app_scope.dart';
 import '../../core/models/project.dart';
 import '../../core/theme/app_colors.dart';
 import '../../core/utils/breakpoints.dart';
+import '../../core/utils/project_accent.dart';
 import '../../l10n/app_localizations.dart';
 import '../widgets/glass_card.dart';
 import '../widgets/project_media_frame.dart';
@@ -73,9 +74,7 @@ class _FeaturedCard extends StatefulWidget {
 }
 
 class _FeaturedCardState extends State<_FeaturedCard> {
-  late final Color _accent = Color(
-    0xFF000000 | int.parse(widget.project.accent.substring(1), radix: 16),
-  );
+  late final Color _accent = widget.project.accentColor;
 
   /// Cursor position over the card, -0.5..0.5 on each axis; null when not hovered.
   final _tilt = ValueNotifier<Offset?>(null);

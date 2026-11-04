@@ -4,6 +4,7 @@ import 'package:visibility_detector/visibility_detector.dart';
 
 import '../../core/models/project_video.dart';
 import '../../core/theme/app_colors.dart';
+import 'project_placeholder.dart';
 
 /// Keeps at most two video controllers alive at a time. When a third
 /// controller is needed, the oldest (least recently used) one is disposed.
@@ -253,7 +254,10 @@ class _ProjectVideoPlayerState extends State<ProjectVideoPlayer> {
   @override
   Widget build(BuildContext context) {
     if (_videoError) {
-      return _Placeholder(accentColor: widget.accentColor, title: widget.title);
+      return ProjectPlaceholder(
+        accentColor: widget.accentColor,
+        title: widget.title,
+      );
     }
 
     return VisibilityDetector(
@@ -269,10 +273,11 @@ class _ProjectVideoPlayerState extends State<ProjectVideoPlayer> {
               child: Image.network(
                 _posterUrl,
                 fit: BoxFit.cover,
-                errorBuilder: (context, error, stackTrace) => _Placeholder(
-                  accentColor: widget.accentColor,
-                  title: widget.title,
-                ),
+                errorBuilder: (context, error, stackTrace) =>
+                    ProjectPlaceholder(
+                      accentColor: widget.accentColor,
+                      title: widget.title,
+                    ),
               ),
             ),
             if (_showVideo) Positioned.fill(child: VideoPlayer(_controller!)),
@@ -311,32 +316,6 @@ class _ProjectVideoPlayerState extends State<ProjectVideoPlayer> {
             ),
           ],
         ),
-      ),
-    );
-  }
-}
-
-class _Placeholder extends StatelessWidget {
-  const _Placeholder({required this.accentColor, required this.title});
-
-  final Color accentColor;
-  final String title;
-
-  @override
-  Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
-    return Container(
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          colors: [accentColor, accentColor.withValues(alpha: 0.7)],
-        ),
-        borderRadius: BorderRadius.circular(20),
-      ),
-      alignment: Alignment.center,
-      child: Text(
-        title,
-        style: textTheme.titleLarge?.copyWith(color: Colors.white),
-        textAlign: TextAlign.center,
       ),
     );
   }
