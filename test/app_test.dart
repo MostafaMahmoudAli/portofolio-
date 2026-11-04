@@ -3,6 +3,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:go_router/go_router.dart';
 import 'package:portfolio/app.dart';
 import 'package:portfolio/core/localization/locale_controller.dart';
+import 'package:portfolio/core/theme/app_colors.dart';
+import 'package:portfolio/presentation/widgets/nav_menu_sheet.dart';
 import 'package:portfolio/core/theme/theme_controller.dart';
 import 'package:portfolio/presentation/pages/home_page.dart';
 import 'package:portfolio/presentation/pages/not_found_page.dart';
@@ -90,6 +92,23 @@ void main() {
     await tester.pumpAndSettle();
     expect(Theme.of(tester.element(find.byType(HomePage))).brightness, Brightness.dark);
     expect(prefs.getString('themeMode'), 'dark');
+  });
+
+  testWidgets('open menu sheet follows a theme switch', (tester) async {
+    await pumpApp(tester);
+    tester.view.physicalSize = const Size(375, 812);
+    await tester.pumpAndSettle();
+    await tester.tap(find.byIcon(Icons.menu_rounded));
+    await tester.pumpAndSettle();
+
+    Color sheetColor() => tester
+        .widget<Material>(find.ancestor(of: find.byType(NavMenuSheet), matching: find.byType(Material)).first)
+        .color!;
+    expect(sheetColor(), AppPalette.light.background);
+
+    await tester.tap(find.descendant(of: find.byType(NavMenuSheet), matching: find.byType(ThemeToggle)));
+    await tester.pumpAndSettle();
+    expect(sheetColor(), AppPalette.dark.background);
   });
 
   testWidgets('routes: project page and unknown path', (tester) async {
