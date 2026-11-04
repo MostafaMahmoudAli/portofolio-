@@ -196,7 +196,7 @@ Future<void> main() async {
     router.go('/projects/remix');
     await pumpFrames(tester, const Duration(milliseconds: 800));
     expect(find.byType(ProjectPage), findsOneWidget);
-    expect(find.textContaining('remix'), findsOneWidget);
+    expect(find.text('Remix'), findsWidgets);
 
     router.go('/nope');
     await pumpFrames(tester, const Duration(milliseconds: 800));

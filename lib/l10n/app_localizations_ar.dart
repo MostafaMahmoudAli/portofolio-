@@ -123,4 +123,18 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get viewOnGitHub => 'عرض على GitHub';
+
+  @override
+  String get viewLive => 'عرض الموقع';
+
+  @override
+  String get previousProject => 'المشروع السابق';
+
+  @override
+  String get nextProject => 'المشروع التالي';
+
+  @override
+  String selectVideo(int number) {
+    return 'تشغيل الفيديو $number';
+  }
 }

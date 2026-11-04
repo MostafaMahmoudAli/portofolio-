@@ -10,8 +10,7 @@ import '../../core/theme/app_colors.dart';
 import '../../core/utils/breakpoints.dart';
 import '../../l10n/app_localizations.dart';
 import '../widgets/glass_card.dart';
-import '../widgets/phone_frame.dart';
-import '../widgets/project_video_player.dart';
+import '../widgets/project_media_frame.dart';
 import '../widgets/reveal_on_scroll.dart';
 import '../widgets/section_title.dart';
 import '../widgets/store_badges.dart';
@@ -98,23 +97,19 @@ class _FeaturedCardState extends State<_FeaturedCard> {
   @override
   Widget build(BuildContext context) {
     final screen = ScreenSize.of(context);
-    final locale = Localizations.localeOf(context);
     final video = widget.project.videos.firstOrNull;
 
     final videoSide = video == null
         ? null
-        : PhoneFrame(
+        : ProjectMediaFrame(
+            project: widget.project,
+            video: video,
             width: switch (screen) {
               ScreenSize.phone => 240,
               ScreenSize.tablet => 260,
               ScreenSize.desktop => 300,
             },
             accent: _accent,
-            child: ProjectVideoPlayer(
-              video: video,
-              title: widget.project.title.of(locale),
-              accentColor: _accent,
-            ),
           );
     final text = _CardText(project: widget.project, accent: _accent);
 

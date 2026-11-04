@@ -123,4 +123,18 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get viewOnGitHub => 'View on GitHub';
+
+  @override
+  String get viewLive => 'View live site';
+
+  @override
+  String get previousProject => 'Previous project';
+
+  @override
+  String get nextProject => 'Next project';
+
+  @override
+  String selectVideo(int number) {
+    return 'Play video $number';
+  }
 }

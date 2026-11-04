@@ -37,5 +37,10 @@
   "moreProjects": "More Projects",
   "details": "Details",
   "moreOnGithub": "More on GitHub",
-  "viewOnGitHub": "View on GitHub"
+  "viewOnGitHub": "View on GitHub",
+  "viewLive": "View live site",
+  "previousProject": "Previous project",
+  "nextProject": "Next project",
+  "selectVideo": "Play video {number}",
+  "@selectVideo": { "placeholders": { "number": { "type": "int" } } }
 }

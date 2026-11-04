@@ -319,6 +319,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'View on GitHub'**
   String get viewOnGitHub;
+
+  /// No description provided for @viewLive.
+  ///
+  /// In en, this message translates to:
+  /// **'View live site'**
+  String get viewLive;
+
+  /// No description provided for @previousProject.
+  ///
+  /// In en, this message translates to:
+  /// **'Previous project'**
+  String get previousProject;
+
+  /// No description provided for @nextProject.
+  ///
+  /// In en, this message translates to:
+  /// **'Next project'**
+  String get nextProject;
+
+  /// No description provided for @selectVideo.
+  ///
+  /// In en, this message translates to:
+  /// **'Play video {number}'**
+  String selectVideo(int number);
 }
 
 class _AppLocalizationsDelegate
