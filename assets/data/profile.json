@@ -132,12 +132,8 @@
       "chips": ["FFmpegKit", "CameraX", "video_player", "just_audio", "HLS / m3u8", "Image compression", "Thumbnails"]
     },
     {
-      "title": { "en": "Testing & Quality", "ar": "الاختبارات والجودة" },
-      "chips": ["flutter_test", "Widget testing", "bloc_test", "Mocktail", "flutter_lints", "DevTools profiling"]
-    },
-    {
-      "title": { "en": "Release & CI/CD", "ar": "الإصدار و CI/CD" },
-      "chips": ["flutter_flavorizr", "Play Console", "App Store Connect", "Play App Signing", "build_runner", "Git & GitHub", "GitHub Actions"]
+      "title": { "en": "Testing & Release", "ar": "الاختبارات والإصدار" },
+      "chips": ["flutter_test", "Widget testing", "bloc_test", "Mocktail", "flutter_lints", "DevTools profiling", "flutter_flavorizr", "Play Console", "App Store Connect", "Play App Signing", "build_runner", "Git & GitHub", "GitHub Actions"]
     }
   ],
   "education": {

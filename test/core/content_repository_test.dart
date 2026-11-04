@@ -1,5 +1,6 @@
 import 'package:flutter/widgets.dart' show Locale;
 import 'package:flutter_test/flutter_test.dart';
+import 'package:portfolio/core/data/content.dart';
 import 'package:portfolio/core/data/content_repository.dart';
 import 'package:portfolio/core/models/project.dart';
 import 'package:portfolio/core/models/project_link.dart';
@@ -34,10 +35,25 @@ void main() {
       final profile = content.profile;
       expect(profile.location.of(const Locale('ar')), isArabicText);
       expect(profile.summary.of(const Locale('ar')), isArabicText);
-      expect(profile.experience.first.role.of(const Locale('ar')), isArabicText);
-      expect(profile.skillGroups.first.title.of(const Locale('ar')), isArabicText);
+      expect(
+        profile.experience.first.role.of(const Locale('ar')),
+        isArabicText,
+      );
+      expect(
+        profile.skillGroups.first.title.of(const Locale('ar')),
+        isArabicText,
+      );
       final chips = content.profile.skillGroups.expand((group) => group.chips);
       expect(chips, contains('FFmpegKit'));
+    });
+
+    test('profile has 9 skill groups after the Testing & Release merge', () {
+      final titles = content.profile.skillGroups
+          .map((group) => group.title.en)
+          .toList();
+      expect(titles, hasLength(9));
+      expect(titles, contains('Testing & Release'));
+      expect(titles, isNot(contains('Testing & Quality')));
     });
 
     test('all twelve projects parse in both languages', () {
@@ -47,8 +63,9 @@ void main() {
         hasLength(5),
       );
 
-      final remix =
-          content.projects.singleWhere((project) => project.slug == 'remix');
+      final remix = content.projects.singleWhere(
+        (project) => project.slug == 'remix',
+      );
       expect(remix.accent, '#FF5C8A');
       expect(remix.subtitle.of(const Locale('en')), contains('duet'));
       expect(remix.subtitle.of(const Locale('ar')), isArabicText);
@@ -57,30 +74,72 @@ void main() {
 
       // Every entry carries Arabic subtitles, summaries, bullets or status.
       for (final project in content.projects) {
-        expect(project.subtitle.of(const Locale('ar')), isArabicText,
-            reason: 'subtitle of ${project.slug}');
-        expect(project.summary.of(const Locale('ar')), isArabicText,
-            reason: 'summary of ${project.slug}');
-        expect(project.title.of(const Locale('ar')), isNotEmpty,
-            reason: 'title of ${project.slug}');
+        expect(
+          project.subtitle.of(const Locale('ar')),
+          isArabicText,
+          reason: 'subtitle of ${project.slug}',
+        );
+        expect(
+          project.summary.of(const Locale('ar')),
+          isArabicText,
+          reason: 'summary of ${project.slug}',
+        );
+        expect(
+          project.title.of(const Locale('ar')),
+          isNotEmpty,
+          reason: 'title of ${project.slug}',
+        );
       }
     });
 
     test('more projects link to their GitHub repos', () {
-      final bookly = content.projects
-          .singleWhere((project) => project.slug == 'Bookly_App');
+      final bookly = content.projects.singleWhere(
+        (project) => project.slug == 'bookly-app',
+      );
       expect(bookly.featured, isFalse);
       final link = bookly.links.single;
       expect(link.type, ProjectLinkType.github);
+      expect(link.url, 'https://github.com/MostafaMahmoudAli/Bookly_App');
+    });
+
+    test('the consulate project carries its 8 labelled store links', () {
+      final consulates = content.projects.singleWhere(
+        (project) => project.slug == 'egypt-consulate-apps',
+      );
+      expect(consulates.links, hasLength(8));
       expect(
-        link.url,
-        'https://github.com/MostafaMahmoudAli/Bookly_App',
+        consulates.links.where(
+          (link) => link.type == ProjectLinkType.playStore,
+        ),
+        hasLength(4),
+      );
+      expect(
+        consulates.links.map((link) => link.label),
+        containsAll(['Kuwait', 'Riyadh', 'Jeddah', 'Milan']),
       );
     });
 
+    test('a featured project links to both stores', () {
+      final alkharj = content.projects.singleWhere(
+        (project) => project.slug == 'alkharj-business-guide',
+      );
+      expect(
+        alkharj.links.map((link) => link.type),
+        containsAll([ProjectLinkType.playStore, ProjectLinkType.appStore]),
+      );
+    });
+
+    test('slugs are kebab-case across all projects', () {
+      final kebab = RegExp(r'^[a-z0-9]+(-[a-z0-9]+)*$');
+      for (final project in content.projects) {
+        expect(kebab.hasMatch(project.slug), isTrue, reason: project.slug);
+      }
+    });
+
     test('featured counts line up with the resume stats', () {
-      final consulates = content.projects
-          .singleWhere((project) => project.slug == 'egypt-consulate-apps');
+      final consulates = content.projects.singleWhere(
+        (project) => project.slug == 'egypt-consulate-apps',
+      );
       expect(consulates.summary.of(const Locale('en')), contains('310K+'));
       expect(consulates.tech, contains('Flavors'));
     });
@@ -116,10 +175,33 @@ void main() {
           isA<FormatException>().having(
             (error) => error.message,
             'message',
-            allOf(
-              contains('entry "remix": videos[1]'),
-              contains('"src"'),
-            ),
+            allOf(contains('entry "remix": videos[1]'), contains('"src"')),
+          ),
+        ),
+      );
+    });
+
+    test('a non-list videos field names the field, not a TypeError', () {
+      final entry = <String, dynamic>{
+        'slug': 'x',
+        'title': {'en': 'X'},
+        'subtitle': {'en': 'S'},
+        'featured': false,
+        'order': 1,
+        'accent': '#000000',
+        'summary': {'en': 'Sum'},
+        'bullets': [],
+        'tech': ['Flutter'],
+        'videos': 'nope',
+        'links': <String, dynamic>{'type': 'github', 'url': 'u'},
+      };
+      expect(
+        () => Project.fromJson(entry, where: 'projects.json: entry "x"'),
+        throwsA(
+          isA<FormatException>().having(
+            (error) => error.message,
+            'message',
+            allOf(contains('entry "x"'), contains('"videos"')),
           ),
         ),
       );
@@ -139,10 +221,7 @@ void main() {
           isA<FormatException>().having(
             (error) => error.message,
             'message',
-            allOf(
-              contains('links[0]'),
-              contains('"nonsense"'),
-            ),
+            allOf(contains('links[0]'), contains('"nonsense"')),
           ),
         ),
       );

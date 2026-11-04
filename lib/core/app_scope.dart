@@ -1,6 +1,6 @@
 import 'package:flutter/widgets.dart';
 
-import 'data/content_repository.dart';
+import 'data/content.dart';
 import 'localization/locale_controller.dart';
 import 'theme/theme_controller.dart';
 

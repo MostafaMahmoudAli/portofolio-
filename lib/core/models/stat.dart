@@ -4,11 +4,7 @@ import 'require.dart';
 /// One counter in the hero, e.g. 310 with the suffix "K+" and the label
 /// "Downloads". The digits stay Western in both languages.
 class Stat {
-  const Stat({
-    required this.value,
-    required this.suffix,
-    required this.label,
-  });
+  const Stat({required this.value, required this.suffix, required this.label});
 
   factory Stat.fromJson(Map<String, dynamic> json, {required String where}) =>
       Stat(

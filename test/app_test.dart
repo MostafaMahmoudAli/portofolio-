@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:go_router/go_router.dart';
 import 'package:portfolio/app.dart';
+import 'package:portfolio/core/data/content.dart';
 import 'package:portfolio/core/data/content_repository.dart';
 import 'package:portfolio/core/localization/locale_controller.dart';
 import 'package:portfolio/core/theme/app_colors.dart';

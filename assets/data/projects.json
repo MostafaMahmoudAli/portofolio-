@@ -35,7 +35,16 @@
           "caption": { "en": "Consulate app walkthrough", "ar": "جولة داخل التطبيق القنصلي" }
         }
       ],
-      "links": []
+      "links": [
+        { "type": "playStore", "label": "Kuwait", "url": "https://play.google.com/store/apps/details?id=com.approck.egyptian_consulate" },
+        { "type": "appStore", "label": "Kuwait", "url": "https://apps.apple.com/app/id1584352269" },
+        { "type": "playStore", "label": "Riyadh", "url": "https://play.google.com/store/apps/details?id=com.approck.egyptian_consulateruh" },
+        { "type": "appStore", "label": "Riyadh", "url": "https://apps.apple.com/app/id6444722856" },
+        { "type": "playStore", "label": "Jeddah", "url": "https://play.google.com/store/apps/details?id=com.approc.egyconsgad" },
+        { "type": "appStore", "label": "Jeddah", "url": "https://apps.apple.com/app/id6478158874" },
+        { "type": "playStore", "label": "Milan", "url": "https://play.google.com/store/apps/details?id=com.approc.egyconsmilano" },
+        { "type": "appStore", "label": "Milan", "url": "https://apps.apple.com/app/id6752235486" }
+      ]
     },
     {
       "slug": "new-courier-app",
@@ -102,6 +111,7 @@
         }
       ],
       "links": [
+        { "type": "playStore", "url": "https://play.google.com/store/apps/details?id=com.ahmedYosry.AlKharj_Business" },
         { "type": "appStore", "url": "https://apps.apple.com/app/id6475199617" }
       ]
     },
@@ -172,7 +182,7 @@
       "links": []
     },
     {
-      "slug": "responsive_dashboard",
+      "slug": "responsive-dashboard",
       "title": { "en": "Responsive Dashboard", "ar": "Responsive Dashboard" },
       "subtitle": { "en": "Responsive & adaptive dashboard for desktop, tablet and mobile", "ar": "لوحة تحكم متجاوبة لسطح المكتب والتابلت والموبايل" },
       "featured": false,
@@ -189,14 +199,14 @@
         }
       ],
       "tech": ["Flutter", "Responsive layouts", "Animations"],
-      "cover": "media/responsive_dashboard/cover.jpg",
+      "cover": "media/responsive-dashboard/cover.jpg",
       "videos": [],
       "links": [
         { "type": "github", "url": "https://github.com/MostafaMahmoudAli/responsive_dashboard" }
       ]
     },
     {
-      "slug": "rick_and_motry_app",
+      "slug": "rick-and-morty-app",
       "title": { "en": "Rick & Morty App", "ar": "Rick & Morty App" },
       "subtitle": { "en": "Rick & Morty characters browser — clean architecture & the REST API", "ar": "متصفح شخصيات Rick & Morty — معمارية نظيفة وواجهة REST" },
       "featured": false,
@@ -217,14 +227,14 @@
         }
       ],
       "tech": ["Flutter", "REST API", "BLoC"],
-      "cover": "media/rick_and_motry_app/cover.jpg",
+      "cover": "media/rick-and-morty-app/cover.jpg",
       "videos": [],
       "links": [
         { "type": "github", "url": "https://github.com/MostafaMahmoudAli/rick_and_motry_app" }
       ]
     },
     {
-      "slug": "vocabs_app",
+      "slug": "vocabs-app",
       "title": { "en": "Vocabs App", "ar": "Vocabs App" },
       "subtitle": { "en": "Vocabulary practice — build your own word lists and drill them", "ar": "تدريب على المفردات — ابنِ قوائم كلماتك وتدرّب عليها" },
       "featured": false,
@@ -245,14 +255,14 @@
         }
       ],
       "tech": ["Flutter", "SQLite", "BLoC"],
-      "cover": "media/vocabs_app/cover.jpg",
+      "cover": "media/vocabs-app/cover.jpg",
       "videos": [],
       "links": [
         { "type": "github", "url": "https://github.com/MostafaMahmoudAli/vocabs_app" }
       ]
     },
     {
-      "slug": "flutter_google_maps",
+      "slug": "flutter-google-maps",
       "title": { "en": "Flutter Google Maps", "ar": "Flutter Google Maps" },
       "subtitle": { "en": "Google Maps in Flutter — markers, polylines & camera moves", "ar": "خرائط Google في فلاتر — علامات ومسارات وانتقالات الكاميرا" },
       "featured": false,
@@ -269,14 +279,14 @@
         }
       ],
       "tech": ["Flutter", "Google Maps", "Location"],
-      "cover": "media/flutter_google_maps/cover.jpg",
+      "cover": "media/flutter-google-maps/cover.jpg",
       "videos": [],
       "links": [
         { "type": "github", "url": "https://github.com/MostafaMahmoudAli/flutter_google_maps" }
       ]
     },
     {
-      "slug": "Bookly_App",
+      "slug": "bookly-app",
       "title": { "en": "Bookly App", "ar": "Bookly App" },
       "subtitle": { "en": "Book store app — browse, search & save via the Google Books API", "ar": "تطبيق متجر كتب — تصفح وابحث واحفظ عبر Google Books API" },
       "featured": false,
@@ -297,14 +307,14 @@
         }
       ],
       "tech": ["Flutter", "Cubit", "REST API", "Clean Architecture"],
-      "cover": "media/Bookly_App/cover.jpg",
+      "cover": "media/bookly-app/cover.jpg",
       "videos": [],
       "links": [
         { "type": "github", "url": "https://github.com/MostafaMahmoudAli/Bookly_App" }
       ]
     },
     {
-      "slug": "flutter_shop_app",
+      "slug": "flutter-shop-app",
       "title": { "en": "Flutter Shop App", "ar": "Flutter Shop App" },
       "subtitle": { "en": "Shopping app — catalog, cart & checkout", "ar": "تطبيق تسوق — كتالوج وسلة ودفع" },
       "featured": false,
@@ -325,14 +335,14 @@
         }
       ],
       "tech": ["Flutter", "Provider", "SQLite"],
-      "cover": "media/flutter_shop_app/cover.jpg",
+      "cover": "media/flutter-shop-app/cover.jpg",
       "videos": [],
       "links": [
         { "type": "github", "url": "https://github.com/MostafaMahmoudAli/flutter_shop_app" }
       ]
     },
     {
-      "slug": "flutter_social_app",
+      "slug": "flutter-social-app",
       "title": { "en": "Flutter Social App", "ar": "Flutter Social App" },
       "subtitle": { "en": "Social feed — posts, likes & profiles", "ar": "منشورات اجتماعية — منشورات وإعجابات وملفات شخصية" },
       "featured": false,
@@ -353,7 +363,7 @@
         }
       ],
       "tech": ["Flutter", "BLoC", "Firebase"],
-      "cover": "media/flutter_social_app/cover.jpg",
+      "cover": "media/flutter-social-app/cover.jpg",
       "videos": [],
       "links": [
         { "type": "github", "url": "https://github.com/MostafaMahmoudAli/flutter_social_app" }

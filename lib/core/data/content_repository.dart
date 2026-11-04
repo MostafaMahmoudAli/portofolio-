@@ -5,15 +5,7 @@ import 'package:flutter/services.dart' show rootBundle;
 import '../models/profile.dart';
 import '../models/project.dart';
 import '../models/require.dart';
-
-/// Everything the site shows, parsed once in `main()` and handed to
-/// `PortfolioApp` like the theme and locale controllers.
-class Content {
-  const Content({required this.profile, required this.projects});
-
-  final Profile profile;
-  final List<Project> projects;
-}
+import 'content.dart';
 
 /// Loads `assets/data/profile.json` and `assets/data/projects.json` and
 /// parses them into models. A missing required field throws a

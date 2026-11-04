@@ -12,10 +12,10 @@ Future<void> main() async {
   // Content is static: load it once, fail loudly if a JSON entry is broken.
   final content = await const ContentRepository().load();
   runApp(
-      PortfolioApp(
-    content: content,
-    themeController: ThemeController(prefs),
-    localeController: LocaleController(prefs),
-  ),
+    PortfolioApp(
+      content: content,
+      themeController: ThemeController(prefs),
+      localeController: LocaleController(prefs),
+    ),
   );
 }

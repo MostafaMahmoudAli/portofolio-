@@ -15,34 +15,16 @@ class Experience {
   factory Experience.fromJson(
     Map<String, dynamic> json, {
     required String where,
-  }) =>
-      Experience(
-        role: LocalizedText.fromJson(
-          json['role'],
-          where: where,
-          field: 'role',
-        ),
-        company: requiredString(json, 'company', where),
-        dates: LocalizedText.fromJson(
-          json['dates'],
-          where: where,
-          field: 'dates',
-        ),
-        mode: LocalizedText.fromJson(
-          json['mode'],
-          where: where,
-          field: 'mode',
-        ),
-        bullets: [
-          for (final (i, bullet)
-              in requiredMaps(json, 'bullets', where).indexed)
-            LocalizedText.fromJson(
-              bullet,
-              where: where,
-              field: 'bullets[$i]',
-            ),
-        ],
-      );
+  }) => Experience(
+    role: LocalizedText.fromJson(json['role'], where: where, field: 'role'),
+    company: requiredString(json, 'company', where),
+    dates: LocalizedText.fromJson(json['dates'], where: where, field: 'dates'),
+    mode: LocalizedText.fromJson(json['mode'], where: where, field: 'mode'),
+    bullets: [
+      for (final (i, bullet) in requiredMaps(json, 'bullets', where).indexed)
+        LocalizedText.fromJson(bullet, where: where, field: 'bullets[$i]'),
+    ],
+  );
 
   final LocalizedText role;
   final String company;

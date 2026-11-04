@@ -6,18 +6,18 @@ import 'package:flutter/widgets.dart' show Locale, debugPrint;
 class LocalizedText {
   const LocalizedText({required this.en, String? ar}) : _ar = ar ?? en;
 
-  /// Accepts a localized object; a plain string stands for the English text.
-  /// `where` names the file and entry, `field` the JSON key being read, so a
-  /// missing required `en` fails loudly.
+  /// Requires a localized object with `en`. `where` names the file and entry,
+  /// `field` the JSON key being read, so a broken text field fails loudly
+  /// (and a plain untranslated string cannot sneak through in either
+  /// language).
   factory LocalizedText.fromJson(
     Object? json, {
     required String where,
     required String field,
   }) {
-    if (json is String) return LocalizedText(en: json);
     if (json is! Map<String, dynamic>) {
       throw FormatException(
-        '$where: field "$field" must be a localized object (or a string)',
+        '$where: field "$field" must be a localized object with "en" and "ar"',
       );
     }
     final en = json['en'];

@@ -44,14 +44,21 @@ void main() {
     expect(logs, isEmpty);
   });
 
-  test('a plain string stands for the English text', () {
-    final text = LocalizedText.fromJson(
-      'Only English',
-      where: 'profile.json: profile',
-      field: 'title',
+  test('a plain string is rejected, naming the field', () {
+    expect(
+      () => LocalizedText.fromJson(
+        'Only English',
+        where: 'profile.json: profile',
+        field: 'title',
+      ),
+      throwsA(
+        isA<FormatException>().having(
+          (error) => error.message,
+          'message',
+          allOf(contains('profile.json'), contains('"title"')),
+        ),
+      ),
     );
-    expect(text.of(en), 'Only English');
-    expect(text.of(ar), 'Only English');
   });
 
   test('a missing "en" throws, naming the field', () {

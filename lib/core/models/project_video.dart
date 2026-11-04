@@ -13,18 +13,17 @@ class ProjectVideo {
   factory ProjectVideo.fromJson(
     Map<String, dynamic> json, {
     required String where,
-  }) =>
-      ProjectVideo(
-        src: requiredString(json, 'src', where),
-        poster: requiredString(json, 'poster', where),
-        caption: json['caption'] == null
-            ? null
-            : LocalizedText.fromJson(
-                json['caption'],
-                where: where,
-                field: 'caption',
-              ),
-      );
+  }) => ProjectVideo(
+    src: requiredString(json, 'src', where),
+    poster: requiredString(json, 'poster', where),
+    caption: json['caption'] == null
+        ? null
+        : LocalizedText.fromJson(
+            json['caption'],
+            where: where,
+            field: 'caption',
+          ),
+  );
 
   final String src;
   final String poster;

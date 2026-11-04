@@ -64,3 +64,24 @@ List<String> requiredStringList(
           : throw FormatException('$where: $field[$i] must be a string'),
   ];
 }
+
+/// An optional list of objects; an empty list when the field is absent.
+List<Map<String, dynamic>> optionalMaps(
+  Map<String, dynamic> json,
+  String field,
+  String where,
+) {
+  final list = json[field];
+  if (list == null) return const [];
+  if (list is! List) {
+    throw FormatException('$where: field "$field" must be a list of objects');
+  }
+  return [
+    for (final (i, entry) in list.indexed)
+      entry is Map<String, dynamic>
+          ? entry
+          : throw FormatException(
+              '$where: field "$field[$i]" must be an object',
+            ),
+  ];
+}

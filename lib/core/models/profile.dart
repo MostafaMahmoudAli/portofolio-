@@ -58,11 +58,19 @@ class Profile {
           Stat.fromJson(entry, where: '$where: stats[$i]'),
       ],
       experience: [
-        for (final (i, entry) in requiredMaps(json, 'experience', where).indexed)
+        for (final (i, entry) in requiredMaps(
+          json,
+          'experience',
+          where,
+        ).indexed)
           Experience.fromJson(entry, where: '$where: experience[$i]'),
       ],
       skillGroups: [
-        for (final (i, entry) in requiredMaps(json, 'skillGroups', where).indexed)
+        for (final (i, entry) in requiredMaps(
+          json,
+          'skillGroups',
+          where,
+        ).indexed)
           SkillGroup.fromJson(entry, where: '$where: skillGroups[$i]'),
       ],
       education: LocalizedText.fromJson(
@@ -71,17 +79,15 @@ class Profile {
         field: 'education',
       ),
       languages: [
-        for (final (i, entry)
-            in requiredMaps(json, 'languages', where).indexed)
-          LocalizedText.fromJson(
-            entry,
-            where: where,
-            field: 'languages[$i]',
-          ),
+        for (final (i, entry) in requiredMaps(json, 'languages', where).indexed)
+          LocalizedText.fromJson(entry, where: where, field: 'languages[$i]'),
       ],
       certifications: [
-        for (final (i, entry)
-            in requiredMaps(json, 'certifications', where).indexed)
+        for (final (i, entry) in requiredMaps(
+          json,
+          'certifications',
+          where,
+        ).indexed)
           LocalizedText.fromJson(
             entry,
             where: where,
