@@ -23,6 +23,11 @@ abstract final class AppTheme {
       scaffoldBackgroundColor: palette.background,
       textTheme: AppTextStyles.textTheme(locale, palette.text, palette.mutedText),
       iconTheme: IconThemeData(color: palette.text),
+      // From the theme, not the call site, so an open sheet follows a theme switch.
+      bottomSheetTheme: BottomSheetThemeData(
+        backgroundColor: palette.background,
+        modalBackgroundColor: palette.background,
+      ),
       extensions: [palette],
     );
   }
