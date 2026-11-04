@@ -1,9 +1,7 @@
-import 'dart:math' as math;
-
 import 'package:flutter/material.dart';
 
-import '../../l10n/app_localizations.dart';
-import '../widgets/gradient_text.dart';
+import '../sections/about_section.dart';
+import '../sections/hero_section.dart';
 import '../widgets/nav_bar.dart';
 import '../widgets/section_placeholder.dart';
 import 'home_section.dart';
@@ -25,7 +23,8 @@ class _HomePageState extends State<HomePage> {
     super.dispose();
   }
 
-  Duration _scrollDuration(BuildContext context) => MediaQuery.disableAnimationsOf(context)
+  Duration _scrollDuration(BuildContext context) =>
+      MediaQuery.disableAnimationsOf(context)
       ? Duration.zero
       : const Duration(milliseconds: 600);
 
@@ -41,15 +40,16 @@ class _HomePageState extends State<HomePage> {
     if (MediaQuery.disableAnimationsOf(context)) {
       _scroll.jumpTo(0);
     } else {
-      _scroll.animateTo(0, duration: _scrollDuration(context), curve: Curves.easeInOutCubic);
+      _scroll.animateTo(
+        0,
+        duration: _scrollDuration(context),
+        curve: Curves.easeInOutCubic,
+      );
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context);
-    final textTheme = Theme.of(context).textTheme;
-
     return Scaffold(
       body: Stack(
         children: [
@@ -57,21 +57,13 @@ class _HomePageState extends State<HomePage> {
             controller: _scroll,
             child: Column(
               children: [
-                SizedBox(
-                  height: math.max(MediaQuery.sizeOf(context).height, 500),
-                  child: Center(
-                    child: Padding(
-                      padding: const EdgeInsetsDirectional.symmetric(horizontal: 24),
-                      child: GradientText(
-                        l10n.appTitle,
-                        style: textTheme.displayMedium,
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
-                  ),
+                HeroSection(
+                  onViewProjects: () => _scrollTo(HomeSection.projects),
                 ),
+                AboutSection(key: _keys[HomeSection.about]),
                 for (final s in HomeSection.values)
-                  SectionPlaceholder(key: _keys[s], section: s),
+                  if (s != HomeSection.about)
+                    SectionPlaceholder(key: _keys[s], section: s),
               ],
             ),
           ),

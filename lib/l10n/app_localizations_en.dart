@@ -63,4 +63,49 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get backHome => 'Back to home';
+
+  @override
+  String get heroRoleMobile => 'Mobile App Developer';
+
+  @override
+  String get heroRoleCrossPlatform => 'Cross-platform Specialist';
+
+  @override
+  String get heroRoleCleanCode => 'Clean Code Advocate';
+
+  @override
+  String get viewProjects => 'View projects';
+
+  @override
+  String get downloadResume => 'Download resume';
+
+  @override
+  String get github => 'GitHub';
+
+  @override
+  String get linkedin => 'LinkedIn';
+
+  @override
+  String get email => 'Email';
+
+  @override
+  String get highlightArchitectureTitle => 'Clean Architecture';
+
+  @override
+  String get highlightArchitectureBody =>
+      'Feature-first modules with clear layers, testable use cases and dependency injection.';
+
+  @override
+  String get highlightReleasesTitle => 'Store releases';
+
+  @override
+  String get highlightReleasesBody =>
+      'End-to-end Play Console and App Store Connect releases, gated by CI.';
+
+  @override
+  String get highlightMediaTitle => 'Media & FFmpeg';
+
+  @override
+  String get highlightMediaBody =>
+      'On-device video and audio editing with FFmpeg, CameraX and custom pipelines.';
 }

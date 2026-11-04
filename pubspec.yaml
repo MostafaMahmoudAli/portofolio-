@@ -37,6 +37,8 @@ dependencies:
   intl: any
   flutter_localizations:
     sdk: flutter
+  flutter_animate: ^4.5.2
+  visibility_detector: ^0.4.0+2
 
 dev_dependencies:
   flutter_test:

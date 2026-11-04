@@ -63,4 +63,49 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get backHome => 'العودة إلى الرئيسية';
+
+  @override
+  String get heroRoleMobile => 'مطوّر تطبيقات الجوال';
+
+  @override
+  String get heroRoleCrossPlatform => 'متخصص في التطبيقات متعددة المنصات';
+
+  @override
+  String get heroRoleCleanCode => 'مهتم بالكود النظيف';
+
+  @override
+  String get viewProjects => 'استعرض المشاريع';
+
+  @override
+  String get downloadResume => 'حمّل السيرة الذاتية';
+
+  @override
+  String get github => 'GitHub';
+
+  @override
+  String get linkedin => 'LinkedIn';
+
+  @override
+  String get email => 'البريد الإلكتروني';
+
+  @override
+  String get highlightArchitectureTitle => 'المعمارية النظيفة';
+
+  @override
+  String get highlightArchitectureBody =>
+      'وحدات مبنية على الميزات بطبقات واضحة وحالات استخدام قابلة للاختبار وحقن للتبعيات.';
+
+  @override
+  String get highlightReleasesTitle => 'إصدارات المتاجر';
+
+  @override
+  String get highlightReleasesBody =>
+      'إصدارات كاملة على Play Console وApp Store Connect مع بوابات CI.';
+
+  @override
+  String get highlightMediaTitle => 'الوسائط وFFmpeg';
+
+  @override
+  String get highlightMediaBody =>
+      'تحرير الفيديو والصوت على الجهاز باستخدام FFmpeg وCameraX ومسارات مخصصة.';
 }

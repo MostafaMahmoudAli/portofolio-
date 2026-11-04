@@ -205,6 +205,90 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Back to home'**
   String get backHome;
+
+  /// No description provided for @heroRoleMobile.
+  ///
+  /// In en, this message translates to:
+  /// **'Mobile App Developer'**
+  String get heroRoleMobile;
+
+  /// No description provided for @heroRoleCrossPlatform.
+  ///
+  /// In en, this message translates to:
+  /// **'Cross-platform Specialist'**
+  String get heroRoleCrossPlatform;
+
+  /// No description provided for @heroRoleCleanCode.
+  ///
+  /// In en, this message translates to:
+  /// **'Clean Code Advocate'**
+  String get heroRoleCleanCode;
+
+  /// No description provided for @viewProjects.
+  ///
+  /// In en, this message translates to:
+  /// **'View projects'**
+  String get viewProjects;
+
+  /// No description provided for @downloadResume.
+  ///
+  /// In en, this message translates to:
+  /// **'Download resume'**
+  String get downloadResume;
+
+  /// No description provided for @github.
+  ///
+  /// In en, this message translates to:
+  /// **'GitHub'**
+  String get github;
+
+  /// No description provided for @linkedin.
+  ///
+  /// In en, this message translates to:
+  /// **'LinkedIn'**
+  String get linkedin;
+
+  /// No description provided for @email.
+  ///
+  /// In en, this message translates to:
+  /// **'Email'**
+  String get email;
+
+  /// No description provided for @highlightArchitectureTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Clean Architecture'**
+  String get highlightArchitectureTitle;
+
+  /// No description provided for @highlightArchitectureBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Feature-first modules with clear layers, testable use cases and dependency injection.'**
+  String get highlightArchitectureBody;
+
+  /// No description provided for @highlightReleasesTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Store releases'**
+  String get highlightReleasesTitle;
+
+  /// No description provided for @highlightReleasesBody.
+  ///
+  /// In en, this message translates to:
+  /// **'End-to-end Play Console and App Store Connect releases, gated by CI.'**
+  String get highlightReleasesBody;
+
+  /// No description provided for @highlightMediaTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Media & FFmpeg'**
+  String get highlightMediaTitle;
+
+  /// No description provided for @highlightMediaBody.
+  ///
+  /// In en, this message translates to:
+  /// **'On-device video and audio editing with FFmpeg, CameraX and custom pipelines.'**
+  String get highlightMediaBody;
 }
 
 class _AppLocalizationsDelegate

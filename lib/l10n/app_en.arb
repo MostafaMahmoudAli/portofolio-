@@ -18,5 +18,19 @@
   "@projectComingSoon": { "placeholders": { "slug": { "type": "String" } } },
   "notFoundTitle": "Page not found",
   "notFoundBody": "This page doesn't exist.",
-  "backHome": "Back to home"
+  "backHome": "Back to home",
+  "heroRoleMobile": "Mobile App Developer",
+  "heroRoleCrossPlatform": "Cross-platform Specialist",
+  "heroRoleCleanCode": "Clean Code Advocate",
+  "viewProjects": "View projects",
+  "downloadResume": "Download resume",
+  "github": "GitHub",
+  "linkedin": "LinkedIn",
+  "email": "Email",
+  "highlightArchitectureTitle": "Clean Architecture",
+  "highlightArchitectureBody": "Feature-first modules with clear layers, testable use cases and dependency injection.",
+  "highlightReleasesTitle": "Store releases",
+  "highlightReleasesBody": "End-to-end Play Console and App Store Connect releases, gated by CI.",
+  "highlightMediaTitle": "Media & FFmpeg",
+  "highlightMediaBody": "On-device video and audio editing with FFmpeg, CameraX and custom pipelines."
 }

@@ -17,5 +17,19 @@
   "projectComingSoon": "صفحة {slug} قريبًا.",
   "notFoundTitle": "الصفحة غير موجودة",
   "notFoundBody": "هذه الصفحة غير موجودة.",
-  "backHome": "العودة إلى الرئيسية"
+  "backHome": "العودة إلى الرئيسية",
+  "heroRoleMobile": "مطوّر تطبيقات الجوال",
+  "heroRoleCrossPlatform": "متخصص في التطبيقات متعددة المنصات",
+  "heroRoleCleanCode": "مهتم بالكود النظيف",
+  "viewProjects": "استعرض المشاريع",
+  "downloadResume": "حمّل السيرة الذاتية",
+  "github": "GitHub",
+  "linkedin": "LinkedIn",
+  "email": "البريد الإلكتروني",
+  "highlightArchitectureTitle": "المعمارية النظيفة",
+  "highlightArchitectureBody": "وحدات مبنية على الميزات بطبقات واضحة وحالات استخدام قابلة للاختبار وحقن للتبعيات.",
+  "highlightReleasesTitle": "إصدارات المتاجر",
+  "highlightReleasesBody": "إصدارات كاملة على Play Console وApp Store Connect مع بوابات CI.",
+  "highlightMediaTitle": "الوسائط وFFmpeg",
+  "highlightMediaBody": "تحرير الفيديو والصوت على الجهاز باستخدام FFmpeg وCameraX ومسارات مخصصة."
 }

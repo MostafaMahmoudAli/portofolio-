@@ -9,6 +9,7 @@ import 'core/theme/app_colors.dart';
 import 'core/theme/app_theme.dart';
 import 'core/theme/theme_controller.dart';
 import 'l10n/app_localizations.dart';
+import 'presentation/widgets/aurora_background.dart';
 import 'presentation/widgets/language_flip.dart';
 
 class PortfolioApp extends StatefulWidget {
@@ -43,7 +44,10 @@ class _PortfolioAppState extends State<PortfolioApp> {
       theme: widget.themeController,
       locale: widget.localeController,
       child: ListenableBuilder(
-        listenable: Listenable.merge([widget.themeController, widget.localeController]),
+        listenable: Listenable.merge([
+          widget.themeController,
+          widget.localeController,
+        ]),
         builder: (context, _) {
           final locale = widget.localeController.value;
           return MaterialApp.router(
@@ -56,10 +60,10 @@ class _PortfolioAppState extends State<PortfolioApp> {
             supportedLocales: AppLocalizations.supportedLocales,
             localizationsDelegates: AppLocalizations.localizationsDelegates,
             routerConfig: _router,
-            // The background stays still while the page flips over it.
+            // The background and aurora stay still while the page flips over them.
             builder: (context, child) => ColoredBox(
               color: AppPalette.of(context).background,
-              child: LanguageFlip(child: child!),
+              child: AuroraBackground(child: LanguageFlip(child: child!)),
             ),
           );
         },
