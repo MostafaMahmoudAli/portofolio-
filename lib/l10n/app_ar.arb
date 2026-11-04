@@ -31,5 +31,10 @@
   "highlightReleasesTitle": "إصدارات المتاجر",
   "highlightReleasesBody": "إصدارات كاملة على Play Console وApp Store Connect مع بوابات CI.",
   "highlightMediaTitle": "الوسائط وFFmpeg",
-  "highlightMediaBody": "تحرير الفيديو والصوت على الجهاز باستخدام FFmpeg وCameraX ومسارات مخصصة."
+  "highlightMediaBody": "تحرير الفيديو والصوت على الجهاز باستخدام FFmpeg وCameraX ومسارات مخصصة.",
+  "featuredProjects": "المشاريع المميزة",
+  "moreProjects": "مزيد من المشاريع",
+  "details": "التفاصيل",
+  "moreOnGithub": "المزيد على GitHub",
+  "viewOnGitHub": "عرض على GitHub"
 }

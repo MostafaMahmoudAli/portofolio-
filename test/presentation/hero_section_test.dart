@@ -111,8 +111,9 @@ Future<void> main() async {
     await tester.pump();
     await pumpFrames(tester, const Duration(milliseconds: 300));
 
-    expect(find.text('310K+'), findsOneWidget);
-    expect(find.text('0K+'), findsNothing);
+    // The hero may now sit above the viewport (offstage sliver); check it anyway.
+    expect(find.text('310K+', skipOffstage: false), findsOneWidget);
+    expect(find.text('0K+', skipOffstage: false), findsNothing);
   });
 
   for (final width in [375.0, 768.0, 1440.0]) {

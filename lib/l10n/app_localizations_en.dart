@@ -108,4 +108,19 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get highlightMediaBody =>
       'On-device video and audio editing with FFmpeg, CameraX and custom pipelines.';
+
+  @override
+  String get featuredProjects => 'Featured Projects';
+
+  @override
+  String get moreProjects => 'More Projects';
+
+  @override
+  String get details => 'Details';
+
+  @override
+  String get moreOnGithub => 'More on GitHub';
+
+  @override
+  String get viewOnGitHub => 'View on GitHub';
 }

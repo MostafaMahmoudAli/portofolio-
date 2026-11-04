@@ -37,7 +37,8 @@ Future<void> pumpHome(
 }
 
 Future<void> scrollToAbout(WidgetTester tester) async {
-  await tester.ensureVisible(find.byType(AboutSection));
+  // Slivers below the fold are offstage, so look past the viewport.
+  await tester.ensureVisible(find.byType(AboutSection, skipOffstage: false));
   await tester.pumpAndSettle();
 }
 

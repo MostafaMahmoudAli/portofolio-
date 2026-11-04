@@ -108,4 +108,19 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String get highlightMediaBody =>
       'تحرير الفيديو والصوت على الجهاز باستخدام FFmpeg وCameraX ومسارات مخصصة.';
+
+  @override
+  String get featuredProjects => 'المشاريع المميزة';
+
+  @override
+  String get moreProjects => 'مزيد من المشاريع';
+
+  @override
+  String get details => 'التفاصيل';
+
+  @override
+  String get moreOnGithub => 'المزيد على GitHub';
+
+  @override
+  String get viewOnGitHub => 'عرض على GitHub';
 }

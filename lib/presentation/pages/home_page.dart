@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
 import '../sections/about_section.dart';
+import '../sections/featured_projects.dart';
 import '../sections/hero_section.dart';
+import '../sections/more_projects.dart';
 import '../widgets/nav_bar.dart';
 import '../widgets/section_placeholder.dart';
 import 'home_section.dart';
@@ -53,19 +55,30 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       body: Stack(
         children: [
-          SingleChildScrollView(
+          // Slivers, so long lists (featured cards and their videos) build lazily.
+          // Nav keys sit on widgets that always exist, so ensureVisible works.
+          CustomScrollView(
             controller: _scroll,
-            child: Column(
-              children: [
-                HeroSection(
+            slivers: [
+              SliverToBoxAdapter(
+                child: HeroSection(
                   onViewProjects: () => _scrollTo(HomeSection.projects),
                 ),
-                AboutSection(key: _keys[HomeSection.about]),
-                for (final s in HomeSection.values)
-                  if (s != HomeSection.about)
-                    SectionPlaceholder(key: _keys[s], section: s),
-              ],
-            ),
+              ),
+              SliverToBoxAdapter(
+                child: AboutSection(key: _keys[HomeSection.about]),
+              ),
+              FeaturedProjectsSection(headerKey: _keys[HomeSection.projects]),
+              const SliverToBoxAdapter(child: MoreProjectsSection()),
+              for (final s in [
+                HomeSection.experience,
+                HomeSection.skills,
+                HomeSection.contact,
+              ])
+                SliverToBoxAdapter(
+                  child: SectionPlaceholder(key: _keys[s], section: s),
+                ),
+            ],
           ),
           PositionedDirectional(
             top: 0,

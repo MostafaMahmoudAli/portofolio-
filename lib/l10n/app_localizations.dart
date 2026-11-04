@@ -289,6 +289,36 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'On-device video and audio editing with FFmpeg, CameraX and custom pipelines.'**
   String get highlightMediaBody;
+
+  /// No description provided for @featuredProjects.
+  ///
+  /// In en, this message translates to:
+  /// **'Featured Projects'**
+  String get featuredProjects;
+
+  /// No description provided for @moreProjects.
+  ///
+  /// In en, this message translates to:
+  /// **'More Projects'**
+  String get moreProjects;
+
+  /// No description provided for @details.
+  ///
+  /// In en, this message translates to:
+  /// **'Details'**
+  String get details;
+
+  /// No description provided for @moreOnGithub.
+  ///
+  /// In en, this message translates to:
+  /// **'More on GitHub'**
+  String get moreOnGithub;
+
+  /// No description provided for @viewOnGitHub.
+  ///
+  /// In en, this message translates to:
+  /// **'View on GitHub'**
+  String get viewOnGitHub;
 }
 
 class _AppLocalizationsDelegate

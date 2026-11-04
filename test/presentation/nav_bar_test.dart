@@ -80,7 +80,9 @@ Future<void> main() async {
     }
     // Content box is 1200 wide centered in 1440, so the start edge is at 120 (+24 padding outside it).
     expect(
-      tester.getTopLeft(find.byType(SectionTitle).first).dx,
+      tester
+          .getTopLeft(find.byType(SectionTitle, skipOffstage: false).first)
+          .dx,
       lessThanOrEqualTo(145),
     );
 

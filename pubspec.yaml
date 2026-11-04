@@ -39,10 +39,15 @@ dependencies:
     sdk: flutter
   flutter_animate: ^4.5.2
   visibility_detector: ^0.4.0+2
+  video_player: ^2.7.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+
+  # Used in tests to fake the video player platform so no real controller or
+  # network request is needed.
+  video_player_platform_interface: ^6.5.0
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
