@@ -21,7 +21,11 @@ class ProjectPlaceholder extends StatelessWidget {
         : Text(
             title!,
             style: Theme.of(context).textTheme.titleLarge?.copyWith(
-              color: AppPalette.of(context).text,
+              color:
+                  ThemeData.estimateBrightnessForColor(accentColor) ==
+                      Brightness.light
+                  ? AppPalette.light.text
+                  : AppPalette.dark.text,
             ),
             textAlign: TextAlign.center,
           ),

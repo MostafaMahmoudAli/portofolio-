@@ -27,7 +27,9 @@ import 'package:portfolio/presentation/widgets/project_placeholder.dart';
 import 'package:portfolio/presentation/widgets/project_poster.dart';
 import 'package:portfolio/presentation/widgets/project_video_gallery.dart';
 import 'package:portfolio/presentation/widgets/project_video_player.dart';
-import 'package:portfolio/presentation/widgets/section_placeholder.dart';
+import 'package:portfolio/presentation/sections/experience_section.dart';
+import 'package:portfolio/presentation/sections/skills_section.dart';
+import 'package:portfolio/presentation/sections/contact_section.dart';
 import 'package:portfolio/presentation/sections/about_section.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:video_player_platform_interface/video_player_platform_interface.dart';
@@ -50,6 +52,7 @@ Future<GoRouter> pumpPage(
   double width = 1440,
   String language = 'en',
   bool reducedMotion = false,
+  Brightness brightness = Brightness.light,
   Content? data,
   GoRouter? routing,
 }) async {
@@ -77,7 +80,7 @@ Future<GoRouter> pumpPage(
       child: MaterialApp.router(
         routerConfig: router,
         locale: Locale(language),
-        theme: AppTheme.build(Brightness.light, Locale(language)),
+        theme: AppTheme.build(brightness, Locale(language)),
         localizationsDelegates: AppLocalizations.localizationsDelegates,
         supportedLocales: AppLocalizations.supportedLocales,
       ),
@@ -284,21 +287,14 @@ Future<void> main() async {
             );
             await frames(tester, 24);
             expect(find.byType(HomePage), findsOneWidget);
-            expect(
-              router
-                  .routeInformationProvider
-                  .value
-                  .uri
-                  .queryParameters['section'],
-              section.name,
-            );
+            expect(router.routeInformationProvider.value.uri.toString(), '/');
             expect(scrollOf(tester, HomePage).pixels, greaterThan(0));
             final target = switch (section) {
               HomeSection.about => find.byType(AboutSection),
               HomeSection.projects => find.text(l10n.featuredProjects),
-              _ => find.byWidgetPredicate(
-                (w) => w is SectionPlaceholder && w.section == section,
-              ),
+              HomeSection.experience => find.byType(ExperienceSection),
+              HomeSection.skills => find.byType(SkillsSection),
+              HomeSection.contact => find.byType(ContactSection),
             };
             final rect = tester.getRect(target);
             expect(rect.bottom, greaterThan(72));
@@ -313,9 +309,7 @@ Future<void> main() async {
 
   testWidgets('pasted section link scrolls after first layout', (tester) async {
     await pumpPage(tester, location: '/?section=skills', reducedMotion: true);
-    final target = find.byWidgetPredicate(
-      (w) => w is SectionPlaceholder && w.section == HomeSection.skills,
-    );
+    final target = find.byType(SkillsSection);
     expect(tester.getRect(target).top, inInclusiveRange(-0.001, 900));
     expect(scrollOf(tester, HomePage).pixels, greaterThan(0));
     await unmount(tester);

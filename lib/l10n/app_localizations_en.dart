@@ -48,7 +48,30 @@ class AppLocalizationsEn extends AppLocalizations {
   String get languageToggleTooltip => 'التبديل إلى العربية';
 
   @override
-  String get sectionComingSoon => 'Coming soon';
+  String get educationCertifications => 'Education & certifications';
+
+  @override
+  String get languages => 'Languages';
+
+  @override
+  String get contactCta => 'Let\'s build something great together.';
+
+  @override
+  String get copyEmail => 'Copy email';
+
+  @override
+  String get emailCopied => 'Email copied';
+
+  @override
+  String get sendEmail => 'Send email';
+
+  @override
+  String get backToTop => 'Back to top';
+
+  @override
+  String footerCredit(int year) {
+    return 'Built with Flutter · © $year';
+  }
 
   @override
   String projectComingSoon(String slug) {

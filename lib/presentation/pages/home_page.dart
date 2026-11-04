@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../l10n/app_localizations.dart';
 import '../sections/about_section.dart';
@@ -7,7 +8,10 @@ import '../sections/hero_section.dart';
 import '../sections/more_projects.dart';
 import '../widgets/nav_bar.dart';
 import '../widgets/page_title.dart';
-import '../widgets/section_placeholder.dart';
+import '../sections/experience_section.dart';
+import '../sections/skills_section.dart';
+import '../sections/contact_section.dart';
+import '../sections/footer_section.dart';
 import 'home_section.dart';
 
 class HomePage extends StatefulWidget {
@@ -107,7 +111,20 @@ class _HomePageState extends State<HomePage> {
       }
       final section = _pendingSection;
       _pendingSection = null;
-      if (section != null) _scrollTo(section);
+      if (section != null) {
+        _scrollTo(section).then((_) {
+          if (!mounted || !(ModalRoute.isCurrentOf(context) ?? true)) return;
+          final router = GoRouter.of(context);
+          if (router
+                  .routeInformationProvider
+                  .value
+                  .uri
+                  .queryParameters['section'] ==
+              section.name) {
+            router.replace('/');
+          }
+        });
+      }
     });
   }
 
@@ -148,14 +165,18 @@ class _HomePageState extends State<HomePage> {
                 ),
                 FeaturedProjectsSection(headerKey: _keys[HomeSection.projects]),
                 const SliverToBoxAdapter(child: MoreProjectsSection()),
-                for (final s in [
-                  HomeSection.experience,
-                  HomeSection.skills,
-                  HomeSection.contact,
-                ])
-                  SliverToBoxAdapter(
-                    child: SectionPlaceholder(key: _keys[s], section: s),
-                  ),
+                SliverToBoxAdapter(
+                  child: ExperienceSection(key: _keys[HomeSection.experience]),
+                ),
+                SliverToBoxAdapter(
+                  child: SkillsSection(key: _keys[HomeSection.skills]),
+                ),
+                SliverToBoxAdapter(
+                  child: ContactSection(key: _keys[HomeSection.contact]),
+                ),
+                SliverToBoxAdapter(
+                  child: FooterSection(onBackToTop: _scrollToTop),
+                ),
               ],
             ),
             PositionedDirectional(

@@ -176,11 +176,53 @@ abstract class AppLocalizations {
   /// **'التبديل إلى العربية'**
   String get languageToggleTooltip;
 
-  /// No description provided for @sectionComingSoon.
+  /// No description provided for @educationCertifications.
   ///
   /// In en, this message translates to:
-  /// **'Coming soon'**
-  String get sectionComingSoon;
+  /// **'Education & certifications'**
+  String get educationCertifications;
+
+  /// No description provided for @languages.
+  ///
+  /// In en, this message translates to:
+  /// **'Languages'**
+  String get languages;
+
+  /// No description provided for @contactCta.
+  ///
+  /// In en, this message translates to:
+  /// **'Let\'s build something great together.'**
+  String get contactCta;
+
+  /// No description provided for @copyEmail.
+  ///
+  /// In en, this message translates to:
+  /// **'Copy email'**
+  String get copyEmail;
+
+  /// No description provided for @emailCopied.
+  ///
+  /// In en, this message translates to:
+  /// **'Email copied'**
+  String get emailCopied;
+
+  /// No description provided for @sendEmail.
+  ///
+  /// In en, this message translates to:
+  /// **'Send email'**
+  String get sendEmail;
+
+  /// No description provided for @backToTop.
+  ///
+  /// In en, this message translates to:
+  /// **'Back to top'**
+  String get backToTop;
+
+  /// No description provided for @footerCredit.
+  ///
+  /// In en, this message translates to:
+  /// **'Built with Flutter · © {year}'**
+  String footerCredit(int year);
 
   /// No description provided for @projectComingSoon.
   ///
