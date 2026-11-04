@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
-/// Counts from zero to [value] the first time it scrolls into view.
+/// Counts from zero to [value] the first time it scrolls into view, after
+/// [delay] so it can wait for a section's entrance animation.
 ///
 /// The digits stay Western in both languages, so they match the resume. Under
-/// reduced motion the final number shows straight away.
+/// reduced motion the final number shows straight away, ignoring [delay].
 class AnimatedCounter extends StatefulWidget {
   const AnimatedCounter({
     super.key,
@@ -12,6 +13,7 @@ class AnimatedCounter extends StatefulWidget {
     this.suffix = '',
     this.style,
     this.textAlign,
+    this.delay = Duration.zero,
     this.duration = const Duration(milliseconds: 1200),
   });
 
@@ -19,6 +21,7 @@ class AnimatedCounter extends StatefulWidget {
   final String suffix;
   final TextStyle? style;
   final TextAlign? textAlign;
+  final Duration delay;
   final Duration duration;
 
   @override
@@ -28,9 +31,10 @@ class AnimatedCounter extends StatefulWidget {
 class _AnimatedCounterState extends State<AnimatedCounter>
     with SingleTickerProviderStateMixin {
   final _visibilityKey = UniqueKey();
+  late final Duration _total = widget.delay + widget.duration;
   late final AnimationController _controller = AnimationController(
     vsync: this,
-    duration: widget.duration,
+    duration: _total,
   );
 
   int _display = 0;
@@ -39,13 +43,24 @@ class _AnimatedCounterState extends State<AnimatedCounter>
   @override
   void initState() {
     super.initState();
-    _controller.addListener(() {
-      setState(() {
-        _display =
-            (widget.value * Curves.easeOutCubic.transform(_controller.value))
-                .round();
-      });
-    });
+    _controller.addListener(_updateDisplay);
+  }
+
+  /// The delay is part of the controller's timeline so no Timer is left
+  /// behind; the number stays at zero until the delay has passed.
+  void _updateDisplay() {
+    final countMicros = widget.duration.inMicroseconds;
+    final elapsedMicros = (_controller.value * _total.inMicroseconds).round();
+    final progress = countMicros <= 0
+        ? 1.0
+        : ((elapsedMicros - widget.delay.inMicroseconds) / countMicros).clamp(
+            0.0,
+            1.0,
+          );
+    final next = (widget.value * Curves.easeOutCubic.transform(progress))
+        .round();
+    if (next == _display) return;
+    setState(() => _display = next);
   }
 
   @override

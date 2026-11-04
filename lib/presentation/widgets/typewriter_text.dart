@@ -78,21 +78,54 @@ class _TypewriterTextState extends State<TypewriterText>
 
   @override
   Widget build(BuildContext context) {
+    final roles = widget.roles;
+    if (roles.isEmpty) return const SizedBox.shrink();
+
     if (_reduceMotion) {
       return Text(
-        widget.roles.isEmpty ? '' : widget.roles.first,
+        roles.first,
         style: widget.style,
         textAlign: widget.textAlign,
       );
     }
 
-    return AnimatedBuilder(
-      animation: _controller,
-      builder: (context, _) => Text(
-        '${_textAt(_controller.value)}${widget.cursor}',
-        style: widget.style,
-        textAlign: widget.textAlign,
-      ),
+    // The longest role is laid out invisibly underneath, so the height is
+    // already reserved for the tallest line count: typing never pushes the
+    // rest of the page around.
+    final longest = roles.reduce(
+      (a, b) => a.characters.length >= b.characters.length ? a : b,
+    );
+
+    return Stack(
+      alignment: AlignmentDirectional.topStart,
+      children: [
+        ExcludeSemantics(
+          child: IgnorePointer(
+            child: Opacity(
+              opacity: 0,
+              child: SizedBox(
+                width: double.infinity,
+                child: Text(
+                  '$longest${widget.cursor}',
+                  style: widget.style,
+                  textAlign: widget.textAlign,
+                ),
+              ),
+            ),
+          ),
+        ),
+        AnimatedBuilder(
+          animation: _controller,
+          builder: (context, _) => SizedBox(
+            width: double.infinity,
+            child: Text(
+              '${_textAt(_controller.value)}${widget.cursor}',
+              style: widget.style,
+              textAlign: widget.textAlign,
+            ),
+          ),
+        ),
+      ],
     );
   }
 }

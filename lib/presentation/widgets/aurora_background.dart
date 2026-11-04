@@ -119,14 +119,18 @@ class _AuroraPainter extends CustomPainter {
     for (final (fx, fy, radiusFactor, color) in blobs) {
       final center = Offset(size.width * fx, size.height * fy);
       final radius = shortest * radiusFactor;
+      // No MaskFilter: blurring three full-screen circles every frame halves
+      // the frame rate on web. Extra stops give the same soft falloff.
       final paint = Paint()
         ..shader = RadialGradient(
           colors: [
             color.withValues(alpha: opacity),
+            color.withValues(alpha: opacity * 0.65),
+            color.withValues(alpha: opacity * 0.25),
             color.withValues(alpha: 0),
           ],
-        ).createShader(Rect.fromCircle(center: center, radius: radius))
-        ..maskFilter = MaskFilter.blur(BlurStyle.normal, radius * 0.35);
+          stops: const [0, 0.35, 0.7, 1],
+        ).createShader(Rect.fromCircle(center: center, radius: radius));
       canvas.drawCircle(center, radius, paint);
     }
   }

@@ -8,10 +8,23 @@ import 'package:portfolio/core/localization/locale_controller.dart';
 import 'package:portfolio/core/theme/theme_controller.dart';
 import 'package:portfolio/l10n/app_localizations.dart';
 import 'package:portfolio/presentation/sections/hero_section.dart';
+import 'package:portfolio/presentation/widgets/animated_counter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
 late Content content;
+
+/// Pumps [duration] in small steps: with motion enabled the aurora and the
+/// typewriter never stop, so `pumpAndSettle` would wait forever.
+Future<void> pumpFrames(
+  WidgetTester tester, [
+  Duration duration = const Duration(milliseconds: 900),
+]) async {
+  const step = Duration(milliseconds: 50);
+  for (var elapsed = Duration.zero; elapsed < duration; elapsed += step) {
+    await tester.pump(step);
+  }
+}
 
 Future<void> pumpHome(
   WidgetTester tester, {
@@ -36,7 +49,11 @@ Future<void> pumpHome(
     ),
   );
   await tester.pump();
-  await tester.pumpAndSettle();
+  if (reduceMotion) {
+    await tester.pumpAndSettle();
+  } else {
+    await pumpFrames(tester);
+  }
 }
 
 Future<void> main() async {
@@ -75,6 +92,27 @@ Future<void> main() async {
     expect(find.text('57'), findsOneWidget);
     expect(find.byType(Animate), findsNothing);
     expect(tester.binding.hasScheduledFrame, isFalse);
+  });
+
+  testWidgets('counters keep their value across the 600 px breakpoint', (
+    tester,
+  ) async {
+    await pumpHome(tester, size: const Size(375, 812), reduceMotion: false);
+
+    // On a phone the stats are below the fold, so bring them into view first.
+    await tester.ensureVisible(find.byType(AnimatedCounter).last);
+    await tester.pump();
+    await pumpFrames(tester, const Duration(milliseconds: 2000));
+    expect(find.text('310K+'), findsOneWidget);
+
+    // Crossing the breakpoint swaps Column for Row. If the subtree were
+    // rebuilt, the counters would restart from zero.
+    tester.view.physicalSize = const Size(1440, 900);
+    await tester.pump();
+    await pumpFrames(tester, const Duration(milliseconds: 300));
+
+    expect(find.text('310K+'), findsOneWidget);
+    expect(find.text('0K+'), findsNothing);
   });
 
   for (final width in [375.0, 768.0, 1440.0]) {

@@ -13,10 +13,25 @@ import '../widgets/typewriter_text.dart';
 
 /// The first screen: photo, name, cycling role, pitch, links and the four
 /// stats. Everything fades and slides in, staggered, once on load.
-class HeroSection extends StatelessWidget {
+///
+/// The details column and the photo keep their state when the width crosses a
+/// breakpoint and the layout switches between a Column and a Row, so the
+/// entrance animation and the counters never replay.
+class HeroSection extends StatefulWidget {
   const HeroSection({super.key, required this.onViewProjects});
 
   final VoidCallback onViewProjects;
+
+  @override
+  State<HeroSection> createState() => _HeroSectionState();
+}
+
+class _HeroSectionState extends State<HeroSection> {
+  final _detailsKey = GlobalKey();
+  final _photoKey = GlobalKey();
+
+  static Duration _entranceDelay(int order) =>
+      Duration(milliseconds: 100 * order);
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +62,7 @@ class HeroSection extends StatelessWidget {
 
     Widget entrance(int order, Widget child) {
       if (reduceMotion) return child;
-      final delay = Duration(milliseconds: 100 * order);
+      final delay = _entranceDelay(order);
       return child
           .animate()
           .fadeIn(duration: 500.ms, delay: delay, curve: Curves.easeOut)
@@ -61,6 +76,7 @@ class HeroSection extends StatelessWidget {
     }
 
     final details = Column(
+      key: _detailsKey,
       crossAxisAlignment: crossAlign,
       children: [
         entrance(
@@ -94,7 +110,7 @@ class HeroSection extends StatelessWidget {
             runSpacing: 12,
             children: [
               FilledButton.icon(
-                onPressed: onViewProjects,
+                onPressed: widget.onViewProjects,
                 icon: const Icon(Icons.arrow_forward_rounded),
                 label: Text(l10n.viewProjects),
               ),
@@ -122,11 +138,12 @@ class HeroSection extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 36),
-        entrance(4, _Stats()),
+        entrance(4, _Stats(counterDelay: _entranceDelay(4))),
       ],
     );
 
     final photo = ProfilePhoto(
+      key: _photoKey,
       name: profile.name,
       photo: profile.photo,
       size: switch (screen) {
@@ -166,6 +183,10 @@ class HeroSection extends StatelessWidget {
 }
 
 class _Stats extends StatelessWidget {
+  const _Stats({required this.counterDelay});
+
+  final Duration counterDelay;
+
   @override
   Widget build(BuildContext context) {
     final profile = AppScope.of(context).content.profile;
@@ -191,6 +212,7 @@ class _Stats extends StatelessWidget {
                   value: stat.value,
                   suffix: stat.suffix,
                   style: textTheme.headlineMedium,
+                  delay: counterDelay,
                 ),
                 const SizedBox(height: 4),
                 Text(
