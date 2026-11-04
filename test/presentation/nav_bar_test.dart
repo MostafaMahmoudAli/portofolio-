@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:portfolio/app.dart';
+import 'package:portfolio/core/data/content_repository.dart';
 import 'package:portfolio/core/localization/locale_controller.dart';
 import 'package:portfolio/core/theme/theme_controller.dart';
 import 'package:portfolio/presentation/widgets/nav_bar.dart';
@@ -9,6 +10,7 @@ import 'package:portfolio/presentation/widgets/section_title.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 late SharedPreferences prefs;
+late Content content;
 
 Future<void> pumpApp(WidgetTester tester, {Size size = const Size(1440, 900)}) async {
   tester.view.physicalSize = size;
@@ -16,6 +18,7 @@ Future<void> pumpApp(WidgetTester tester, {Size size = const Size(1440, 900)}) a
   addTearDown(tester.view.reset);
 
   await tester.pumpWidget(PortfolioApp(
+    content: content,
     themeController: ThemeController(prefs),
     localeController: LocaleController(prefs, platformLocale: const Locale('en')),
   ));
@@ -29,7 +32,10 @@ ScrollPosition homeScroll(WidgetTester tester) =>
 Finder navText(String label) =>
     find.descendant(of: find.byType(NavBar), matching: find.text(label));
 
-void main() {
+// Reads the real JSON files once, outside every test's fake-async zone.
+Future<void> main() async {
+  TestWidgetsFlutterBinding.ensureInitialized();
+  content = await const ContentRepository().load();
   setUp(() async {
     SharedPreferences.setMockInitialValues({});
     prefs = await SharedPreferences.getInstance();

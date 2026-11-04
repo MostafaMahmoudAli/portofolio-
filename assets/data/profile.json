@@ -1,0 +1,156 @@
+{
+  "name": "Mostafa Mahmoud Ali",
+  "title": {
+    "en": "Flutter Developer",
+    "ar": "مطوّر تطبيقات فلاتر"
+  },
+  "location": {
+    "en": "Alexandria, Egypt",
+    "ar": "الإسكندرية، مصر"
+  },
+  "email": "moustafamahmoudali1697@gmail.com",
+  "phone": "+20 101 507 8567",
+  "linkedin": "https://www.linkedin.com/in/mostafa-mahmoud-ali-4a4932279",
+  "github": "https://github.com/MostafaMahmoudAli",
+  "photo": "media/profile.jpg",
+  "resumePdf": "resume.pdf",
+  "summary": {
+    "en": "Flutter Developer with 3+ years building cross-platform apps across government, logistics and travel — six published to Google Play and the App Store, four consulate apps shipped from a single codebase with 310K+ combined downloads. Owns feature modules end-to-end — Clean Architecture, BLoC/Cubit, Dio, go_router, get_it — with full RTL delivery experience.",
+    "ar": "مطوّر تطبيقات فلاتر بخبرة تتجاوز 3 سنوات في بناء تطبيقات متعددة المنصات في مجالات الحكومة واللوجستيات والسفر — ستة تطبيقات منشورة على Google Play و App Store، أربعة منها للتطبيقات القنصلية من كود واحد بإجمالي 310 ألف+ عملية تحميل. يعمل على وحدات الميزات من البداية للنهاية — معمارية نظيفة، BLoC/Cubit، Dio، go_router، get_it — بخبرة كاملة في دعم العربية من اليمين لليسار."
+  },
+  "stats": [
+    { "value": 3, "suffix": "+", "label": { "en": "Years of experience", "ar": "سنوات خبرة" } },
+    { "value": 6, "label": { "en": "Published apps", "ar": "تطبيقات منشورة" } },
+    { "value": 310, "suffix": "K+", "label": { "en": "Downloads", "ar": "عملية تحميل" } },
+    { "value": 57, "label": { "en": "Automated test suites", "ar": "حزمة اختبارات آلية" } }
+  ],
+  "experience": [
+    {
+      "role": { "en": "Flutter Developer", "ar": "مطوّر تطبيقات فلاتر" },
+      "company": "AppRock Software Development",
+      "dates": { "en": "Aug 2024 – Present", "ar": "أغسطس 2024 – حتى الآن" },
+      "mode": { "en": "Remote, full-time", "ar": "عن بُعد، بدوام كامل" },
+      "bullets": [
+        {
+          "en": "Own feature modules end-to-end across a 23-module consular super-app — Clean Architecture, get_it, feature-first.",
+          "ar": "مسؤول عن وحدات الميزات من البداية للنهاية في تطبيق قنصلي ضخم من 23 وحدة — معمارية نظيفة، get_it، وتقسيم المنتج إلى ميزات مستقلة."
+        },
+        {
+          "en": "Built a real-time AI assistant on an SSE client over Dio, with stream cancellation, an idle watchdog and last-event-id resumption.",
+          "ar": "بنيت مساعدًا ذكيًا يعمل في الوقت الفعلي عبر عميل SSE فوق Dio مع إلغاء البث ومؤقّت خمول واستكمال من آخر حدث عند انقطاع الاتصال."
+        },
+        {
+          "en": "Shipped OCR national-ID verification and hardened the app with biometrics, Firebase App Check and root/jailbreak detection.",
+          "ar": "نفّذت التحقق من البطاقة القومية بالـ OCR وحصّنت التطبيق عبر البصمة، Firebase App Check وكشف الـ jailbreak."
+        },
+        {
+          "en": "Grew coverage to 57 test suites and handled full Play Console / App Store Connect releases gated by GitHub Actions.",
+          "ar": "رفعت التغطية إلى 57 حزمة اختبارات وتولّيت الإصدار الكامل على Play Console و App Store Connect عبر إجراءات GitHub Actions."
+        }
+      ]
+    },
+    {
+      "role": { "en": "Flutter Developer (Freelance)", "ar": "مطوّر تطبيقات فلاتر (عمل حر)" },
+      "company": "Freelance",
+      "dates": { "en": "Mar 2023 – Present", "ar": "مارس 2023 – حتى الآن" },
+      "mode": { "en": "Remote, part-time", "ar": "عن بُعد، بدوام جزئي" },
+      "bullets": [
+        {
+          "en": "Delivered client Flutter apps end-to-end — production UI, REST APIs and payments — under BLoC, Freezed and MVVM.",
+          "ar": "أنجزت تطبيقات فلاتر للعملاء من البداية للنهاية — واجهات إنتاجية وواجهات REST API وأنظمة دفع — بأنماط BLoC و Freezed و MVVM."
+        },
+        {
+          "en": "Built multi-currency checkout (PayPal, Stripe, Visa, MasterCard), phone authentication and multilingual content flows.",
+          "ar": "بنيت سلة دفع متعددة العملات (PayPal و Stripe و Visa و MasterCard) ومصادقة الهاتف ومحتوى متعدد اللغات."
+        }
+      ]
+    },
+    {
+      "role": { "en": "Programmer Club Leader", "ar": "قائد نادي البرمجة" },
+      "company": "MDQ Academy, USA",
+      "dates": { "en": "Dec 2024 – Aug 2025", "ar": "ديسمبر 2024 – أغسطس 2025" },
+      "mode": { "en": "Remote, part-time", "ar": "عن بُعد، بدوام جزئي" },
+      "bullets": [
+        {
+          "en": "Taught weekly programming fundamentals to students aged 10–14.",
+          "ar": "درّست أساسيات البرمجة أسبوعيًا لطلاب من 10 إلى 14 سنة."
+        },
+        {
+          "en": "Designed lesson plans and coached debugging and problem-solving strategies live in class.",
+          "ar": "صممت خطط الدروس ووجّهت الطلاب في تصحيح الأخطاء واستراتيجيات حل المشكلات مباشرة داخل الفصل."
+        }
+      ]
+    },
+    {
+      "role": { "en": "Junior Flutter Developer", "ar": "مطوّر فلاتر مبتدئ" },
+      "company": "Oday Development Foundation",
+      "dates": { "en": "Mar 2024 – Jun 2024", "ar": "مارس 2024 – يونيو 2024" },
+      "mode": { "en": "On-site", "ar": "دوام حضوري" },
+      "bullets": [
+        {
+          "en": "Implemented designs and resolved defects alongside senior developers on shipped Flutter applications.",
+          "ar": "نفّذت التصميمات وعالجت الأخطاء بجانب مطوّرين خبراء في تطبيقات فلاتر منشورة."
+        },
+        {
+          "en": "Wrote tests for shipped Flutter applications.",
+          "ar": "كتبت اختبارات لتطبيقات فلاتر منشورة."
+        }
+      ]
+    }
+  ],
+  "skillGroups": [
+    {
+      "title": { "en": "Languages & Runtime", "ar": "اللغات وبيئة التشغيل" },
+      "chips": ["Dart 3", "Async / Streams / Isolates", "Kotlin & Swift channels", "SQL"]
+    },
+    {
+      "title": { "en": "Flutter & UI", "ar": "فلاتر وواجهات" },
+      "chips": ["Flutter 3.x", "Material 3", "Cupertino", "Responsive layouts", "Animations", "RTL / LTR", "flutter_svg", "Lottie"]
+    },
+    {
+      "title": { "en": "State & Routing", "ar": "إدارة الحالة والتوجيه" },
+      "chips": ["BLoC", "Cubit", "Provider", "MVVM", "go_router", "app_links", "get_it", "bloc_test"]
+    },
+    {
+      "title": { "en": "Architecture", "ar": "المعمارية" },
+      "chips": ["Clean Architecture", "SOLID", "OOP", "Repository", "Use cases", "Freezed", "dartz"]
+    },
+    {
+      "title": { "en": "Data & Networking", "ar": "البيانات والشبكات" },
+      "chips": ["Dio", "REST APIs", "SSE streaming", "OAuth 2.0 / JWT", "JSON serialization", "Talker"]
+    },
+    {
+      "title": { "en": "Persistence & Storage", "ar": "التخزين" },
+      "chips": ["SQLite", "flutter_secure_storage", "Envied", "path_provider", "Offline-first sync"]
+    },
+    {
+      "title": { "en": "Native & Device", "ar": "المنصات والجهاز" },
+      "chips": ["Platform channels", "Firebase", "Google & Apple Sign-In", "local_auth", "Root detection", "mobile_scanner", "Google Maps", "flutter_map"]
+    },
+    {
+      "title": { "en": "Media & Video", "ar": "الوسائط والفيديو" },
+      "chips": ["FFmpegKit", "CameraX", "video_player", "just_audio", "HLS / m3u8", "Image compression", "Thumbnails"]
+    },
+    {
+      "title": { "en": "Testing & Quality", "ar": "الاختبارات والجودة" },
+      "chips": ["flutter_test", "Widget testing", "bloc_test", "Mocktail", "flutter_lints", "DevTools profiling"]
+    },
+    {
+      "title": { "en": "Release & CI/CD", "ar": "الإصدار و CI/CD" },
+      "chips": ["flutter_flavorizr", "Play Console", "App Store Connect", "Play App Signing", "build_runner", "Git & GitHub", "GitHub Actions"]
+    }
+  ],
+  "education": {
+    "en": "Bachelor of Tourism & Hotels — High Institute EGOTH, Alexandria (Grade: Very Good)",
+    "ar": "بكالوريوس السياحة والفنادق — المعهد العالي للسياحة والفنادق (EGOTH)، الإسكندرية (التقدير: جيد جدًا)"
+  },
+  "languages": [
+    { "en": "Arabic (Native)", "ar": "العربية (اللغة الأم)" },
+    { "en": "English (Professional working proficiency)", "ar": "الإنجليزية (إجادة العمل)" }
+  ],
+  "certifications": [
+    { "en": "Flutter Advanced: Bloc & MVVM", "ar": "فلاتر متقدم: Bloc و MVVM" },
+    { "en": "Complete Flutter & Dart Course (2022)", "ar": "دورة فلاتر ودارت كاملة (2022)" },
+    { "en": "Complete Dart Learning Guide", "ar": "دليل تعلّم دارت كامل" }
+  ]
+}

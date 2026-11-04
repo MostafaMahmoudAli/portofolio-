@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:go_router/go_router.dart';
 import 'package:portfolio/app.dart';
+import 'package:portfolio/core/data/content_repository.dart';
 import 'package:portfolio/core/localization/locale_controller.dart';
 import 'package:portfolio/core/theme/app_colors.dart';
 import 'package:portfolio/presentation/widgets/nav_menu_sheet.dart';
@@ -15,6 +16,7 @@ import 'package:portfolio/presentation/widgets/theme_toggle.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 late SharedPreferences prefs;
+late Content content;
 
 Future<void> pumpApp(WidgetTester tester, {bool reduceMotion = false}) async {
   tester.view.physicalSize = const Size(1440, 900);
@@ -25,6 +27,7 @@ Future<void> pumpApp(WidgetTester tester, {bool reduceMotion = false}) async {
   addTearDown(tester.platformDispatcher.clearAccessibilityFeaturesTestValue);
 
   await tester.pumpWidget(PortfolioApp(
+    content: content,
     themeController: ThemeController(prefs),
     localeController: LocaleController(prefs, platformLocale: const Locale('en')),
   ));
@@ -37,7 +40,11 @@ TextDirection directionOf(WidgetTester tester) =>
 ScrollPosition homeScroll(WidgetTester tester) =>
     tester.state<ScrollableState>(find.byType(Scrollable).first).position;
 
-void main() {
+// The real JSON files load once here, outside every test's fake-async zone.
+Future<void> main() async {
+  TestWidgetsFlutterBinding.ensureInitialized();
+  content = await const ContentRepository().load();
+
   setUp(() async {
     SharedPreferences.setMockInitialValues({});
     prefs = await SharedPreferences.getInstance();

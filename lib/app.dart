@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import 'core/app_scope.dart';
+import 'core/data/content_repository.dart';
 import 'core/localization/locale_controller.dart';
 import 'core/router/app_router.dart';
 import 'core/theme/app_colors.dart';
@@ -13,10 +14,12 @@ import 'presentation/widgets/language_flip.dart';
 class PortfolioApp extends StatefulWidget {
   const PortfolioApp({
     super.key,
+    required this.content,
     required this.themeController,
     required this.localeController,
   });
 
+  final Content content;
   final ThemeController themeController;
   final LocaleController localeController;
 
@@ -36,6 +39,7 @@ class _PortfolioAppState extends State<PortfolioApp> {
   @override
   Widget build(BuildContext context) {
     return AppScope(
+      content: widget.content,
       theme: widget.themeController,
       locale: widget.localeController,
       child: ListenableBuilder(

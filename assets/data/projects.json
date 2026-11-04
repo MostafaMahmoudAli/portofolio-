@@ -1,0 +1,363 @@
+{
+  "projects": [
+    {
+      "slug": "egypt-consulate-apps",
+      "title": { "en": "Egypt Consulate Apps", "ar": "تطبيقات القنصليات المصرية" },
+      "subtitle": { "en": "Kuwait, Riyadh, Jeddah & Milan — four missions, one Flutter codebase", "ar": "الكويت، الرياض، جدة وميلانو — أربع بعثات من كود واحد" },
+      "featured": true,
+      "order": 1,
+      "accent": "#7C5CFF",
+      "summary": {
+        "en": "Four consulate apps published from a single Flutter codebase — 310K+ Google Play downloads and 8 live store listings.",
+        "ar": "أربعة تطبيقات قنصلية منشورة من كود فلاتر واحد — أكثر من 310 ألف تحميل على Google Play و8 قوائم متاجر."
+      },
+      "bullets": [
+        {
+          "en": "Developed and published four separate consulate apps from one Flutter codebase using flavor-based builds — three Gulf missions and one in Europe.",
+          "ar": "طوّرت ونشرت أربعة تطبيقات قنصلية منفصلة من كود فلاتر واحد باستخدام نسخ build متعددة (Flavors) — ثلاث بعثات خليجية وواحدة في أوروبا."
+        },
+        {
+          "en": "Each app ships region-specific feature sets, branding and store listings.",
+          "ar": "كل تطبيق يأتي بميزات وهوية وقوائم متاجر خاصة بمنطقته."
+        },
+        {
+          "en": "Together they reach 310K+ Google Play downloads; Riyadh is rated 4.5 stars from 2.2K+ reviews.",
+          "ar": "إجمالي التحميلات يتجاوز 310 ألف على Google Play؛ تطبيق الرياض بتقييم 4.5 نجوم من أكثر من 2.2 ألف مراجعة."
+        }
+      ],
+      "tech": ["Flutter", "Flavors", "Deep Links", "Firebase", "Play Console", "App Store Connect"],
+      "status": { "en": "Live on Google Play & App Store — 8 listings", "ar": "متاح على Google Play و App Store — 8 قوائم" },
+      "cover": "media/egypt-consulate-apps/cover.jpg",
+      "videos": [
+        {
+          "src": "media/egypt-consulate-apps/demo.mp4",
+          "poster": "media/egypt-consulate-apps/poster.jpg",
+          "caption": { "en": "Consulate app walkthrough", "ar": "جولة داخل التطبيق القنصلي" }
+        }
+      ],
+      "links": []
+    },
+    {
+      "slug": "new-courier-app",
+      "title": { "en": "New Courier App", "ar": "تطبيق البريد الجديد" },
+      "subtitle": { "en": "Delivery tracking with Google Maps — live location & offline SQLite sync", "ar": "تتبع الشحنات عبر خرائط Google — موقع مباشر ومزامنة بدون إنترنت" },
+      "featured": true,
+      "order": 2,
+      "accent": "#22D3EE",
+      "summary": {
+        "en": "A delivery-tracking app with real-time location, offline SQLite support and deep-linked push notifications.",
+        "ar": "تطبيق لتتبع الشحنات مع تحديد موقع فوري ودعم SQLite بدون إنترنت وإشعارات فورية بروابط مباشرة."
+      },
+      "bullets": [
+        {
+          "en": "Built delivery tracking with Google Maps, real-time location and offline support via SQLite, syncing against REST APIs when connectivity returns.",
+          "ar": "بنيت تتبع الشحنات عبر خرائط Google وموقعًا فوريًا ودعمًا بلا إنترنت باستخدام SQLite يزامن مع واجهات REST API عند عودة الاتصال."
+        },
+        {
+          "en": "Implemented FCM with deep-linked actionable notifications that route correctly even from a cold start, plus native location and camera modules over platform channels.",
+          "ar": "نفّذت FCM بإشعارات تفاعلية بروابط مباشرة تتوجّه صحيحًا حتى من البداية الباردة، مع وحدات الموقع والكاميرا عبر platform channels."
+        }
+      ],
+      "tech": ["Flutter", "Google Maps", "SQLite", "FCM", "Platform Channels"],
+      "status": { "en": "Private distribution (Android)", "ar": "توزيع خاص (أندرويد)" },
+      "cover": "media/new-courier-app/cover.jpg",
+      "videos": [
+        {
+          "src": "media/new-courier-app/demo.mp4",
+          "poster": "media/new-courier-app/poster.jpg",
+          "caption": { "en": "Live tracking on the map", "ar": "تتبع مباشر على الخريطة" }
+        }
+      ],
+      "links": []
+    },
+    {
+      "slug": "alkharj-business-guide",
+      "title": { "en": "Alkharj Business Guide", "ar": "دليل الأعمال بالخرج" },
+      "subtitle": { "en": "Mobile app & web admin panel — local businesses directory", "ar": "تطبيق موبايل ولوحة إدارة ويب — دليل الأعمال المحلية" },
+      "featured": true,
+      "order": 3,
+      "accent": "#34D399",
+      "summary": {
+        "en": "A business directory for Alkharj city with category filters, proximity search and Firebase phone auth, plus a web admin panel.",
+        "ar": "دليل أعمال لمدينة الخرج مع فلترة الفئات والبحث القريب ومصادقة Firebase بالهاتف، ولوحة إدارة ويب."
+      },
+      "bullets": [
+        {
+          "en": "Local business and store directory for Alkharj city with category filters, proximity search, social links and Firebase phone-number authentication.",
+          "ar": "دليل للمحلات والأعمال في مدينة الخرج مع فلترة الفئات والبحث القريب وروابط التواصل ومصادقة Firebase برقم الهاتف."
+        },
+        {
+          "en": "Backed by a responsive web admin panel for listing management.",
+          "ar": "مدعوم بلوحة إدارة ويب متجاوبة لإدارة القوائم."
+        }
+      ],
+      "tech": ["Flutter", "BLoC", "Freezed", "MVVM", "Firebase"],
+      "status": { "en": "Live on both stores", "ar": "متاح على المتجرين" },
+      "cover": "media/alkharj-business-guide/cover.jpg",
+      "videos": [
+        {
+          "src": "media/alkharj-business-guide/demo.mp4",
+          "poster": "media/alkharj-business-guide/poster.jpg",
+          "caption": { "en": "Browsing the directory", "ar": "تصفح الدليل" }
+        }
+      ],
+      "links": [
+        { "type": "appStore", "url": "https://apps.apple.com/app/id6475199617" }
+      ]
+    },
+    {
+      "slug": "remix",
+      "title": { "en": "Remix", "ar": "ريمكس" },
+      "subtitle": { "en": "Short-form video editor — duet, trim, sound reuse & import", "ar": "محرر فيديو قصير — دويت وقص وإعادة استخدام الصوت والاستيراد" },
+      "featured": true,
+      "order": 4,
+      "accent": "#FF5C8A",
+      "summary": {
+        "en": "A TikTok-style remix toolkit built on FFmpeg compositing — lag-free scrubbing and 0.5×–3× speed baked into exports.",
+        "ar": "عدة إعادة مزج بأسلوب TikTok مبنية على معالجة FFmpeg — تمرير سلس وسرعات من 0.5× إلى 3× داخل الملف الناتج."
+      },
+      "bullets": [
+        {
+          "en": "Built a TikTok-style remix toolkit — duet, trim and sound reuse — as Cubit state machines with FFmpeg compositing; removed a duet audio echo and made scrubbing lag-free (throttled seeks, 1 s keyframes).",
+          "ar": "بنيت عدة إعادة مزج بأسلوب TikTok — دويت وقص وإعادة استخدام الصوت — كآلات حالات Cubit مع معالجة FFmpeg؛ أزلت صدى الصوت في الدويت وجعلت التمرير سلسًا (تخصيص الطلبات وإطارات مفاتيح بفاصلة ثانية)."
+        },
+        {
+          "en": "Added 0.5×–3× speed baked into exports (setpts/atempo), gallery import with a 4-minute limit, saved display modes and a filterable library with share_plus sharing; refactored to sealed Cubit states.",
+          "ar": "أضفت سرعات من 0.5× إلى 3× داخل الملف الناتج (setpts/atempo) واستيرادًا من المعرض بحد أربعة دقائق وأنماط عرض محفوظة ومكتبة قابلة للفلترة بالمشاركة عبر share_plus؛ وأعدت الهيكلة إلى حالات Cubit مغلقة (sealed)."
+        }
+      ],
+      "tech": ["Flutter", "Cubit", "FFmpegKit", "CameraX", "video_player", "image_picker"],
+      "status": { "en": "Private repository — walkthrough on request", "ar": "مستودع خاص — عرض توضيحي عند الطلب" },
+      "cover": "media/remix/cover.jpg",
+      "videos": [
+        {
+          "src": "media/remix/demo.mp4",
+          "poster": "media/remix/poster.jpg",
+          "caption": { "en": "Duet + speed", "ar": "دويت + السرعة" }
+        }
+      ],
+      "links": []
+    },
+    {
+      "slug": "rehlati-uae",
+      "title": { "en": "RehlatiUAE", "ar": "رحلاتي الإمارات" },
+      "subtitle": { "en": "Event booking for UAE & Singapore travellers — Stripe, PayPal & cards", "ar": "حجز الفعاليات لمسافري الإمارات وسنغافورة — Stripe و PayPal والبطاقات" },
+      "featured": true,
+      "order": 5,
+      "accent": "#FBBF24",
+      "summary": {
+        "en": "Event booking for UAE & Singapore travellers with PayPal, Stripe and card payments across currencies and languages.",
+        "ar": "حجز فعاليات لمسافري الإمارات وسنغافورة بمدفوعات PayPal و Stripe والبطاقات بعملات ولغات متعددة."
+      },
+      "bullets": [
+        {
+          "en": "Event booking flows for UAE & Singapore travellers — browsing, checkout and tickets.",
+          "ar": "مسارات حجز فعاليات لمسافري الإمارات وسنغافورة — التصفح والدفع والتذاكر."
+        },
+        {
+          "en": "PayPal, Stripe and card payments across currencies, with multilingual content.",
+          "ar": "مدفوعات عبر PayPal و Stripe والبطاقات بعملات متعددة مع محتوى بعدة لغات."
+        }
+      ],
+      "tech": ["Flutter", "BLoC", "Freezed", "MVVM", "Stripe", "PayPal"],
+      "status": { "en": "Shipped to Google Play; listing since retired", "ar": "منشور سابقًا على Google Play؛ القائمة أُوقفت لاحقًا" },
+      "cover": "media/rehlati-uae/cover.jpg",
+      "videos": [
+        {
+          "src": "media/rehlati-uae/demo.mp4",
+          "poster": "media/rehlati-uae/poster.jpg",
+          "caption": { "en": "Booking an event", "ar": "حجز فعالية" }
+        }
+      ],
+      "links": []
+    },
+    {
+      "slug": "responsive_dashboard",
+      "title": { "en": "Responsive Dashboard", "ar": "Responsive Dashboard" },
+      "subtitle": { "en": "Responsive & adaptive dashboard for desktop, tablet and mobile", "ar": "لوحة تحكم متجاوبة لسطح المكتب والتابلت والموبايل" },
+      "featured": false,
+      "order": 6,
+      "accent": "#7C5CFF",
+      "summary": {
+        "en": "A responsive and adaptive dashboard working on desktop, tablet and mobile screens.",
+        "ar": "لوحة تحكم متجاوبة وقابلة للتكييف تعمل على شاشات سطح المكتب والتابلت والموبايل."
+      },
+      "bullets": [
+        {
+          "en": "Layouts adapt between desktop, tablet and mobile screen sizes.",
+          "ar": "تتكيّف تخطيطات اللوحة بين أحجام شاشات سطح المكتب والتابلت والموبايل."
+        }
+      ],
+      "tech": ["Flutter", "Responsive layouts", "Animations"],
+      "cover": "media/responsive_dashboard/cover.jpg",
+      "videos": [],
+      "links": [
+        { "type": "github", "url": "https://github.com/MostafaMahmoudAli/responsive_dashboard" }
+      ]
+    },
+    {
+      "slug": "rick_and_motry_app",
+      "title": { "en": "Rick & Morty App", "ar": "Rick & Morty App" },
+      "subtitle": { "en": "Rick & Morty characters browser — clean architecture & the REST API", "ar": "متصفح شخصيات Rick & Morty — معمارية نظيفة وواجهة REST" },
+      "featured": false,
+      "order": 7,
+      "accent": "#34D399",
+      "summary": {
+        "en": "Browses Rick & Morty characters from the public REST API with search and favorites.",
+        "ar": "تصفح شخصيات Rick & Morty من واجهة REST العامة مع البحث والمفضلة."
+      },
+      "bullets": [
+        {
+          "en": "Fetches characters and details from the Rick & Morty REST API.",
+          "ar": "يجلب الشخصيات وتفاصيلها من واجهة Rick & Morty REST."
+        },
+        {
+          "en": "Search, filtering and favorites with local persistence.",
+          "ar": "بحث وتصفية ومفضلة بتخزين محلي."
+        }
+      ],
+      "tech": ["Flutter", "REST API", "BLoC"],
+      "cover": "media/rick_and_motry_app/cover.jpg",
+      "videos": [],
+      "links": [
+        { "type": "github", "url": "https://github.com/MostafaMahmoudAli/rick_and_motry_app" }
+      ]
+    },
+    {
+      "slug": "vocabs_app",
+      "title": { "en": "Vocabs App", "ar": "Vocabs App" },
+      "subtitle": { "en": "Vocabulary practice — build your own word lists and drill them", "ar": "تدريب على المفردات — ابنِ قوائم كلماتك وتدرّب عليها" },
+      "featured": false,
+      "order": 8,
+      "accent": "#22D3EE",
+      "summary": {
+        "en": "A vocabulary learning app: build word lists, then practice them.",
+        "ar": "تطبيق لتعلّم المفردات: ابنِ قوائم الكلمات ثم تدرّب عليها."
+      },
+      "bullets": [
+        {
+          "en": "Create and organize custom vocabulary lists.",
+          "ar": "أنشئ ونظّم قوائم مفردات مخصصة."
+        },
+        {
+          "en": "Practice modes to drill the words until they stick.",
+          "ar": "أنماط تدريب لحفظ الكلمات حتى تثبت."
+        }
+      ],
+      "tech": ["Flutter", "SQLite", "BLoC"],
+      "cover": "media/vocabs_app/cover.jpg",
+      "videos": [],
+      "links": [
+        { "type": "github", "url": "https://github.com/MostafaMahmoudAli/vocabs_app" }
+      ]
+    },
+    {
+      "slug": "flutter_google_maps",
+      "title": { "en": "Flutter Google Maps", "ar": "Flutter Google Maps" },
+      "subtitle": { "en": "Google Maps in Flutter — markers, polylines & camera moves", "ar": "خرائط Google في فلاتر — علامات ومسارات وانتقالات الكاميرا" },
+      "featured": false,
+      "order": 9,
+      "accent": "#FBBF24",
+      "summary": {
+        "en": "A Google Maps playground: markers, routes and camera animations.",
+        "ar": "ساحة تجارب لخرائط Google: علامات ومسارات وحركات الكاميرا."
+      },
+      "bullets": [
+        {
+          "en": "Custom markers, polylines and animated camera moves on Google Maps.",
+          "ar": "علامات مخصصة ومسارات وحركات كاميرا متحركة على خرائط Google."
+        }
+      ],
+      "tech": ["Flutter", "Google Maps", "Location"],
+      "cover": "media/flutter_google_maps/cover.jpg",
+      "videos": [],
+      "links": [
+        { "type": "github", "url": "https://github.com/MostafaMahmoudAli/flutter_google_maps" }
+      ]
+    },
+    {
+      "slug": "Bookly_App",
+      "title": { "en": "Bookly App", "ar": "Bookly App" },
+      "subtitle": { "en": "Book store app — browse, search & save via the Google Books API", "ar": "تطبيق متجر كتب — تصفح وابحث واحفظ عبر Google Books API" },
+      "featured": false,
+      "order": 10,
+      "accent": "#FF5C8A",
+      "summary": {
+        "en": "A book browsing app with clean architecture: featured lists, search and a details page.",
+        "ar": "تطبيق لتصفح الكتب بمعمارية نظيفة: قوائم مميزة وبحث وصفحة تفاصيل."
+      },
+      "bullets": [
+        {
+          "en": "Fetches books from the Google Books API with cached images and a smooth list.",
+          "ar": "يجلب الكتب من Google Books API مع صور مخزنة وقائمة سلسة."
+        },
+        {
+          "en": "Search and a details page built on Clean Architecture and Cubit.",
+          "ar": "بحث وصفحة تفاصيل مبنية على المعمارية النظيفة و Cubit."
+        }
+      ],
+      "tech": ["Flutter", "Cubit", "REST API", "Clean Architecture"],
+      "cover": "media/Bookly_App/cover.jpg",
+      "videos": [],
+      "links": [
+        { "type": "github", "url": "https://github.com/MostafaMahmoudAli/Bookly_App" }
+      ]
+    },
+    {
+      "slug": "flutter_shop_app",
+      "title": { "en": "Flutter Shop App", "ar": "Flutter Shop App" },
+      "subtitle": { "en": "Shopping app — catalog, cart & checkout", "ar": "تطبيق تسوق — كتالوج وسلة ودفع" },
+      "featured": false,
+      "order": 11,
+      "accent": "#7C5CFF",
+      "summary": {
+        "en": "A shopping app with a product catalog, cart and checkout flow.",
+        "ar": "تطبيق تسوق بكتالوج منتجات وسلة ومسار دفع."
+      },
+      "bullets": [
+        {
+          "en": "Product catalog with categories and a persistent cart.",
+          "ar": "كتالوج منتجات بفئات وسلة محفوظة."
+        },
+        {
+          "en": "Checkout flow with orders history.",
+          "ar": "مسار دفع مع سجل الطلبات."
+        }
+      ],
+      "tech": ["Flutter", "Provider", "SQLite"],
+      "cover": "media/flutter_shop_app/cover.jpg",
+      "videos": [],
+      "links": [
+        { "type": "github", "url": "https://github.com/MostafaMahmoudAli/flutter_shop_app" }
+      ]
+    },
+    {
+      "slug": "flutter_social_app",
+      "title": { "en": "Flutter Social App", "ar": "Flutter Social App" },
+      "subtitle": { "en": "Social feed — posts, likes & profiles", "ar": "منشورات اجتماعية — منشورات وإعجابات وملفات شخصية" },
+      "featured": false,
+      "order": 12,
+      "accent": "#22D3EE",
+      "summary": {
+        "en": "A social app with a feed, post interactions and user profiles.",
+        "ar": "تطبيق اجتماعي بمنشورات وتفاعلات وملفات مستخدمين."
+      },
+      "bullets": [
+        {
+          "en": "Feed with posts, likes and comments.",
+          "ar": "منشورات مع إعجابات وتعليقات."
+        },
+        {
+          "en": "User profiles with follow state.",
+          "ar": "ملفات مستخدمين مع حالة المتابعة."
+        }
+      ],
+      "tech": ["Flutter", "BLoC", "Firebase"],
+      "cover": "media/flutter_social_app/cover.jpg",
+      "videos": [],
+      "links": [
+        { "type": "github", "url": "https://github.com/MostafaMahmoudAli/flutter_social_app" }
+      ]
+    }
+  ]
+}
