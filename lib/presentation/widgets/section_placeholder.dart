@@ -23,16 +23,20 @@ class SectionPlaceholder extends StatelessWidget {
         child: Center(
           child: ConstrainedBox(
             constraints: const BoxConstraints(maxWidth: 1200),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SectionTitle(section.label(l10n)),
-                const SizedBox(height: 16),
-                Text(
-                  l10n.sectionComingSoon,
-                  style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: palette.mutedText),
-                ),
-              ],
+            // Full width, so the column's start edge is the content box's start edge.
+            child: SizedBox(
+              width: double.infinity,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SectionTitle(section.label(l10n)),
+                  const SizedBox(height: 16),
+                  Text(
+                    l10n.sectionComingSoon,
+                    style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: palette.mutedText),
+                  ),
+                ],
+              ),
             ),
           ),
         ),

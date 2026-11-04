@@ -5,6 +5,7 @@ import 'package:portfolio/core/localization/locale_controller.dart';
 import 'package:portfolio/core/theme/theme_controller.dart';
 import 'package:portfolio/presentation/widgets/nav_bar.dart';
 import 'package:portfolio/presentation/widgets/nav_menu_sheet.dart';
+import 'package:portfolio/presentation/widgets/section_title.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 late SharedPreferences prefs;
@@ -39,6 +40,8 @@ void main() {
     for (final label in ['About', 'Projects', 'Experience', 'Skills', 'Contact']) {
       expect(navText(label), findsOneWidget);
     }
+    // Content box is 1200 wide centered in 1440, so the start edge is at 120 (+24 padding outside it).
+    expect(tester.getTopLeft(find.byType(SectionTitle).first).dx, lessThanOrEqualTo(145));
 
     await tester.tap(navText('Skills'));
     await tester.pumpAndSettle();

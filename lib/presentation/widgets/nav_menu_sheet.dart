@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../core/theme/app_colors.dart';
 import '../../core/utils/open_link.dart';
 import '../../l10n/app_localizations.dart';
 import '../pages/home_section.dart';
@@ -14,7 +13,6 @@ Future<void> showNavMenuSheet(
 }) {
   return showModalBottomSheet(
     context: context,
-    backgroundColor: AppPalette.of(context).background,
     showDragHandle: true,
     builder: (_) => NavMenuSheet(onSectionTap: onSectionTap),
   );
