@@ -9,6 +9,7 @@ import 'package:portfolio/presentation/sections/contact_section.dart';
 import 'package:portfolio/presentation/sections/experience_section.dart';
 import 'package:portfolio/presentation/sections/footer_section.dart';
 import 'package:portfolio/presentation/sections/skills_section.dart';
+import 'package:portfolio/presentation/widgets/glass_card.dart';
 import 'package:portfolio/presentation/widgets/nav_bar.dart';
 import 'package:portfolio/presentation/widgets/nav_menu_sheet.dart';
 import 'package:portfolio/presentation/widgets/project_placeholder.dart';
@@ -61,6 +62,57 @@ Future<void> main() async {
   setUp(() => VideoPlayerPlatform.instance = FakeVideoPlatform());
 
   for (final language in ['en', 'ar']) {
+    testWidgets('timeline entries align at 1440 px in $language', (tester) async {
+      // Ahem's wide glyphs make every entry wrap to full width, hiding this bug.
+      await tester.runAsync(() async {
+        for (final (family, file) in [
+          ('Inter', 'Inter-Regular.ttf'),
+          ('SpaceGrotesk', 'SpaceGrotesk-Bold.ttf'),
+          ('IBMPlexSansArabic', 'IBMPlexSansArabic-Regular.ttf'),
+        ]) {
+          await (FontLoader(family)
+                ..addFont(rootBundle.load('assets/fonts/$file')))
+              .load();
+        }
+      });
+      await helpers.pumpPage(
+        tester,
+        location: '/',
+        width: 1440,
+        language: language,
+        reducedMotion: true,
+      );
+      final l10n = AppLocalizations.of(tester.element(find.byType(HomePage)));
+      await navigate(tester, l10n.navExperience);
+      final line = find.byKey(const ValueKey('timeline-line'));
+      final timeline = find.ancestor(of: line, matching: find.byType(Stack)).first;
+      final dots = find.descendant(
+        of: timeline,
+        matching: find.byType(TimelineDot),
+      );
+      final cards = find.descendant(
+        of: timeline,
+        matching: find.byType(GlassCard),
+      );
+      final count = helpers.content.profile.experience.length;
+      expect(dots, findsNWidgets(count));
+      expect(cards, findsNWidgets(count));
+      final dotX = tester.getCenter(dots.first).dx;
+      final lineX = tester.getCenter(line).dx;
+      double startEdge(Finder card) {
+        final rect = tester.getRect(card);
+        return language == 'ar' ? rect.right : rect.left;
+      }
+
+      final cardStart = startEdge(cards.first);
+      for (var i = 0; i < count; i++) {
+        expect(tester.getCenter(dots.at(i)).dx, closeTo(dotX, 1));
+        expect(tester.getCenter(dots.at(i)).dx, closeTo(lineX, 1));
+        expect(startEdge(cards.at(i)), closeTo(cardStart, 1));
+      }
+      await helpers.unmount(tester);
+    });
+
     testWidgets(
       'timeline scroll growth, one-shot dots and start side in $language',
       (tester) async {

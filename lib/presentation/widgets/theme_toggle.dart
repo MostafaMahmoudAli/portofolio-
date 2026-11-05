@@ -5,7 +5,6 @@ import '../../l10n/app_localizations.dart';
 import 'theme_reveal.dart';
 
 /// Sun / moon button. The icon spins and scales into the other one.
-// shortcut: no circular theme reveal yet (spec section 3), add in Phase 7 polish.
 class ThemeToggle extends StatelessWidget {
   const ThemeToggle({super.key});
 

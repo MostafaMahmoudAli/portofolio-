@@ -92,6 +92,7 @@ class _ExperienceSectionState extends State<ExperienceSection> {
                 ),
               ),
               Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   for (final (index, entry) in profile.experience.indexed)
                     Padding(
