@@ -3,17 +3,14 @@ import 'package:flutter/material.dart';
 import '../../core/theme/app_colors.dart';
 
 class ProjectPlaceholder extends StatelessWidget {
-  const ProjectPlaceholder({super.key, required this.accentColor, this.title});
-
-  final Color accentColor;
+  const ProjectPlaceholder({super.key, this.title});
   final String? title;
 
   @override
   Widget build(BuildContext context) => Container(
     decoration: BoxDecoration(
-      gradient: LinearGradient(
-        colors: [accentColor, accentColor.withValues(alpha: 0.7)],
-      ),
+      color: AppPalette.of(context).surface,
+      border: Border.all(color: AppPalette.of(context).accent),
     ),
     alignment: AlignmentDirectional.center,
     child: title == null
@@ -21,11 +18,7 @@ class ProjectPlaceholder extends StatelessWidget {
         : Text(
             title!,
             style: Theme.of(context).textTheme.titleLarge?.copyWith(
-              color:
-                  ThemeData.estimateBrightnessForColor(accentColor) ==
-                      Brightness.light
-                  ? AppPalette.light.text
-                  : AppPalette.dark.text,
+              color: AppPalette.of(context).text,
             ),
             textAlign: TextAlign.center,
           ),

@@ -44,11 +44,7 @@ Future<void> main() async {
                       Container(
                         width: 180,
                         height: 12,
-                        decoration: BoxDecoration(
-                          gradient: LinearGradient(
-                            colors: [palette.accentStart, palette.accentEnd],
-                          ),
-                        ),
+                        decoration: BoxDecoration(color: palette.accent),
                       ),
                       const SizedBox(height: 48),
                       Text(

@@ -8,7 +8,6 @@ import '../../core/utils/breakpoints.dart';
 import '../../core/utils/download_file.dart';
 import '../../l10n/app_localizations.dart';
 import '../pages/home_section.dart';
-import 'gradient_text.dart';
 import 'language_toggle.dart';
 import 'nav_menu_sheet.dart';
 import 'theme_toggle.dart';
@@ -52,10 +51,7 @@ class NavBar extends StatelessWidget {
                     children: [
                       TextButton(
                         onPressed: onLogoTap,
-                        child: GradientText(
-                          'MM',
-                          style: textTheme.headlineSmall,
-                        ),
+                        child: Text('MM', style: textTheme.headlineSmall),
                       ),
                       const Spacer(),
                       if (desktop) ...[
@@ -73,7 +69,7 @@ class NavBar extends StatelessWidget {
                         const LanguageToggle(),
                         const ThemeToggle(),
                         const SizedBox(width: 8),
-                        FilledButton(
+                        OutlinedButton(
                           onPressed: () => downloadFile(
                             AppScope.of(context).content.profile.resumePdf,
                             resumeFileName,

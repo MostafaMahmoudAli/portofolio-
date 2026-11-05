@@ -13,14 +13,12 @@ class ProjectMediaFrame extends StatelessWidget {
     super.key,
     required this.project,
     required this.video,
-    required this.accent,
     required this.width,
     this.hero = true,
   });
 
   final Project project;
   final ProjectVideo video;
-  final Color accent;
   final double width;
   final bool hero;
 
@@ -28,8 +26,7 @@ class ProjectMediaFrame extends StatelessWidget {
   Widget build(BuildContext context) {
     final poster = PhoneFrame(
       width: width,
-      accent: accent,
-      child: ProjectPoster(path: video.poster, accentColor: accent),
+      child: ProjectPoster(path: video.poster),
     );
     final route = ModalRoute.of(context);
     return AnimatedBuilder(
@@ -63,7 +60,6 @@ class ProjectMediaFrame extends StatelessWidget {
                     key: ValueKey(video.src),
                     video: video,
                     title: project.title.of(Localizations.localeOf(context)),
-                    accentColor: accent,
                   ),
                 ),
             ],

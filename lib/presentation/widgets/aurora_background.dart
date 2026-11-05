@@ -4,11 +4,7 @@ import 'package:flutter/material.dart';
 
 import '../../core/theme/app_colors.dart';
 
-/// Three large blurred gradient blobs drifting slowly behind the page.
-///
-/// It sits in `MaterialApp.builder`, outside [LanguageFlip], so the page turns
-/// over a background that stays still. Under reduced motion the blobs hold
-/// their position instead of drifting.
+/// One soft mint glow, clipped to the hero. Reduced motion holds it still.
 class AuroraBackground extends StatefulWidget {
   const AuroraBackground({super.key, required this.child});
 
@@ -53,18 +49,19 @@ class _AuroraBackgroundState extends State<AuroraBackground>
     final light = Theme.of(context).brightness == Brightness.light;
 
     return Stack(
-      fit: StackFit.expand,
       children: [
-        IgnorePointer(
-          child: RepaintBoundary(
-            child: ClipRect(
-              child: AnimatedBuilder(
-                animation: _controller,
-                builder: (context, _) => CustomPaint(
-                  painter: _AuroraPainter(
-                    progress: _controller.value,
-                    palette: palette,
-                    opacity: light ? 0.22 : 0.45,
+        Positioned.fill(
+          child: IgnorePointer(
+            child: RepaintBoundary(
+              child: ClipRect(
+                child: AnimatedBuilder(
+                  animation: _controller,
+                  builder: (context, _) => CustomPaint(
+                    painter: _AuroraPainter(
+                      progress: _controller.value,
+                      palette: palette,
+                      opacity: light ? 0.10 : 0.14,
+                    ),
                   ),
                 ),
               ),
@@ -91,48 +88,19 @@ class _AuroraPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final t = progress * 2 * math.pi;
-    final shortest = size.shortestSide;
-
-    // (fraction of width, fraction of height, radius as a fraction of the
-    // shortest side, color)
-    final blobs = <(double, double, double, Color)>[
-      (
-        0.18 + 0.10 * math.sin(t),
-        0.16 + 0.08 * math.cos(t * 0.8),
-        0.62,
-        palette.accentStart,
-      ),
-      (
-        0.82 + 0.08 * math.cos(t * 0.9),
-        0.30 + 0.10 * math.sin(t * 0.7),
-        0.55,
-        palette.accentEnd,
-      ),
-      (
-        0.50 + 0.12 * math.sin(t * 0.6 + 1.5),
-        0.88 + 0.06 * math.cos(t * 0.8),
-        0.60,
-        palette.highlight,
-      ),
-    ];
-
-    for (final (fx, fy, radiusFactor, color) in blobs) {
-      final center = Offset(size.width * fx, size.height * fy);
-      final radius = shortest * radiusFactor;
-      // No MaskFilter: blurring three full-screen circles every frame halves
-      // the frame rate on web. Extra stops give the same soft falloff.
-      final paint = Paint()
-        ..shader = RadialGradient(
-          colors: [
-            color.withValues(alpha: opacity),
-            color.withValues(alpha: opacity * 0.65),
-            color.withValues(alpha: opacity * 0.25),
-            color.withValues(alpha: 0),
-          ],
-          stops: const [0, 0.35, 0.7, 1],
-        ).createShader(Rect.fromCircle(center: center, radius: radius));
-      canvas.drawCircle(center, radius, paint);
-    }
+    final radius = size.shortestSide * 0.28;
+    final center = Offset(
+      size.width * (0.72 + 0.08 * math.sin(t)),
+      size.height * (0.40 + 0.06 * math.cos(t)),
+    );
+    // A single blurred circle, not a multicolor shader or a page-wide wash.
+    canvas.drawCircle(
+      center,
+      radius,
+      Paint()
+        ..color = palette.accent.withValues(alpha: opacity)
+        ..maskFilter = MaskFilter.blur(BlurStyle.normal, radius * 0.65),
+    );
   }
 
   @override

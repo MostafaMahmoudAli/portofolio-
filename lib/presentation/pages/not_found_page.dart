@@ -3,7 +3,6 @@ import 'package:go_router/go_router.dart';
 
 import '../../core/theme/app_colors.dart';
 import '../../l10n/app_localizations.dart';
-import '../widgets/gradient_text.dart';
 import '../widgets/page_title.dart';
 
 class NotFoundPage extends StatelessWidget {
@@ -24,7 +23,7 @@ class NotFoundPage extends StatelessWidget {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                GradientText('404', style: textTheme.displayLarge),
+                Text('404', style: textTheme.displayLarge),
                 const SizedBox(height: 16),
                 Text(l10n.notFoundTitle, style: textTheme.headlineMedium),
                 const SizedBox(height: 8),

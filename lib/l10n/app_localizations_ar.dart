@@ -124,24 +124,24 @@ class AppLocalizationsAr extends AppLocalizations {
   String get email => 'البريد الإلكتروني';
 
   @override
-  String get highlightArchitectureTitle => 'المعمارية النظيفة';
+  String get capabilityArchitectureTitle => 'المعمارية النظيفة';
 
   @override
-  String get highlightArchitectureBody =>
+  String get capabilityArchitectureBody =>
       'وحدات مبنية على الميزات بطبقات واضحة وحالات استخدام قابلة للاختبار وحقن للتبعيات.';
 
   @override
-  String get highlightReleasesTitle => 'إصدارات المتاجر';
+  String get capabilityReleasesTitle => 'إصدارات المتاجر';
 
   @override
-  String get highlightReleasesBody =>
+  String get capabilityReleasesBody =>
       'إصدارات كاملة على Play Console وApp Store Connect مع بوابات CI.';
 
   @override
-  String get highlightMediaTitle => 'الوسائط وFFmpeg';
+  String get capabilityMediaTitle => 'الوسائط وFFmpeg';
 
   @override
-  String get highlightMediaBody =>
+  String get capabilityMediaBody =>
       'تحرير الفيديو والصوت على الجهاز باستخدام FFmpeg وCameraX ومسارات مخصصة.';
 
   @override

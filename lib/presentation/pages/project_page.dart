@@ -7,7 +7,6 @@ import '../../core/app_scope.dart';
 import '../../core/models/project_link.dart';
 import '../../core/theme/app_colors.dart';
 import '../../core/utils/open_link.dart';
-import '../../core/utils/project_accent.dart';
 import '../../l10n/app_localizations.dart';
 import '../widgets/glass_card.dart';
 import '../widgets/nav_bar.dart';
@@ -33,7 +32,6 @@ class ProjectPage extends StatelessWidget {
     final l10n = AppLocalizations.of(context);
     final palette = AppPalette.of(context);
     final textTheme = Theme.of(context).textTheme;
-    final accent = project.accentColor;
     final previous = projects[(index - 1 + projects.length) % projects.length];
     final next = projects[(index + 1) % projects.length];
     final padding = EdgeInsetsDirectional.symmetric(
@@ -71,10 +69,7 @@ class ProjectPage extends StatelessWidget {
                         ),
                         child: SizedBox(
                           height: 180,
-                          child: ProjectPoster(
-                            path: project.cover,
-                            accentColor: accent,
-                          ),
+                          child: ProjectPoster(path: project.cover),
                         ),
                       ),
                       const SizedBox(height: 24),
@@ -124,7 +119,7 @@ class ProjectPage extends StatelessWidget {
                                     children: [
                                       Icon(
                                         Icons.check_rounded,
-                                        color: accent,
+                                        color: palette.text,
                                         size: 20,
                                       ),
                                       const SizedBox(width: 12),
@@ -138,7 +133,7 @@ class ProjectPage extends StatelessWidget {
                                 runSpacing: 8,
                                 children: [
                                   for (final tech in project.tech)
-                                    TechChip(label: tech, color: accent),
+                                    TechChip(label: tech),
                                 ],
                               ),
                               const SizedBox(height: 24),

@@ -8,7 +8,6 @@ import '../../core/app_scope.dart';
 import '../../core/models/project.dart';
 import '../../core/theme/app_colors.dart';
 import '../../core/utils/breakpoints.dart';
-import '../../core/utils/project_accent.dart';
 import '../../l10n/app_localizations.dart';
 import '../widgets/glass_card.dart';
 import '../widgets/project_media_frame.dart';
@@ -74,8 +73,6 @@ class _FeaturedCard extends StatefulWidget {
 }
 
 class _FeaturedCardState extends State<_FeaturedCard> {
-  late final Color _accent = widget.project.accentColor;
-
   /// Cursor position over the card, -0.5..0.5 on each axis; null when not hovered.
   final _tilt = ValueNotifier<Offset?>(null);
 
@@ -108,9 +105,8 @@ class _FeaturedCardState extends State<_FeaturedCard> {
               ScreenSize.tablet => 200,
               ScreenSize.desktop => 220,
             },
-            accent: _accent,
           );
-    final text = _CardText(project: widget.project, accent: _accent);
+    final text = _CardText(project: widget.project);
 
     final Widget body;
     if (screen == ScreenSize.phone) {
@@ -169,7 +165,9 @@ class _FeaturedCardState extends State<_FeaturedCard> {
                 boxShadow: [
                   if (hovered)
                     BoxShadow(
-                      color: _accent.withValues(alpha: 0.35),
+                      color: AppPalette.of(
+                        context,
+                      ).text.withValues(alpha: 0.08),
                       blurRadius: 32,
                     ),
                 ],
@@ -184,10 +182,9 @@ class _FeaturedCardState extends State<_FeaturedCard> {
 }
 
 class _CardText extends StatelessWidget {
-  const _CardText({required this.project, required this.accent});
+  const _CardText({required this.project});
 
   final Project project;
-  final Color accent;
 
   @override
   Widget build(BuildContext context) {
@@ -212,10 +209,7 @@ class _CardText extends StatelessWidget {
         Wrap(
           spacing: 8,
           runSpacing: 8,
-          children: [
-            for (final tech in project.tech)
-              TechChip(label: tech, color: accent),
-          ],
+          children: [for (final tech in project.tech) TechChip(label: tech)],
         ),
         if (status != null) ...[
           const SizedBox(height: 16),

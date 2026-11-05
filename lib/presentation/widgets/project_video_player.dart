@@ -73,7 +73,7 @@ class VideoControllerManager {
 /// then it plays muted and looped while visible and pauses when it leaves.
 /// At most two controllers are alive at a time, managed by
 /// [VideoControllerManager]. A tap unmutes the video and shows simple
-/// controls. A missing poster shows an accent-gradient placeholder in its
+/// controls. A missing poster shows a neutral placeholder in its
 /// place; a failed video replaces the whole player with it. Under reduced motion the video does not
 /// autoplay; the poster is shown with a play button instead.
 ///
@@ -86,12 +86,10 @@ class ProjectVideoPlayer extends StatefulWidget {
     super.key,
     required this.video,
     required this.title,
-    required this.accentColor,
   });
 
   final ProjectVideo video;
   final String title;
-  final Color accentColor;
 
   @override
   State<ProjectVideoPlayer> createState() => _ProjectVideoPlayerState();
@@ -255,10 +253,7 @@ class _ProjectVideoPlayerState extends State<ProjectVideoPlayer> {
   @override
   Widget build(BuildContext context) {
     if (_videoError) {
-      return ProjectPlaceholder(
-        accentColor: widget.accentColor,
-        title: widget.title,
-      );
+      return ProjectPlaceholder(title: widget.title);
     }
 
     return VisibilityDetector(
@@ -275,10 +270,7 @@ class _ProjectVideoPlayerState extends State<ProjectVideoPlayer> {
                 _posterUrl,
                 fit: BoxFit.cover,
                 errorBuilder: (context, error, stackTrace) =>
-                    ProjectPlaceholder(
-                      accentColor: widget.accentColor,
-                      title: widget.title,
-                    ),
+                    ProjectPlaceholder(title: widget.title),
               ),
             ),
             if (_showVideo) Positioned.fill(child: VideoPlayer(_controller!)),
@@ -348,14 +340,25 @@ class _ControlButton extends StatelessWidget {
       child: IconButton(
         tooltip: label,
         onPressed: onTap,
-        style: IconButton.styleFrom(
-          minimumSize: const Size(48, 48),
-          backgroundColor: palette.surface,
-          side: BorderSide(color: palette.surfaceBorder),
-          shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadiusDirectional.all(Radius.circular(10)),
-          ),
-        ),
+        style:
+            IconButton.styleFrom(
+              minimumSize: const Size(48, 48),
+              backgroundColor: palette.surface,
+              side: BorderSide(color: palette.surfaceBorder),
+              shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadiusDirectional.all(Radius.circular(10)),
+              ),
+            ).copyWith(
+              side: WidgetStateProperty.resolveWith(
+                (states) => BorderSide(
+                  color:
+                      states.contains(WidgetState.hovered) ||
+                          states.contains(WidgetState.focused)
+                      ? palette.accent
+                      : palette.surfaceBorder,
+                ),
+              ),
+            ),
         icon: Icon(icon, size: 20, color: palette.text),
       ),
     );

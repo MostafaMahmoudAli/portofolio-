@@ -19,5 +19,13 @@ void main() {
     final copy = AppPalette.dark.copyWith(text: color);
     expect(copy.text, color);
     expect(copy.background, AppPalette.dark.background);
+    expect(copy.accent, const Color(0xFF34D399));
+    expect(copy.onAccent, const Color(0xFF15191A));
+  });
+
+  test('mint and its foreground stay identical across theme interpolation', () {
+    final middle = AppPalette.dark.lerp(AppPalette.light, 0.5);
+    expect(middle.accent, AppPalette.light.accent);
+    expect(middle.onAccent, AppPalette.light.onAccent);
   });
 }

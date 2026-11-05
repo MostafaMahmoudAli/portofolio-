@@ -7,13 +7,10 @@ import '../../core/theme/app_colors.dart';
 /// The frame keeps the same shape in both LTR and RTL: it is never mirrored,
 /// because a physical phone does not flip when the reading direction changes.
 class PhoneFrame extends StatelessWidget {
-  const PhoneFrame({super.key, required this.child, this.width, this.accent});
+  const PhoneFrame({super.key, required this.child, this.width});
 
   final Widget child;
   final double? width;
-
-  /// Tints the frame's edge with the project's accent (spec section 3).
-  final Color? accent;
 
   static const _radius = 30.0;
   static const _bezelTop = 22.0;
@@ -57,10 +54,7 @@ class PhoneFrame extends StatelessWidget {
       child: DecoratedBox(
         decoration: BoxDecoration(
           color: palette.surface,
-          border: Border.all(
-            color: accent?.withValues(alpha: 0.6) ?? palette.surfaceBorder,
-            width: _borderWidth,
-          ),
+          border: Border.all(color: palette.surfaceBorder, width: _borderWidth),
           borderRadius: BorderRadius.circular(_radius),
         ),
         child: Stack(

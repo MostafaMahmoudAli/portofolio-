@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import '../../core/models/project.dart';
 import '../../core/theme/app_colors.dart';
 import '../../core/utils/breakpoints.dart';
-import '../../core/utils/project_accent.dart';
 import '../../l10n/app_localizations.dart';
 import 'project_media_frame.dart';
 import 'project_poster.dart';
@@ -50,13 +49,11 @@ class _ProjectVideoGalleryState extends State<ProjectVideoGallery> {
     final palette = AppPalette.of(context);
     final locale = Localizations.localeOf(context);
     final l10n = AppLocalizations.of(context);
-    final accent = project.accentColor;
     final width = phone ? 240.0 : 300.0;
     Widget frame(int index) => Center(
       child: ProjectMediaFrame(
         project: project,
         video: project.videos[index],
-        accent: accent,
         width: width,
         hero: index == 0,
       ),
@@ -114,7 +111,7 @@ class _ProjectVideoGalleryState extends State<ProjectVideoGallery> {
                           decoration: BoxDecoration(
                             border: Border.all(
                               color: i == _selected
-                                  ? palette.accentStart
+                                  ? palette.text
                                   : palette.surfaceBorder,
                             ),
                             borderRadius: const BorderRadiusDirectional.all(
@@ -129,15 +126,12 @@ class _ProjectVideoGalleryState extends State<ProjectVideoGallery> {
                                     decoration: BoxDecoration(
                                       shape: BoxShape.circle,
                                       color: i == _selected
-                                          ? palette.accentStart
+                                          ? palette.text
                                           : palette.mutedText,
                                     ),
                                   ),
                                 )
-                              : ProjectPoster(
-                                  path: project.videos[i].poster,
-                                  accentColor: accent,
-                                ),
+                              : ProjectPoster(path: project.videos[i].poster),
                         ),
                       ),
                     ),

@@ -8,7 +8,7 @@ import '../widgets/glass_card.dart';
 import '../widgets/reveal_on_scroll.dart';
 import '../widgets/section_title.dart';
 
-/// Short summary plus three highlight tiles on glass cards.
+/// Short summary plus three capability tiles on glass cards.
 class AboutSection extends StatelessWidget {
   const AboutSection({super.key});
 
@@ -24,18 +24,18 @@ class AboutSection extends StatelessWidget {
     final tiles = [
       _HighlightTile(
         icon: Icons.layers_rounded,
-        title: l10n.highlightArchitectureTitle,
-        body: l10n.highlightArchitectureBody,
+        title: l10n.capabilityArchitectureTitle,
+        body: l10n.capabilityArchitectureBody,
       ),
       _HighlightTile(
         icon: Icons.rocket_launch_rounded,
-        title: l10n.highlightReleasesTitle,
-        body: l10n.highlightReleasesBody,
+        title: l10n.capabilityReleasesTitle,
+        body: l10n.capabilityReleasesBody,
       ),
       _HighlightTile(
         icon: Icons.movie_filter_rounded,
-        title: l10n.highlightMediaTitle,
-        body: l10n.highlightMediaBody,
+        title: l10n.capabilityMediaTitle,
+        body: l10n.capabilityMediaBody,
       ),
     ];
 
@@ -112,7 +112,7 @@ class _HighlightTile extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Icon(icon, color: palette.accentEnd, size: 28),
+          Icon(icon, color: palette.text, size: 28),
           const SizedBox(height: 16),
           Text(title, style: textTheme.titleLarge),
           const SizedBox(height: 8),

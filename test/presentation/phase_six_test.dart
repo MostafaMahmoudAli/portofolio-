@@ -288,22 +288,18 @@ Future<void> main() async {
     await helpers.unmount(tester);
   });
 
-  testWidgets('yellow and purple placeholder titles contrast with accent', (
-    tester,
-  ) async {
-    for (final (accent, foreground) in [
-      (const Color(0xFFFFD600), AppPalette.light.text),
-      (const Color(0xFF7C5CFF), AppPalette.dark.text),
-    ]) {
+  testWidgets('neutral placeholder titles follow both themes', (tester) async {
+    for (final palette in [AppPalette.light, AppPalette.dark]) {
       await tester.pumpWidget(
         MaterialApp(
-          theme: ThemeData.dark(),
-          home: ProjectPlaceholder(accentColor: accent, title: 'Project'),
+          themeAnimationDuration: Duration.zero,
+          theme: ThemeData(extensions: [palette]),
+          home: const ProjectPlaceholder(title: 'Project'),
         ),
       );
       expect(
         tester.widget<Text>(find.text('Project')).style!.color,
-        foreground,
+        palette.text,
       );
     }
   });

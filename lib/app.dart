@@ -9,7 +9,6 @@ import 'core/theme/app_colors.dart';
 import 'core/theme/app_theme.dart';
 import 'core/theme/theme_controller.dart';
 import 'l10n/app_localizations.dart';
-import 'presentation/widgets/aurora_background.dart';
 import 'presentation/widgets/language_flip.dart';
 import 'presentation/widgets/theme_reveal.dart';
 
@@ -62,11 +61,11 @@ class _PortfolioAppState extends State<PortfolioApp> {
             supportedLocales: AppLocalizations.supportedLocales,
             localizationsDelegates: AppLocalizations.localizationsDelegates,
             routerConfig: _router,
-            // The background and aurora stay still while the page flips over them.
+            // The shared background stays still while the page flips over it.
             builder: (context, child) => ThemeReveal(
               child: ColoredBox(
                 color: AppPalette.of(context).background,
-                child: AuroraBackground(child: LanguageFlip(child: child!)),
+                child: LanguageFlip(child: child!),
               ),
             ),
           );

@@ -320,41 +320,41 @@ abstract class AppLocalizations {
   /// **'Email'**
   String get email;
 
-  /// No description provided for @highlightArchitectureTitle.
+  /// No description provided for @capabilityArchitectureTitle.
   ///
   /// In en, this message translates to:
   /// **'Clean Architecture'**
-  String get highlightArchitectureTitle;
+  String get capabilityArchitectureTitle;
 
-  /// No description provided for @highlightArchitectureBody.
+  /// No description provided for @capabilityArchitectureBody.
   ///
   /// In en, this message translates to:
   /// **'Feature-first modules with clear layers, testable use cases and dependency injection.'**
-  String get highlightArchitectureBody;
+  String get capabilityArchitectureBody;
 
-  /// No description provided for @highlightReleasesTitle.
+  /// No description provided for @capabilityReleasesTitle.
   ///
   /// In en, this message translates to:
   /// **'Store releases'**
-  String get highlightReleasesTitle;
+  String get capabilityReleasesTitle;
 
-  /// No description provided for @highlightReleasesBody.
+  /// No description provided for @capabilityReleasesBody.
   ///
   /// In en, this message translates to:
   /// **'End-to-end Play Console and App Store Connect releases, gated by CI.'**
-  String get highlightReleasesBody;
+  String get capabilityReleasesBody;
 
-  /// No description provided for @highlightMediaTitle.
+  /// No description provided for @capabilityMediaTitle.
   ///
   /// In en, this message translates to:
   /// **'Media & FFmpeg'**
-  String get highlightMediaTitle;
+  String get capabilityMediaTitle;
 
-  /// No description provided for @highlightMediaBody.
+  /// No description provided for @capabilityMediaBody.
   ///
   /// In en, this message translates to:
   /// **'On-device video and audio editing with FFmpeg, CameraX and custom pipelines.'**
-  String get highlightMediaBody;
+  String get capabilityMediaBody;
 
   /// No description provided for @featuredProjects.
   ///

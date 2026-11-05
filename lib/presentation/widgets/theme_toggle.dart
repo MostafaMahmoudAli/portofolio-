@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../core/app_scope.dart';
+import '../../core/theme/app_colors.dart';
 import '../../l10n/app_localizations.dart';
 import 'theme_reveal.dart';
 
@@ -16,6 +17,15 @@ class ThemeToggle extends StatelessWidget {
     final reduceMotion = MediaQuery.disableAnimationsOf(context);
 
     return IconButton(
+      style: ButtonStyle(
+        side: WidgetStateProperty.resolveWith(
+          (states) => BorderSide(
+            color: isDark || states.contains(WidgetState.focused)
+                ? AppPalette.of(context).accent
+                : Colors.transparent,
+          ),
+        ),
+      ),
       tooltip: isDark ? l10n.themeToLight : l10n.themeToDark,
       onPressed: () {
         void toggle() => AppScope.of(context).theme.toggle(brightness);

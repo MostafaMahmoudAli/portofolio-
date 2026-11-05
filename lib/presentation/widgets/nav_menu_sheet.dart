@@ -64,7 +64,7 @@ class NavMenuSheet extends StatelessWidget {
                   mainAxisSize: MainAxisSize.min,
                   children: [LanguageToggle(), ThemeToggle()],
                 ),
-                FilledButton(
+                OutlinedButton(
                   onPressed: () => downloadFile(
                     AppScope.of(context).content.profile.resumePdf,
                     resumeFileName,

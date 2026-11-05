@@ -88,17 +88,16 @@ class LanguageFlipState extends State<LanguageFlip>
               child: DecoratedBox(
                 position: DecorationPosition.foreground,
                 decoration: BoxDecoration(
-                  gradient: glow == 0
-                      ? null
-                      : LinearGradient(
-                          colors: [
-                            palette.accentStart.withValues(alpha: 0.4 * glow),
-                            palette.accentStart.withValues(alpha: 0),
-                            palette.accentEnd.withValues(alpha: 0),
-                            palette.accentEnd.withValues(alpha: 0.4 * glow),
-                          ],
-                          stops: const [0, 0.1, 0.9, 1],
-                        ),
+                  border: BorderDirectional(
+                    start: BorderSide(
+                      color: palette.accent.withValues(alpha: 0.4 * glow),
+                      width: 2,
+                    ),
+                    end: BorderSide(
+                      color: palette.accent.withValues(alpha: 0.4 * glow),
+                      width: 2,
+                    ),
+                  ),
                 ),
                 child: child,
               ),

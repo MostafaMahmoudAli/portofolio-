@@ -123,7 +123,6 @@ Future<ScrollController> pumpPlayers(
                   caption: null,
                 ),
                 title: 'Video $i',
-                accentColor: Colors.purple,
               ),
             ),
           const SizedBox(height: 1000),

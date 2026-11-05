@@ -22,7 +22,6 @@ class StoreBadge extends StatelessWidget {
       label: Text(isPlay ? 'Google Play' : 'App Store'),
       style: OutlinedButton.styleFrom(
         foregroundColor: palette.text,
-        side: BorderSide(color: palette.surfaceBorder),
         padding: const EdgeInsetsDirectional.symmetric(
           horizontal: 10,
           vertical: 8,

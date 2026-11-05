@@ -85,7 +85,7 @@ class _ExperienceSectionState extends State<ExperienceSection> {
                         : _progress,
                     child: ColoredBox(
                       key: const ValueKey('timeline-line'),
-                      color: palette.accentStart,
+                      color: palette.accent,
                       child: const SizedBox.expand(),
                     ),
                   ),

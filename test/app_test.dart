@@ -178,6 +178,7 @@ Future<void> main() async {
         )
         .color!;
     expect(sheetColor(), AppPalette.light.background);
+    expect(sheetColor(), const Color(0xFFF3F4F1));
 
     await tester.tap(
       find.descendant(
@@ -187,6 +188,7 @@ Future<void> main() async {
     );
     await pumpFrames(tester, const Duration(milliseconds: 600));
     expect(sheetColor(), AppPalette.dark.background);
+    expect(sheetColor(), const Color(0xFF15191A));
   });
 
   testWidgets('routes: project page and unknown path', (tester) async {

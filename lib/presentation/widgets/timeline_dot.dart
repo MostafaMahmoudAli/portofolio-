@@ -30,7 +30,7 @@ class _TimelineDotState extends State<TimelineDot> {
           height: 14,
           decoration: BoxDecoration(
             shape: BoxShape.circle,
-            color: AppPalette.of(context).accentEnd,
+            color: AppPalette.of(context).accent,
           ),
         ),
       ),

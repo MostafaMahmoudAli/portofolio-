@@ -8,7 +8,7 @@ import '../../core/utils/download_file.dart';
 import '../../core/utils/open_link.dart';
 import '../../l10n/app_localizations.dart';
 import '../widgets/animated_counter.dart';
-import '../widgets/gradient_text.dart';
+import '../widgets/aurora_background.dart';
 import '../widgets/profile_photo.dart';
 import '../widgets/typewriter_text.dart';
 
@@ -80,16 +80,13 @@ class _HeroSectionState extends State<HeroSection> {
       key: _detailsKey,
       crossAxisAlignment: crossAlign,
       children: [
-        entrance(
-          0,
-          GradientText(profile.name, style: nameStyle, textAlign: align),
-        ),
+        entrance(0, Text(profile.name, style: nameStyle, textAlign: align)),
         const SizedBox(height: 12),
         entrance(
           1,
           TypewriterText(
             roles: roles,
-            style: textTheme.headlineSmall?.copyWith(color: palette.accentEnd),
+            style: textTheme.headlineSmall?.copyWith(color: palette.text),
             textAlign: align,
           ),
         ),
@@ -155,27 +152,31 @@ class _HeroSectionState extends State<HeroSection> {
       },
     );
 
-    return ConstrainedBox(
-      constraints: BoxConstraints(minHeight: MediaQuery.sizeOf(context).height),
-      child: Padding(
-        padding: const EdgeInsetsDirectional.fromSTEB(24, 104, 24, 48),
-        child: Center(
-          child: ConstrainedBox(
-            constraints: const BoxConstraints(maxWidth: 1200),
-            child: SizedBox(
-              width: double.infinity,
-              child: phone
-                  ? Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [photo, const SizedBox(height: 32), details],
-                    )
-                  : Row(
-                      children: [
-                        Expanded(child: details),
-                        const SizedBox(width: 48),
-                        photo,
-                      ],
-                    ),
+    return AuroraBackground(
+      child: ConstrainedBox(
+        constraints: BoxConstraints(
+          minHeight: MediaQuery.sizeOf(context).height,
+        ),
+        child: Padding(
+          padding: const EdgeInsetsDirectional.fromSTEB(24, 104, 24, 48),
+          child: Center(
+            child: ConstrainedBox(
+              constraints: const BoxConstraints(maxWidth: 1200),
+              child: SizedBox(
+                width: double.infinity,
+                child: phone
+                    ? Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [photo, const SizedBox(height: 32), details],
+                      )
+                    : Row(
+                        children: [
+                          Expanded(child: details),
+                          const SizedBox(width: 48),
+                          photo,
+                        ],
+                      ),
+              ),
             ),
           ),
         ),

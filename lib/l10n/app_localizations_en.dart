@@ -124,24 +124,24 @@ class AppLocalizationsEn extends AppLocalizations {
   String get email => 'Email';
 
   @override
-  String get highlightArchitectureTitle => 'Clean Architecture';
+  String get capabilityArchitectureTitle => 'Clean Architecture';
 
   @override
-  String get highlightArchitectureBody =>
+  String get capabilityArchitectureBody =>
       'Feature-first modules with clear layers, testable use cases and dependency injection.';
 
   @override
-  String get highlightReleasesTitle => 'Store releases';
+  String get capabilityReleasesTitle => 'Store releases';
 
   @override
-  String get highlightReleasesBody =>
+  String get capabilityReleasesBody =>
       'End-to-end Play Console and App Store Connect releases, gated by CI.';
 
   @override
-  String get highlightMediaTitle => 'Media & FFmpeg';
+  String get capabilityMediaTitle => 'Media & FFmpeg';
 
   @override
-  String get highlightMediaBody =>
+  String get capabilityMediaBody =>
       'On-device video and audio editing with FFmpeg, CameraX and custom pipelines.';
 
   @override

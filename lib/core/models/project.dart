@@ -71,7 +71,7 @@ class Project {
   /// Sort order across all projects, featured first.
   final int order;
 
-  /// Hex accent color like `#FF5C8A`, tinting the card glow and chips.
+  /// Legacy content metadata; presentation uses the shared app palette.
   final String accent;
   final LocalizedText summary;
   final List<LocalizedText> bullets;

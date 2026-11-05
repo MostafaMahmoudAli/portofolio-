@@ -12,7 +12,7 @@ import 'package:portfolio/core/models/project_video.dart';
 import 'package:portfolio/core/router/app_router.dart';
 import 'package:portfolio/core/theme/app_theme.dart';
 import 'package:portfolio/core/theme/theme_controller.dart';
-import 'package:portfolio/core/utils/project_accent.dart';
+import 'package:portfolio/core/theme/app_colors.dart';
 import 'package:portfolio/l10n/app_localizations.dart';
 import 'package:portfolio/presentation/pages/home_page.dart';
 import 'package:portfolio/presentation/pages/home_section.dart';
@@ -327,7 +327,6 @@ Future<void> main() async {
       );
       final poster = tester.widget<ProjectPoster>(find.byType(ProjectPoster));
       expect(poster.path, cover);
-      expect(poster.accentColor, project.accentColor);
       if (cover == null) {
         expect(find.byType(ProjectPlaceholder), findsOneWidget);
         expect(
@@ -354,7 +353,7 @@ Future<void> main() async {
   }
 
   testWidgets(
-    'poster and player share viewport bounds and accent placeholder',
+    'poster and player share viewport bounds and neutral placeholder',
     (tester) async {
       platform.failCreate = true;
       final project = testProject(1);
@@ -379,11 +378,28 @@ Future<void> main() async {
         find.descendant(of: media, matching: find.byType(ProjectPlaceholder)),
       );
       expect(placeholders.length, 2);
-      expect(
-        placeholders.every((p) => p.accentColor == project.accentColor),
-        isTrue,
-      );
-      expect(project.accentColor, const Color(0xFF7C5CFF));
+      for (final element
+          in find
+              .descendant(of: media, matching: find.byType(ProjectPlaceholder))
+              .evaluate()) {
+        final decoration =
+            tester
+                    .widget<Container>(
+                      find
+                          .descendant(
+                            of: find.byWidget(element.widget),
+                            matching: find.byType(Container),
+                          )
+                          .first,
+                    )
+                    .decoration!
+                as BoxDecoration;
+        expect(decoration.color, AppPalette.light.surface);
+        expect(
+          (decoration.border! as Border).top.color,
+          AppPalette.light.accent,
+        );
+      }
       expect(tester.takeException(), isNull);
       await unmount(tester);
     },
