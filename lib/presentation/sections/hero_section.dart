@@ -4,6 +4,7 @@ import 'package:flutter_animate/flutter_animate.dart';
 import '../../core/app_scope.dart';
 import '../../core/theme/app_colors.dart';
 import '../../core/utils/breakpoints.dart';
+import '../../core/utils/download_file.dart';
 import '../../core/utils/open_link.dart';
 import '../../l10n/app_localizations.dart';
 import '../widgets/animated_counter.dart';
@@ -115,7 +116,8 @@ class _HeroSectionState extends State<HeroSection> {
                 label: Text(l10n.viewProjects),
               ),
               OutlinedButton.icon(
-                onPressed: () => openLink(profile.resumePdf),
+                onPressed: () =>
+                    downloadFile(profile.resumePdf, resumeFileName),
                 icon: const Icon(Icons.download_rounded),
                 label: Text(l10n.downloadResume),
               ),

@@ -2,9 +2,10 @@ import 'dart:ui' show ImageFilter;
 
 import 'package:flutter/material.dart';
 
+import '../../core/app_scope.dart';
 import '../../core/theme/app_colors.dart';
 import '../../core/utils/breakpoints.dart';
-import '../../core/utils/open_link.dart';
+import '../../core/utils/download_file.dart';
 import '../../l10n/app_localizations.dart';
 import '../pages/home_section.dart';
 import 'gradient_text.dart';
@@ -73,7 +74,10 @@ class NavBar extends StatelessWidget {
                         const ThemeToggle(),
                         const SizedBox(width: 8),
                         FilledButton(
-                          onPressed: () => openLink('resume.pdf'),
+                          onPressed: () => downloadFile(
+                            AppScope.of(context).content.profile.resumePdf,
+                            resumeFileName,
+                          ),
                           child: Text(l10n.resume),
                         ),
                       ] else

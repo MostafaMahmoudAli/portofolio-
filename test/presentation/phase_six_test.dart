@@ -109,10 +109,17 @@ Future<void> main() async {
       }
 
       final cardStart = startEdge(cards.first);
+      double endEdge(Finder card) {
+        final rect = tester.getRect(card);
+        return language == 'ar' ? rect.left : rect.right;
+      }
+
+      final cardEnd = endEdge(cards.first);
       for (var i = 0; i < count; i++) {
         expect(tester.getCenter(dots.at(i)).dx, closeTo(dotX, 1));
         expect(tester.getCenter(dots.at(i)).dx, closeTo(lineX, 1));
         expect(startEdge(cards.at(i)), closeTo(cardStart, 1));
+        expect(endEdge(cards.at(i)), closeTo(cardEnd, 1));
       }
       await helpers.unmount(tester);
     });

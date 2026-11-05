@@ -51,7 +51,7 @@ class FeaturedProjectsSection extends StatelessWidget {
           SliverList.builder(
             itemCount: featured.length,
             itemBuilder: (context, index) => Padding(
-              padding: const EdgeInsetsDirectional.symmetric(vertical: 18),
+              padding: const EdgeInsetsDirectional.symmetric(vertical: 12),
               child: RevealOnScroll(
                 child: _FeaturedCard(project: featured[index], index: index),
               ),
@@ -104,9 +104,9 @@ class _FeaturedCardState extends State<_FeaturedCard> {
             project: widget.project,
             video: video,
             width: switch (screen) {
-              ScreenSize.phone => 240,
-              ScreenSize.tablet => 260,
-              ScreenSize.desktop => 300,
+              ScreenSize.phone => 200,
+              ScreenSize.tablet => 200,
+              ScreenSize.desktop => 220,
             },
             accent: _accent,
           );
@@ -127,7 +127,7 @@ class _FeaturedCardState extends State<_FeaturedCard> {
     } else {
       final sides = [
         ?videoSide,
-        if (videoSide != null) const SizedBox(width: 40),
+        if (videoSide != null) const SizedBox(width: 32),
         Expanded(child: text),
       ];
       body = Row(
@@ -136,7 +136,7 @@ class _FeaturedCardState extends State<_FeaturedCard> {
     }
 
     final card = GlassCard(
-      padding: EdgeInsetsDirectional.all(screen == ScreenSize.phone ? 20 : 32),
+      padding: EdgeInsetsDirectional.all(screen == ScreenSize.phone ? 16 : 24),
       child: body,
     );
 
@@ -200,14 +200,14 @@ class _CardText extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(project.title.of(locale), style: textTheme.headlineMedium),
+        Text(project.title.of(locale), style: textTheme.headlineSmall),
         const SizedBox(height: 4),
         Text(
           project.subtitle.of(locale),
           style: textTheme.bodyMedium?.copyWith(color: muted),
         ),
         const SizedBox(height: 16),
-        Text(project.summary.of(locale), style: textTheme.bodyLarge),
+        Text(project.summary.of(locale), style: textTheme.bodyMedium),
         const SizedBox(height: 16),
         Wrap(
           spacing: 8,

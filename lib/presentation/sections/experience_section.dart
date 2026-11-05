@@ -98,6 +98,7 @@ class _ExperienceSectionState extends State<ExperienceSection> {
                     Padding(
                       padding: const EdgeInsetsDirectional.only(bottom: 24),
                       child: Stack(
+                        fit: StackFit.passthrough,
                         children: [
                           PositionedDirectional(
                             start: 0,

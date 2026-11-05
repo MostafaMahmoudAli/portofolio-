@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../core/utils/open_link.dart';
+import '../../core/app_scope.dart';
+import '../../core/utils/download_file.dart';
 import '../../l10n/app_localizations.dart';
 import '../pages/home_section.dart';
 import 'language_toggle.dart';
@@ -64,7 +65,10 @@ class NavMenuSheet extends StatelessWidget {
                   children: [LanguageToggle(), ThemeToggle()],
                 ),
                 FilledButton(
-                  onPressed: () => openLink('resume.pdf'),
+                  onPressed: () => downloadFile(
+                    AppScope.of(context).content.profile.resumePdf,
+                    resumeFileName,
+                  ),
                   child: Text(l10n.resume),
                 ),
               ],
