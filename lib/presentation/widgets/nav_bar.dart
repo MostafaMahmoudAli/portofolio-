@@ -14,7 +14,11 @@ import 'theme_toggle.dart';
 
 /// Sticky glass bar. Desktop shows the links inline; phone and tablet use a menu sheet.
 class NavBar extends StatelessWidget {
-  const NavBar({super.key, required this.onSectionTap, required this.onLogoTap});
+  const NavBar({
+    super.key,
+    required this.onSectionTap,
+    required this.onLogoTap,
+  });
 
   final ValueChanged<HomeSection> onSectionTap;
   final VoidCallback onLogoTap;
@@ -37,7 +41,9 @@ class NavBar extends StatelessWidget {
               border: Border(bottom: BorderSide(color: palette.surfaceBorder)),
             ),
             child: Padding(
-              padding: EdgeInsetsDirectional.symmetric(horizontal: desktop ? 24 : 16),
+              padding: EdgeInsetsDirectional.symmetric(
+                horizontal: desktop ? 24 : 16,
+              ),
               child: Center(
                 child: ConstrainedBox(
                   constraints: const BoxConstraints(maxWidth: 1200),
@@ -45,7 +51,10 @@ class NavBar extends StatelessWidget {
                     children: [
                       TextButton(
                         onPressed: onLogoTap,
-                        child: GradientText('MM', style: textTheme.headlineSmall),
+                        child: GradientText(
+                          'MM',
+                          style: textTheme.headlineSmall,
+                        ),
                       ),
                       const Spacer(),
                       if (desktop) ...[
@@ -54,7 +63,9 @@ class NavBar extends StatelessWidget {
                             onPressed: () => onSectionTap(s),
                             child: Text(
                               s.label(l10n),
-                              style: textTheme.labelLarge?.copyWith(color: palette.text),
+                              style: textTheme.labelLarge?.copyWith(
+                                color: palette.text,
+                              ),
                             ),
                           ),
                         const SizedBox(width: 8),
@@ -69,7 +80,10 @@ class NavBar extends StatelessWidget {
                         IconButton(
                           icon: const Icon(Icons.menu_rounded),
                           tooltip: l10n.menu,
-                          onPressed: () => showNavMenuSheet(context, onSectionTap: onSectionTap),
+                          onPressed: () => showNavMenuSheet(
+                            context,
+                            onSectionTap: onSectionTap,
+                          ),
                         ),
                     ],
                   ),

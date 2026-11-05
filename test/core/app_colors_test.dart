@@ -4,10 +4,14 @@ import 'package:portfolio/core/theme/app_colors.dart';
 
 void main() {
   test('lerp moves from dark to light background', () {
-    expect(AppPalette.dark.lerp(AppPalette.light, 0).background,
-        AppPalette.dark.background);
-    expect(AppPalette.dark.lerp(AppPalette.light, 1).background,
-        AppPalette.light.background);
+    expect(
+      AppPalette.dark.lerp(AppPalette.light, 0).background,
+      AppPalette.dark.background,
+    );
+    expect(
+      AppPalette.dark.lerp(AppPalette.light, 1).background,
+      AppPalette.light.background,
+    );
   });
 
   test('copyWith replaces only the given token', () {

@@ -15,36 +15,51 @@ void main() {
       expect(ThemeController(await prefsWith({})).value, ThemeMode.system);
     });
 
-    test('toggle switches away from what is on screen and is remembered', () async {
-      final prefs = await prefsWith({});
-      ThemeController(prefs).toggle(Brightness.dark);
-      expect(ThemeController(prefs).value, ThemeMode.light);
-      ThemeController(prefs).toggle(Brightness.light);
-      expect(ThemeController(prefs).value, ThemeMode.dark);
-    });
+    test(
+      'toggle switches away from what is on screen and is remembered',
+      () async {
+        final prefs = await prefsWith({});
+        ThemeController(prefs).toggle(Brightness.dark);
+        expect(ThemeController(prefs).value, ThemeMode.light);
+        ThemeController(prefs).toggle(Brightness.light);
+        expect(ThemeController(prefs).value, ThemeMode.dark);
+      },
+    );
   });
 
   group('LocaleController', () {
     test('first visit follows the browser language', () async {
       final prefs = await prefsWith({});
-      expect(LocaleController(prefs, platformLocale: const Locale('ar', 'EG')).value,
-          LocaleController.arabic);
-      expect(LocaleController(prefs, platformLocale: const Locale('fr')).value,
-          LocaleController.english);
+      expect(
+        LocaleController(prefs, platformLocale: const Locale('ar', 'EG')).value,
+        LocaleController.arabic,
+      );
+      expect(
+        LocaleController(prefs, platformLocale: const Locale('fr')).value,
+        LocaleController.english,
+      );
     });
 
     test('a saved choice beats the browser language', () async {
       final prefs = await prefsWith({'languageCode': 'en'});
-      expect(LocaleController(prefs, platformLocale: const Locale('ar')).value,
-          LocaleController.english);
+      expect(
+        LocaleController(prefs, platformLocale: const Locale('ar')).value,
+        LocaleController.english,
+      );
     });
 
     test('set is remembered', () async {
       final prefs = await prefsWith({});
-      final controller = LocaleController(prefs, platformLocale: const Locale('en'));
+      final controller = LocaleController(
+        prefs,
+        platformLocale: const Locale('en'),
+      );
       expect(controller.other, LocaleController.arabic);
       controller.set(controller.other);
-      expect(LocaleController(prefs, platformLocale: const Locale('en')).isArabic, isTrue);
+      expect(
+        LocaleController(prefs, platformLocale: const Locale('en')).isArabic,
+        isTrue,
+      );
     });
   });
 }

@@ -62,7 +62,9 @@ Future<void> main() async {
   setUp(() => VideoPlayerPlatform.instance = FakeVideoPlatform());
 
   for (final language in ['en', 'ar']) {
-    testWidgets('timeline entries align at 1440 px in $language', (tester) async {
+    testWidgets('timeline entries align at 1440 px in $language', (
+      tester,
+    ) async {
       // Ahem's wide glyphs make every entry wrap to full width, hiding this bug.
       await tester.runAsync(() async {
         for (final (family, file) in [
@@ -70,9 +72,9 @@ Future<void> main() async {
           ('SpaceGrotesk', 'SpaceGrotesk-Bold.ttf'),
           ('IBMPlexSansArabic', 'IBMPlexSansArabic-Regular.ttf'),
         ]) {
-          await (FontLoader(family)
-                ..addFont(rootBundle.load('assets/fonts/$file')))
-              .load();
+          await (FontLoader(
+            family,
+          )..addFont(rootBundle.load('assets/fonts/$file'))).load();
         }
       });
       await helpers.pumpPage(
@@ -85,7 +87,9 @@ Future<void> main() async {
       final l10n = AppLocalizations.of(tester.element(find.byType(HomePage)));
       await navigate(tester, l10n.navExperience);
       final line = find.byKey(const ValueKey('timeline-line'));
-      final timeline = find.ancestor(of: line, matching: find.byType(Stack)).first;
+      final timeline = find
+          .ancestor(of: line, matching: find.byType(Stack))
+          .first;
       final dots = find.descendant(
         of: timeline,
         matching: find.byType(TimelineDot),

@@ -61,17 +61,16 @@ class AppPalette extends ThemeExtension<AppPalette> {
     Color? accentStart,
     Color? accentEnd,
     Color? highlight,
-  }) =>
-      AppPalette(
-        background: background ?? this.background,
-        surface: surface ?? this.surface,
-        surfaceBorder: surfaceBorder ?? this.surfaceBorder,
-        text: text ?? this.text,
-        mutedText: mutedText ?? this.mutedText,
-        accentStart: accentStart ?? this.accentStart,
-        accentEnd: accentEnd ?? this.accentEnd,
-        highlight: highlight ?? this.highlight,
-      );
+  }) => AppPalette(
+    background: background ?? this.background,
+    surface: surface ?? this.surface,
+    surfaceBorder: surfaceBorder ?? this.surfaceBorder,
+    text: text ?? this.text,
+    mutedText: mutedText ?? this.mutedText,
+    accentStart: accentStart ?? this.accentStart,
+    accentEnd: accentEnd ?? this.accentEnd,
+    highlight: highlight ?? this.highlight,
+  );
 
   @override
   AppPalette lerp(AppPalette? other, double t) {

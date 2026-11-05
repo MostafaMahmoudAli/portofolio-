@@ -18,7 +18,11 @@ class LanguageToggle extends StatelessWidget {
 
     return Tooltip(
       message: l10n.languageToggleTooltip,
-      textStyle: const TextStyle(fontFamily: family, color: Colors.white, fontSize: 13),
+      textStyle: const TextStyle(
+        fontFamily: family,
+        color: Colors.white,
+        fontSize: 13,
+      ),
       child: IconButton(
         onPressed: () => LanguageFlip.of(context).flip(),
         icon: AnimatedSwitcher(
@@ -31,9 +35,9 @@ class LanguageToggle extends StatelessWidget {
             l10n.languageToggleLabel,
             key: ValueKey(l10n.languageToggleLabel),
             style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                  fontFamily: family,
-                  fontWeight: FontWeight.w700,
-                ),
+              fontFamily: family,
+              fontWeight: FontWeight.w700,
+            ),
           ),
         ),
       ),

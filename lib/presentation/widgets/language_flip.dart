@@ -23,7 +23,8 @@ class LanguageFlip extends StatefulWidget {
   State<LanguageFlip> createState() => LanguageFlipState();
 }
 
-class LanguageFlipState extends State<LanguageFlip> with SingleTickerProviderStateMixin {
+class LanguageFlipState extends State<LanguageFlip>
+    with SingleTickerProviderStateMixin {
   // 0 → 0.5 turning away, 0.5 edge-on (locale switches), 0.5 → 1 turning back.
   late final AnimationController _controller = AnimationController(vsync: this);
   double _direction = 1;
@@ -66,7 +67,8 @@ class LanguageFlipState extends State<LanguageFlip> with SingleTickerProviderSta
         final t = _controller.value;
         final peak = 1 - (2 * t - 1).abs(); // 0 at rest, 1 edge-on
         final rotate = !_reducedMotion && t > 0 && t < 1;
-        final angle = (t <= 0.5 ? t * 2 : (t - 1) * 2) * (math.pi / 2) * _direction;
+        final angle =
+            (t <= 0.5 ? t * 2 : (t - 1) * 2) * (math.pi / 2) * _direction;
         final scale = 1 - 0.06 * peak;
         final glow = rotate ? peak : 0.0;
 
@@ -78,10 +80,10 @@ class LanguageFlipState extends State<LanguageFlip> with SingleTickerProviderSta
               alignment: Alignment.center,
               transform: rotate
                   ? (Matrix4.identity()
-                    // Perspective relative to width keeps the near edge from ballooning.
-                    ..setEntry(3, 2, 1 / (2 * width))
-                    ..rotateY(angle)
-                    ..scaleByDouble(scale, scale, 1, 1))
+                      // Perspective relative to width keeps the near edge from ballooning.
+                      ..setEntry(3, 2, 1 / (2 * width))
+                      ..rotateY(angle)
+                      ..scaleByDouble(scale, scale, 1, 1))
                   : Matrix4.identity(),
               child: DecoratedBox(
                 position: DecorationPosition.foreground,
