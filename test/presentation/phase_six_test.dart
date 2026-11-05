@@ -264,6 +264,35 @@ Future<void> main() async {
               scroll.jumpTo(y.clamp(0, scroll.maxScrollExtent));
               await helpers.frames(tester, 2);
               expect(tester.takeException(), isNull, reason: 'offset $y');
+              for (final element
+                  in find
+                      .byWidgetPredicate(
+                        (w) => w is ButtonStyleButton || w is IconButton,
+                      )
+                      .evaluate()) {
+                final button = find.byWidget(element.widget);
+                final size = tester.getSize(button);
+                expect(
+                  size.width,
+                  greaterThanOrEqualTo(48),
+                  reason: '${element.widget} at $y',
+                );
+                expect(
+                  size.height,
+                  greaterThanOrEqualTo(48),
+                  reason: '${element.widget} at $y',
+                );
+                if (element.widget case IconButton(:final tooltip)) {
+                  expect(
+                    tooltip ??
+                        element
+                            .findAncestorWidgetOfExactType<Tooltip>()
+                            ?.message,
+                    isNotNull,
+                    reason: 'icon-only button at $y',
+                  );
+                }
+              }
               expect(
                 find.byWidgetPredicate(
                   (w) =>

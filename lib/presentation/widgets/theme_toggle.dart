@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../core/app_scope.dart';
 import '../../l10n/app_localizations.dart';
+import 'theme_reveal.dart';
 
 /// Sun / moon button. The icon spins and scales into the other one.
 // shortcut: no circular theme reveal yet (spec section 3), add in Phase 7 polish.
@@ -17,7 +18,15 @@ class ThemeToggle extends StatelessWidget {
 
     return IconButton(
       tooltip: isDark ? l10n.themeToLight : l10n.themeToDark,
-      onPressed: () => AppScope.of(context).theme.toggle(brightness),
+      onPressed: () {
+        void toggle() => AppScope.of(context).theme.toggle(brightness);
+        final reveal = ThemeReveal.maybeOf(context);
+        if (reveal == null) {
+          toggle();
+        } else {
+          reveal.toggle(context, toggle);
+        }
+      },
       icon: AnimatedSwitcher(
         duration: Duration(milliseconds: reduceMotion ? 0 : 400),
         transitionBuilder: (child, animation) => RotationTransition(

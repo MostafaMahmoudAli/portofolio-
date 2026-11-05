@@ -32,6 +32,19 @@ abstract final class AppTheme {
         palette.mutedText,
       ),
       iconTheme: IconThemeData(color: palette.text),
+      materialTapTargetSize: MaterialTapTargetSize.padded,
+      iconButtonTheme: const IconButtonThemeData(
+        style: ButtonStyle(minimumSize: WidgetStatePropertyAll(Size(48, 48))),
+      ),
+      textButtonTheme: const TextButtonThemeData(
+        style: ButtonStyle(minimumSize: WidgetStatePropertyAll(Size(48, 48))),
+      ),
+      filledButtonTheme: const FilledButtonThemeData(
+        style: ButtonStyle(minimumSize: WidgetStatePropertyAll(Size(48, 48))),
+      ),
+      outlinedButtonTheme: const OutlinedButtonThemeData(
+        style: ButtonStyle(minimumSize: WidgetStatePropertyAll(Size(48, 48))),
+      ),
       // From the theme, not the call site, so an open sheet follows a theme switch.
       bottomSheetTheme: BottomSheetThemeData(
         backgroundColor: palette.background,

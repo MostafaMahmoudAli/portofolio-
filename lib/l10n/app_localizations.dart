@@ -146,6 +146,30 @@ abstract class AppLocalizations {
   /// **'Menu'**
   String get menu;
 
+  /// No description provided for @playVideo.
+  ///
+  /// In en, this message translates to:
+  /// **'Play video'**
+  String get playVideo;
+
+  /// No description provided for @pauseVideo.
+  ///
+  /// In en, this message translates to:
+  /// **'Pause video'**
+  String get pauseVideo;
+
+  /// No description provided for @muteVideo.
+  ///
+  /// In en, this message translates to:
+  /// **'Mute video'**
+  String get muteVideo;
+
+  /// No description provided for @unmuteVideo.
+  ///
+  /// In en, this message translates to:
+  /// **'Unmute video'**
+  String get unmuteVideo;
+
   /// No description provided for @closeMenu.
   ///
   /// In en, this message translates to:

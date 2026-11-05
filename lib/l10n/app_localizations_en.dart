@@ -33,6 +33,18 @@ class AppLocalizationsEn extends AppLocalizations {
   String get menu => 'Menu';
 
   @override
+  String get playVideo => 'Play video';
+
+  @override
+  String get pauseVideo => 'Pause video';
+
+  @override
+  String get muteVideo => 'Mute video';
+
+  @override
+  String get unmuteVideo => 'Unmute video';
+
+  @override
   String get closeMenu => 'Close menu';
 
   @override

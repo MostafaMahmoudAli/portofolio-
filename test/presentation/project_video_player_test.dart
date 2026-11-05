@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:portfolio/l10n/app_localizations.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:portfolio/core/models/project_video.dart';
@@ -105,6 +106,8 @@ Future<ScrollController> pumpPlayers(
   addTearDown(scroll.dispose);
   await tester.pumpWidget(
     MaterialApp(
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      supportedLocales: AppLocalizations.supportedLocales,
       theme: ThemeData(extensions: const [AppPalette.light]),
       home: (lazy ? ListView.new : _eagerList)(
         controller: scroll,

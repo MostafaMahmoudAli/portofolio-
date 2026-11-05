@@ -108,8 +108,8 @@ class _ProjectVideoGalleryState extends State<ProjectVideoGallery> {
                           }
                         },
                         child: Container(
-                          width: phone ? 32 : 96,
-                          height: phone ? 32 : 64,
+                          width: phone ? 48 : 96,
+                          height: phone ? 48 : 64,
                           padding: const EdgeInsetsDirectional.all(4),
                           decoration: BoxDecoration(
                             border: Border.all(

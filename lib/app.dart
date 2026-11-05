@@ -11,6 +11,7 @@ import 'core/theme/theme_controller.dart';
 import 'l10n/app_localizations.dart';
 import 'presentation/widgets/aurora_background.dart';
 import 'presentation/widgets/language_flip.dart';
+import 'presentation/widgets/theme_reveal.dart';
 
 class PortfolioApp extends StatefulWidget {
   const PortfolioApp({
@@ -56,14 +57,17 @@ class _PortfolioAppState extends State<PortfolioApp> {
             theme: AppTheme.build(Brightness.light, locale),
             darkTheme: AppTheme.build(Brightness.dark, locale),
             themeMode: widget.themeController.value,
+            themeAnimationDuration: Duration.zero,
             locale: locale,
             supportedLocales: AppLocalizations.supportedLocales,
             localizationsDelegates: AppLocalizations.localizationsDelegates,
             routerConfig: _router,
             // The background and aurora stay still while the page flips over them.
-            builder: (context, child) => ColoredBox(
-              color: AppPalette.of(context).background,
-              child: AuroraBackground(child: LanguageFlip(child: child!)),
+            builder: (context, child) => ThemeReveal(
+              child: ColoredBox(
+                color: AppPalette.of(context).background,
+                child: AuroraBackground(child: LanguageFlip(child: child!)),
+              ),
             ),
           );
         },

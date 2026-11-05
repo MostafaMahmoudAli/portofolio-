@@ -27,8 +27,7 @@ class StoreBadge extends StatelessWidget {
           horizontal: 10,
           vertical: 8,
         ),
-        minimumSize: Size.zero,
-        tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+        minimumSize: const Size(48, 48),
       ),
     );
   }

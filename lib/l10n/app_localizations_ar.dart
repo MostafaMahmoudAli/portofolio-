@@ -33,6 +33,18 @@ class AppLocalizationsAr extends AppLocalizations {
   String get menu => 'القائمة';
 
   @override
+  String get playVideo => 'تشغيل الفيديو';
+
+  @override
+  String get pauseVideo => 'إيقاف الفيديو مؤقتًا';
+
+  @override
+  String get muteVideo => 'كتم صوت الفيديو';
+
+  @override
+  String get unmuteVideo => 'تشغيل صوت الفيديو';
+
+  @override
   String get closeMenu => 'إغلاق القائمة';
 
   @override

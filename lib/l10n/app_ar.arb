@@ -1,5 +1,9 @@
 {
   "@@locale": "ar",
+  "playVideo": "تشغيل الفيديو",
+  "pauseVideo": "إيقاف الفيديو مؤقتًا",
+  "muteVideo": "كتم صوت الفيديو",
+  "unmuteVideo": "تشغيل صوت الفيديو",
   "appTitle": "مصطفى محمود — مطوّر Flutter",
   "navAbout": "نبذة",
   "navProjects": "المشاريع",
