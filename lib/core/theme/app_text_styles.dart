@@ -13,20 +13,23 @@ abstract final class AppTextStyles {
     final headingHeight = arabic ? 1.4 : 1.15;
 
     TextStyle h(double size) => TextStyle(
-          fontFamily: heading,
-          fontSize: size,
-          fontWeight: FontWeight.w700,
-          height: headingHeight,
-          color: text,
-        );
-    TextStyle b(double size, {FontWeight weight = FontWeight.w400, Color? color}) =>
-        TextStyle(
-          fontFamily: body,
-          fontSize: size,
-          fontWeight: weight,
-          height: 1.5,
-          color: color ?? text,
-        );
+      fontFamily: heading,
+      fontSize: size,
+      fontWeight: FontWeight.w700,
+      height: headingHeight,
+      color: text,
+    );
+    TextStyle b(
+      double size, {
+      FontWeight weight = FontWeight.w400,
+      Color? color,
+    }) => TextStyle(
+      fontFamily: body,
+      fontSize: size,
+      fontWeight: weight,
+      height: 1.5,
+      color: color ?? text,
+    );
 
     return TextTheme(
       displayLarge: h(64),

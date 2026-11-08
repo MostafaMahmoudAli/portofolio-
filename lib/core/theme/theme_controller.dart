@@ -8,7 +8,8 @@ class ThemeController extends ValueNotifier<ThemeMode> {
   static const _key = 'themeMode';
   final SharedPreferences _prefs;
 
-  static ThemeMode _read(SharedPreferences prefs) => switch (prefs.getString(_key)) {
+  static ThemeMode _read(SharedPreferences prefs) =>
+      switch (prefs.getString(_key)) {
         'dark' => ThemeMode.dark,
         'light' => ThemeMode.light,
         _ => ThemeMode.system,

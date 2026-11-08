@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../core/theme/app_text_styles.dart';
+import '../../core/theme/app_colors.dart';
 import '../../l10n/app_localizations.dart';
 import 'language_flip.dart';
 
@@ -18,8 +19,23 @@ class LanguageToggle extends StatelessWidget {
 
     return Tooltip(
       message: l10n.languageToggleTooltip,
-      textStyle: const TextStyle(fontFamily: family, color: Colors.white, fontSize: 13),
+      textStyle: TextStyle(
+        fontFamily: family,
+        color: AppPalette.of(context).background,
+        fontSize: 13,
+      ),
       child: IconButton(
+        style: ButtonStyle(
+          side: WidgetStateProperty.resolveWith(
+            (states) => BorderSide(
+              color:
+                  Localizations.localeOf(context).languageCode == 'ar' ||
+                      states.contains(WidgetState.focused)
+                  ? AppPalette.of(context).accent
+                  : Colors.transparent,
+            ),
+          ),
+        ),
         onPressed: () => LanguageFlip.of(context).flip(),
         icon: AnimatedSwitcher(
           duration: Duration(milliseconds: reduceMotion ? 0 : 300),
@@ -31,9 +47,9 @@ class LanguageToggle extends StatelessWidget {
             l10n.languageToggleLabel,
             key: ValueKey(l10n.languageToggleLabel),
             style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                  fontFamily: family,
-                  fontWeight: FontWeight.w700,
-                ),
+              fontFamily: family,
+              fontWeight: FontWeight.w700,
+            ),
           ),
         ),
       ),

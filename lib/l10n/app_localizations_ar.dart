@@ -33,6 +33,18 @@ class AppLocalizationsAr extends AppLocalizations {
   String get menu => 'القائمة';
 
   @override
+  String get playVideo => 'تشغيل الفيديو';
+
+  @override
+  String get pauseVideo => 'إيقاف الفيديو مؤقتًا';
+
+  @override
+  String get muteVideo => 'كتم صوت الفيديو';
+
+  @override
+  String get unmuteVideo => 'تشغيل صوت الفيديو';
+
+  @override
   String get closeMenu => 'إغلاق القائمة';
 
   @override
@@ -48,7 +60,30 @@ class AppLocalizationsAr extends AppLocalizations {
   String get languageToggleTooltip => 'Switch to English';
 
   @override
-  String get sectionComingSoon => 'قريبًا';
+  String get educationCertifications => 'التعليم والشهادات';
+
+  @override
+  String get languages => 'اللغات';
+
+  @override
+  String get contactCta => 'لنبنِ شيئًا رائعًا معًا.';
+
+  @override
+  String get copyEmail => 'نسخ البريد الإلكتروني';
+
+  @override
+  String get emailCopied => 'تم نسخ البريد الإلكتروني';
+
+  @override
+  String get sendEmail => 'إرسال بريد إلكتروني';
+
+  @override
+  String get backToTop => 'العودة إلى الأعلى';
+
+  @override
+  String footerCredit(int year) {
+    return 'بُني باستخدام Flutter · © $year';
+  }
 
   @override
   String projectComingSoon(String slug) {
@@ -89,24 +124,24 @@ class AppLocalizationsAr extends AppLocalizations {
   String get email => 'البريد الإلكتروني';
 
   @override
-  String get highlightArchitectureTitle => 'المعمارية النظيفة';
+  String get capabilityArchitectureTitle => 'المعمارية النظيفة';
 
   @override
-  String get highlightArchitectureBody =>
+  String get capabilityArchitectureBody =>
       'وحدات مبنية على الميزات بطبقات واضحة وحالات استخدام قابلة للاختبار وحقن للتبعيات.';
 
   @override
-  String get highlightReleasesTitle => 'إصدارات المتاجر';
+  String get capabilityReleasesTitle => 'إصدارات المتاجر';
 
   @override
-  String get highlightReleasesBody =>
+  String get capabilityReleasesBody =>
       'إصدارات كاملة على Play Console وApp Store Connect مع بوابات CI.';
 
   @override
-  String get highlightMediaTitle => 'الوسائط وFFmpeg';
+  String get capabilityMediaTitle => 'الوسائط وFFmpeg';
 
   @override
-  String get highlightMediaBody =>
+  String get capabilityMediaBody =>
       'تحرير الفيديو والصوت على الجهاز باستخدام FFmpeg وCameraX ومسارات مخصصة.';
 
   @override
@@ -123,4 +158,18 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get viewOnGitHub => 'عرض على GitHub';
+
+  @override
+  String get viewLive => 'عرض الموقع';
+
+  @override
+  String get previousProject => 'المشروع السابق';
+
+  @override
+  String get nextProject => 'المشروع التالي';
+
+  @override
+  String selectVideo(int number) {
+    return 'تشغيل الفيديو $number';
+  }
 }

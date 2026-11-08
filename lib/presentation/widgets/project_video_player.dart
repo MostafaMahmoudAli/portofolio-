@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import '../../l10n/app_localizations.dart';
 import 'package:video_player/video_player.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
 import '../../core/models/project_video.dart';
 import '../../core/theme/app_colors.dart';
+import 'project_placeholder.dart';
 
 /// Keeps at most two video controllers alive at a time. When a third
 /// controller is needed, the oldest (least recently used) one is disposed.
@@ -71,7 +73,7 @@ class VideoControllerManager {
 /// then it plays muted and looped while visible and pauses when it leaves.
 /// At most two controllers are alive at a time, managed by
 /// [VideoControllerManager]. A tap unmutes the video and shows simple
-/// controls. A missing poster shows an accent-gradient placeholder in its
+/// controls. A missing poster shows a neutral placeholder in its
 /// place; a failed video replaces the whole player with it. Under reduced motion the video does not
 /// autoplay; the poster is shown with a play button instead.
 ///
@@ -84,12 +86,10 @@ class ProjectVideoPlayer extends StatefulWidget {
     super.key,
     required this.video,
     required this.title,
-    required this.accentColor,
   });
 
   final ProjectVideo video;
   final String title;
-  final Color accentColor;
 
   @override
   State<ProjectVideoPlayer> createState() => _ProjectVideoPlayerState();
@@ -253,7 +253,7 @@ class _ProjectVideoPlayerState extends State<ProjectVideoPlayer> {
   @override
   Widget build(BuildContext context) {
     if (_videoError) {
-      return _Placeholder(accentColor: widget.accentColor, title: widget.title);
+      return ProjectPlaceholder(title: widget.title);
     }
 
     return VisibilityDetector(
@@ -269,10 +269,8 @@ class _ProjectVideoPlayerState extends State<ProjectVideoPlayer> {
               child: Image.network(
                 _posterUrl,
                 fit: BoxFit.cover,
-                errorBuilder: (context, error, stackTrace) => _Placeholder(
-                  accentColor: widget.accentColor,
-                  title: widget.title,
-                ),
+                errorBuilder: (context, error, stackTrace) =>
+                    ProjectPlaceholder(title: widget.title),
               ),
             ),
             if (_showVideo) Positioned.fill(child: VideoPlayer(_controller!)),
@@ -285,6 +283,7 @@ class _ProjectVideoPlayerState extends State<ProjectVideoPlayer> {
                       _visible &&
                       !(_controller?.value.isPlaying ?? false))
                     _ControlButton(
+                      label: AppLocalizations.of(context).playVideo,
                       icon: Icons.play_circle_rounded,
                       onTap: _onPlayTap,
                     ),
@@ -294,6 +293,9 @@ class _ProjectVideoPlayerState extends State<ProjectVideoPlayer> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         _ControlButton(
+                          label: _controller!.value.isPlaying
+                              ? AppLocalizations.of(context).pauseVideo
+                              : AppLocalizations.of(context).playVideo,
                           icon: _controller!.value.isPlaying
                               ? Icons.pause
                               : Icons.play_arrow,
@@ -301,6 +303,9 @@ class _ProjectVideoPlayerState extends State<ProjectVideoPlayer> {
                         ),
                         const SizedBox(width: 8),
                         _ControlButton(
+                          label: _muted
+                              ? AppLocalizations.of(context).unmuteVideo
+                              : AppLocalizations.of(context).muteVideo,
                           icon: _muted ? Icons.volume_off : Icons.volume_up,
                           onTap: _toggleMute,
                         ),
@@ -316,55 +321,45 @@ class _ProjectVideoPlayerState extends State<ProjectVideoPlayer> {
   }
 }
 
-class _Placeholder extends StatelessWidget {
-  const _Placeholder({required this.accentColor, required this.title});
-
-  final Color accentColor;
-  final String title;
-
-  @override
-  Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
-    return Container(
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          colors: [accentColor, accentColor.withValues(alpha: 0.7)],
-        ),
-        borderRadius: BorderRadius.circular(20),
-      ),
-      alignment: Alignment.center,
-      child: Text(
-        title,
-        style: textTheme.titleLarge?.copyWith(color: Colors.white),
-        textAlign: TextAlign.center,
-      ),
-    );
-  }
-}
-
 class _ControlButton extends StatelessWidget {
-  const _ControlButton({required this.icon, required this.onTap});
+  const _ControlButton({
+    required this.icon,
+    required this.onTap,
+    required this.label,
+  });
 
   final IconData icon;
   final VoidCallback onTap;
+  final String label;
 
   @override
   Widget build(BuildContext context) {
     final palette = AppPalette.of(context);
     return Material(
       color: Colors.transparent,
-      child: InkWell(
-        borderRadius: BorderRadius.circular(10),
-        onTap: onTap,
-        child: Container(
-          padding: const EdgeInsetsDirectional.all(8),
-          decoration: BoxDecoration(
-            color: palette.surface,
-            border: Border.all(color: palette.surfaceBorder),
-            borderRadius: BorderRadius.circular(10),
-          ),
-          child: Icon(icon, size: 20, color: palette.text),
-        ),
+      child: IconButton(
+        tooltip: label,
+        onPressed: onTap,
+        style:
+            IconButton.styleFrom(
+              minimumSize: const Size(48, 48),
+              backgroundColor: palette.surface,
+              side: BorderSide(color: palette.surfaceBorder),
+              shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadiusDirectional.all(Radius.circular(10)),
+              ),
+            ).copyWith(
+              side: WidgetStateProperty.resolveWith(
+                (states) => BorderSide(
+                  color:
+                      states.contains(WidgetState.hovered) ||
+                          states.contains(WidgetState.focused)
+                      ? palette.accent
+                      : palette.surfaceBorder,
+                ),
+              ),
+            ),
+        icon: Icon(icon, size: 20, color: palette.text),
       ),
     );
   }

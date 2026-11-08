@@ -41,6 +41,12 @@ class _AnimatedCounterState extends State<AnimatedCounter>
   bool _started = false;
 
   @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (MediaQuery.disableAnimationsOf(context)) _controller.stop();
+  }
+
+  @override
   void initState() {
     super.initState();
     _controller.addListener(_updateDisplay);

@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 import '../../core/theme/app_colors.dart';
 
-/// Circular profile photo inside a slowly rotating gradient ring.
+/// Circular profile photo inside a slowly rotating mint ring.
 ///
 /// The photo is resolved against [Uri.base] like other site media. Until it
 /// loads, or when it is missing, the name's initials stand in.
@@ -88,7 +88,7 @@ class _ProfilePhotoState extends State<ProfilePhoto>
                 builder: (context, _) => ring(_controller.value),
               ),
             Padding(
-              padding: EdgeInsets.all(ringWidth * 3),
+              padding: EdgeInsetsDirectional.all(ringWidth * 3),
               child: ClipOval(
                 child: SizedBox.expand(
                   child: Image.network(
@@ -121,16 +121,7 @@ class _Initials extends StatelessWidget {
     final palette = AppPalette.of(context);
 
     return DecoratedBox(
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          colors: [
-            palette.accentStart.withValues(alpha: 0.35),
-            palette.accentEnd.withValues(alpha: 0.25),
-          ],
-          begin: AlignmentDirectional.topStart,
-          end: AlignmentDirectional.bottomEnd,
-        ),
-      ),
+      decoration: BoxDecoration(color: palette.surface),
       child: Center(
         child: Text(
           initials,
@@ -161,16 +152,16 @@ class _RingPainter extends CustomPainter {
       ..style = PaintingStyle.stroke
       ..strokeWidth = stroke
       ..strokeCap = StrokeCap.round
-      ..shader = SweepGradient(
-        colors: [
-          palette.accentStart,
-          palette.accentEnd,
-          palette.highlight,
-          palette.accentStart,
-        ],
-        transform: GradientRotation(turns * 2 * math.pi),
-      ).createShader(Rect.fromCircle(center: center, radius: radius));
+      ..color = palette.accent.withValues(alpha: 0.25);
     canvas.drawCircle(center, radius, paint);
+    paint.color = palette.accent;
+    canvas.drawArc(
+      Rect.fromCircle(center: center, radius: radius),
+      turns * 2 * math.pi,
+      1.65 * math.pi,
+      false,
+      paint,
+    );
   }
 
   @override

@@ -10,8 +10,7 @@ import '../../core/theme/app_colors.dart';
 import '../../core/utils/breakpoints.dart';
 import '../../l10n/app_localizations.dart';
 import '../widgets/glass_card.dart';
-import '../widgets/phone_frame.dart';
-import '../widgets/project_video_player.dart';
+import '../widgets/project_media_frame.dart';
 import '../widgets/reveal_on_scroll.dart';
 import '../widgets/section_title.dart';
 import '../widgets/store_badges.dart';
@@ -51,7 +50,7 @@ class FeaturedProjectsSection extends StatelessWidget {
           SliverList.builder(
             itemCount: featured.length,
             itemBuilder: (context, index) => Padding(
-              padding: const EdgeInsetsDirectional.symmetric(vertical: 18),
+              padding: const EdgeInsetsDirectional.symmetric(vertical: 12),
               child: RevealOnScroll(
                 child: _FeaturedCard(project: featured[index], index: index),
               ),
@@ -74,10 +73,6 @@ class _FeaturedCard extends StatefulWidget {
 }
 
 class _FeaturedCardState extends State<_FeaturedCard> {
-  late final Color _accent = Color(
-    0xFF000000 | int.parse(widget.project.accent.substring(1), radix: 16),
-  );
-
   /// Cursor position over the card, -0.5..0.5 on each axis; null when not hovered.
   final _tilt = ValueNotifier<Offset?>(null);
 
@@ -98,25 +93,20 @@ class _FeaturedCardState extends State<_FeaturedCard> {
   @override
   Widget build(BuildContext context) {
     final screen = ScreenSize.of(context);
-    final locale = Localizations.localeOf(context);
     final video = widget.project.videos.firstOrNull;
 
     final videoSide = video == null
         ? null
-        : PhoneFrame(
+        : ProjectMediaFrame(
+            project: widget.project,
+            video: video,
             width: switch (screen) {
-              ScreenSize.phone => 240,
-              ScreenSize.tablet => 260,
-              ScreenSize.desktop => 300,
+              ScreenSize.phone => 200,
+              ScreenSize.tablet => 200,
+              ScreenSize.desktop => 220,
             },
-            accent: _accent,
-            child: ProjectVideoPlayer(
-              video: video,
-              title: widget.project.title.of(locale),
-              accentColor: _accent,
-            ),
           );
-    final text = _CardText(project: widget.project, accent: _accent);
+    final text = _CardText(project: widget.project);
 
     final Widget body;
     if (screen == ScreenSize.phone) {
@@ -133,7 +123,7 @@ class _FeaturedCardState extends State<_FeaturedCard> {
     } else {
       final sides = [
         ?videoSide,
-        if (videoSide != null) const SizedBox(width: 40),
+        if (videoSide != null) const SizedBox(width: 32),
         Expanded(child: text),
       ];
       body = Row(
@@ -142,7 +132,7 @@ class _FeaturedCardState extends State<_FeaturedCard> {
     }
 
     final card = GlassCard(
-      padding: EdgeInsetsDirectional.all(screen == ScreenSize.phone ? 20 : 32),
+      padding: EdgeInsetsDirectional.all(screen == ScreenSize.phone ? 16 : 24),
       child: body,
     );
 
@@ -175,7 +165,9 @@ class _FeaturedCardState extends State<_FeaturedCard> {
                 boxShadow: [
                   if (hovered)
                     BoxShadow(
-                      color: _accent.withValues(alpha: 0.35),
+                      color: AppPalette.of(
+                        context,
+                      ).text.withValues(alpha: 0.08),
                       blurRadius: 32,
                     ),
                 ],
@@ -190,10 +182,9 @@ class _FeaturedCardState extends State<_FeaturedCard> {
 }
 
 class _CardText extends StatelessWidget {
-  const _CardText({required this.project, required this.accent});
+  const _CardText({required this.project});
 
   final Project project;
-  final Color accent;
 
   @override
   Widget build(BuildContext context) {
@@ -206,22 +197,19 @@ class _CardText extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(project.title.of(locale), style: textTheme.headlineMedium),
+        Text(project.title.of(locale), style: textTheme.headlineSmall),
         const SizedBox(height: 4),
         Text(
           project.subtitle.of(locale),
           style: textTheme.bodyMedium?.copyWith(color: muted),
         ),
         const SizedBox(height: 16),
-        Text(project.summary.of(locale), style: textTheme.bodyLarge),
+        Text(project.summary.of(locale), style: textTheme.bodyMedium),
         const SizedBox(height: 16),
         Wrap(
           spacing: 8,
           runSpacing: 8,
-          children: [
-            for (final tech in project.tech)
-              TechChip(label: tech, color: accent),
-          ],
+          children: [for (final tech in project.tech) TechChip(label: tech)],
         ),
         if (status != null) ...[
           const SizedBox(height: 16),

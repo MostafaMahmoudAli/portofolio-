@@ -9,10 +9,10 @@ enum HomeSection {
   contact;
 
   String label(AppLocalizations l10n) => switch (this) {
-        about => l10n.navAbout,
-        projects => l10n.navProjects,
-        experience => l10n.navExperience,
-        skills => l10n.navSkills,
-        contact => l10n.navContact,
-      };
+    about => l10n.navAbout,
+    projects => l10n.navProjects,
+    experience => l10n.navExperience,
+    skills => l10n.navSkills,
+    contact => l10n.navContact,
+  };
 }

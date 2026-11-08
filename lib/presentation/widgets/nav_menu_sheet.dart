@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../core/utils/open_link.dart';
+import '../../core/app_scope.dart';
+import '../../core/utils/download_file.dart';
 import '../../l10n/app_localizations.dart';
 import '../pages/home_section.dart';
 import 'language_toggle.dart';
@@ -14,6 +15,7 @@ Future<void> showNavMenuSheet(
   return showModalBottomSheet(
     context: context,
     showDragHandle: true,
+    isScrollControlled: true,
     builder: (_) => NavMenuSheet(onSectionTap: onSectionTap),
   );
 }
@@ -52,13 +54,21 @@ class NavMenuSheet extends StatelessWidget {
                   onSectionTap(s);
                 },
               ),
-            Row(
+            Wrap(
+              spacing: 12,
+              runSpacing: 8,
+              alignment: WrapAlignment.spaceBetween,
+              crossAxisAlignment: WrapCrossAlignment.center,
               children: [
-                const LanguageToggle(),
-                const ThemeToggle(),
-                const Spacer(),
-                FilledButton(
-                  onPressed: () => openLink('resume.pdf'),
+                const Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [LanguageToggle(), ThemeToggle()],
+                ),
+                OutlinedButton(
+                  onPressed: () => downloadFile(
+                    AppScope.of(context).content.profile.resumePdf,
+                    resumeFileName,
+                  ),
                   child: Text(l10n.resume),
                 ),
               ],

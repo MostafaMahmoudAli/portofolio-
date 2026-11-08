@@ -33,6 +33,18 @@ class AppLocalizationsEn extends AppLocalizations {
   String get menu => 'Menu';
 
   @override
+  String get playVideo => 'Play video';
+
+  @override
+  String get pauseVideo => 'Pause video';
+
+  @override
+  String get muteVideo => 'Mute video';
+
+  @override
+  String get unmuteVideo => 'Unmute video';
+
+  @override
   String get closeMenu => 'Close menu';
 
   @override
@@ -48,7 +60,30 @@ class AppLocalizationsEn extends AppLocalizations {
   String get languageToggleTooltip => 'التبديل إلى العربية';
 
   @override
-  String get sectionComingSoon => 'Coming soon';
+  String get educationCertifications => 'Education & certifications';
+
+  @override
+  String get languages => 'Languages';
+
+  @override
+  String get contactCta => 'Let\'s build something great together.';
+
+  @override
+  String get copyEmail => 'Copy email';
+
+  @override
+  String get emailCopied => 'Email copied';
+
+  @override
+  String get sendEmail => 'Send email';
+
+  @override
+  String get backToTop => 'Back to top';
+
+  @override
+  String footerCredit(int year) {
+    return 'Built with Flutter · © $year';
+  }
 
   @override
   String projectComingSoon(String slug) {
@@ -89,24 +124,24 @@ class AppLocalizationsEn extends AppLocalizations {
   String get email => 'Email';
 
   @override
-  String get highlightArchitectureTitle => 'Clean Architecture';
+  String get capabilityArchitectureTitle => 'Clean Architecture';
 
   @override
-  String get highlightArchitectureBody =>
+  String get capabilityArchitectureBody =>
       'Feature-first modules with clear layers, testable use cases and dependency injection.';
 
   @override
-  String get highlightReleasesTitle => 'Store releases';
+  String get capabilityReleasesTitle => 'Store releases';
 
   @override
-  String get highlightReleasesBody =>
+  String get capabilityReleasesBody =>
       'End-to-end Play Console and App Store Connect releases, gated by CI.';
 
   @override
-  String get highlightMediaTitle => 'Media & FFmpeg';
+  String get capabilityMediaTitle => 'Media & FFmpeg';
 
   @override
-  String get highlightMediaBody =>
+  String get capabilityMediaBody =>
       'On-device video and audio editing with FFmpeg, CameraX and custom pipelines.';
 
   @override
@@ -123,4 +158,18 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get viewOnGitHub => 'View on GitHub';
+
+  @override
+  String get viewLive => 'View live site';
+
+  @override
+  String get previousProject => 'Previous project';
+
+  @override
+  String get nextProject => 'Next project';
+
+  @override
+  String selectVideo(int number) {
+    return 'Play video $number';
+  }
 }

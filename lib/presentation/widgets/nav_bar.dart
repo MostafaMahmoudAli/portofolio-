@@ -2,19 +2,23 @@ import 'dart:ui' show ImageFilter;
 
 import 'package:flutter/material.dart';
 
+import '../../core/app_scope.dart';
 import '../../core/theme/app_colors.dart';
 import '../../core/utils/breakpoints.dart';
-import '../../core/utils/open_link.dart';
+import '../../core/utils/download_file.dart';
 import '../../l10n/app_localizations.dart';
 import '../pages/home_section.dart';
-import 'gradient_text.dart';
 import 'language_toggle.dart';
 import 'nav_menu_sheet.dart';
 import 'theme_toggle.dart';
 
 /// Sticky glass bar. Desktop shows the links inline; phone and tablet use a menu sheet.
 class NavBar extends StatelessWidget {
-  const NavBar({super.key, required this.onSectionTap, required this.onLogoTap});
+  const NavBar({
+    super.key,
+    required this.onSectionTap,
+    required this.onLogoTap,
+  });
 
   final ValueChanged<HomeSection> onSectionTap;
   final VoidCallback onLogoTap;
@@ -37,7 +41,9 @@ class NavBar extends StatelessWidget {
               border: Border(bottom: BorderSide(color: palette.surfaceBorder)),
             ),
             child: Padding(
-              padding: EdgeInsetsDirectional.symmetric(horizontal: desktop ? 24 : 16),
+              padding: EdgeInsetsDirectional.symmetric(
+                horizontal: desktop ? 24 : 16,
+              ),
               child: Center(
                 child: ConstrainedBox(
                   constraints: const BoxConstraints(maxWidth: 1200),
@@ -45,7 +51,7 @@ class NavBar extends StatelessWidget {
                     children: [
                       TextButton(
                         onPressed: onLogoTap,
-                        child: GradientText('MM', style: textTheme.headlineSmall),
+                        child: Text('MM', style: textTheme.headlineSmall),
                       ),
                       const Spacer(),
                       if (desktop) ...[
@@ -54,22 +60,30 @@ class NavBar extends StatelessWidget {
                             onPressed: () => onSectionTap(s),
                             child: Text(
                               s.label(l10n),
-                              style: textTheme.labelLarge?.copyWith(color: palette.text),
+                              style: textTheme.labelLarge?.copyWith(
+                                color: palette.text,
+                              ),
                             ),
                           ),
                         const SizedBox(width: 8),
                         const LanguageToggle(),
                         const ThemeToggle(),
                         const SizedBox(width: 8),
-                        FilledButton(
-                          onPressed: () => openLink('resume.pdf'),
+                        OutlinedButton(
+                          onPressed: () => downloadFile(
+                            AppScope.of(context).content.profile.resumePdf,
+                            resumeFileName,
+                          ),
                           child: Text(l10n.resume),
                         ),
                       ] else
                         IconButton(
                           icon: const Icon(Icons.menu_rounded),
                           tooltip: l10n.menu,
-                          onPressed: () => showNavMenuSheet(context, onSectionTap: onSectionTap),
+                          onPressed: () => showNavMenuSheet(
+                            context,
+                            onSectionTap: onSectionTap,
+                          ),
                         ),
                     ],
                   ),

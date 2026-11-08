@@ -2,37 +2,45 @@ import 'package:flutter/material.dart';
 
 import '../../core/theme/app_colors.dart';
 
-/// One pill-shaped chip naming a technology, tinted with the project accent.
-class TechChip extends StatelessWidget {
-  const TechChip({super.key, required this.label, this.color});
+/// A neutral technology pill with a mint hover outline.
+class TechChip extends StatefulWidget {
+  const TechChip({super.key, required this.label});
 
   final String label;
-  final Color? color;
+  @override
+  State<TechChip> createState() => _TechChipState();
+}
+
+class _TechChipState extends State<TechChip> {
+  bool _hovered = false;
 
   @override
   Widget build(BuildContext context) {
     final palette = AppPalette.of(context);
     final textTheme = Theme.of(context).textTheme;
-    final chipColor = color ?? palette.mutedText;
 
     // No Center/alignment here: inside a Wrap that would stretch the chip to full width.
-    return Container(
-      padding: const EdgeInsetsDirectional.symmetric(
-        horizontal: 12,
-        vertical: 6,
-      ),
-      decoration: BoxDecoration(
-        color: chipColor.withValues(alpha: 0.12),
-        border: Border.all(color: chipColor.withValues(alpha: 0.5)),
-        borderRadius: BorderRadius.circular(20),
-      ),
-      child: Text(
-        label,
-        // Text in the theme color: accent-colored 12 px text (e.g. yellow on
-        // the light background) fails WCAG AA. The accent tints the pill.
-        style: textTheme.labelSmall?.copyWith(
-          color: palette.text,
-          fontWeight: FontWeight.w600,
+    return MouseRegion(
+      onEnter: (_) => setState(() => _hovered = true),
+      onExit: (_) => setState(() => _hovered = false),
+      child: Container(
+        padding: const EdgeInsetsDirectional.symmetric(
+          horizontal: 12,
+          vertical: 6,
+        ),
+        decoration: BoxDecoration(
+          color: palette.surface,
+          border: Border.all(
+            color: _hovered ? palette.accent : palette.surfaceBorder,
+          ),
+          borderRadius: BorderRadiusDirectional.circular(20),
+        ),
+        child: Text(
+          widget.label,
+          style: textTheme.labelSmall?.copyWith(
+            color: palette.text,
+            fontWeight: FontWeight.w600,
+          ),
         ),
       ),
     );

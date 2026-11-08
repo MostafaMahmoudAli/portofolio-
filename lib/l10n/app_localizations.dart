@@ -146,6 +146,30 @@ abstract class AppLocalizations {
   /// **'Menu'**
   String get menu;
 
+  /// No description provided for @playVideo.
+  ///
+  /// In en, this message translates to:
+  /// **'Play video'**
+  String get playVideo;
+
+  /// No description provided for @pauseVideo.
+  ///
+  /// In en, this message translates to:
+  /// **'Pause video'**
+  String get pauseVideo;
+
+  /// No description provided for @muteVideo.
+  ///
+  /// In en, this message translates to:
+  /// **'Mute video'**
+  String get muteVideo;
+
+  /// No description provided for @unmuteVideo.
+  ///
+  /// In en, this message translates to:
+  /// **'Unmute video'**
+  String get unmuteVideo;
+
   /// No description provided for @closeMenu.
   ///
   /// In en, this message translates to:
@@ -176,11 +200,53 @@ abstract class AppLocalizations {
   /// **'التبديل إلى العربية'**
   String get languageToggleTooltip;
 
-  /// No description provided for @sectionComingSoon.
+  /// No description provided for @educationCertifications.
   ///
   /// In en, this message translates to:
-  /// **'Coming soon'**
-  String get sectionComingSoon;
+  /// **'Education & certifications'**
+  String get educationCertifications;
+
+  /// No description provided for @languages.
+  ///
+  /// In en, this message translates to:
+  /// **'Languages'**
+  String get languages;
+
+  /// No description provided for @contactCta.
+  ///
+  /// In en, this message translates to:
+  /// **'Let\'s build something great together.'**
+  String get contactCta;
+
+  /// No description provided for @copyEmail.
+  ///
+  /// In en, this message translates to:
+  /// **'Copy email'**
+  String get copyEmail;
+
+  /// No description provided for @emailCopied.
+  ///
+  /// In en, this message translates to:
+  /// **'Email copied'**
+  String get emailCopied;
+
+  /// No description provided for @sendEmail.
+  ///
+  /// In en, this message translates to:
+  /// **'Send email'**
+  String get sendEmail;
+
+  /// No description provided for @backToTop.
+  ///
+  /// In en, this message translates to:
+  /// **'Back to top'**
+  String get backToTop;
+
+  /// No description provided for @footerCredit.
+  ///
+  /// In en, this message translates to:
+  /// **'Built with Flutter · © {year}'**
+  String footerCredit(int year);
 
   /// No description provided for @projectComingSoon.
   ///
@@ -254,41 +320,41 @@ abstract class AppLocalizations {
   /// **'Email'**
   String get email;
 
-  /// No description provided for @highlightArchitectureTitle.
+  /// No description provided for @capabilityArchitectureTitle.
   ///
   /// In en, this message translates to:
   /// **'Clean Architecture'**
-  String get highlightArchitectureTitle;
+  String get capabilityArchitectureTitle;
 
-  /// No description provided for @highlightArchitectureBody.
+  /// No description provided for @capabilityArchitectureBody.
   ///
   /// In en, this message translates to:
   /// **'Feature-first modules with clear layers, testable use cases and dependency injection.'**
-  String get highlightArchitectureBody;
+  String get capabilityArchitectureBody;
 
-  /// No description provided for @highlightReleasesTitle.
+  /// No description provided for @capabilityReleasesTitle.
   ///
   /// In en, this message translates to:
   /// **'Store releases'**
-  String get highlightReleasesTitle;
+  String get capabilityReleasesTitle;
 
-  /// No description provided for @highlightReleasesBody.
+  /// No description provided for @capabilityReleasesBody.
   ///
   /// In en, this message translates to:
   /// **'End-to-end Play Console and App Store Connect releases, gated by CI.'**
-  String get highlightReleasesBody;
+  String get capabilityReleasesBody;
 
-  /// No description provided for @highlightMediaTitle.
+  /// No description provided for @capabilityMediaTitle.
   ///
   /// In en, this message translates to:
   /// **'Media & FFmpeg'**
-  String get highlightMediaTitle;
+  String get capabilityMediaTitle;
 
-  /// No description provided for @highlightMediaBody.
+  /// No description provided for @capabilityMediaBody.
   ///
   /// In en, this message translates to:
   /// **'On-device video and audio editing with FFmpeg, CameraX and custom pipelines.'**
-  String get highlightMediaBody;
+  String get capabilityMediaBody;
 
   /// No description provided for @featuredProjects.
   ///
@@ -319,6 +385,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'View on GitHub'**
   String get viewOnGitHub;
+
+  /// No description provided for @viewLive.
+  ///
+  /// In en, this message translates to:
+  /// **'View live site'**
+  String get viewLive;
+
+  /// No description provided for @previousProject.
+  ///
+  /// In en, this message translates to:
+  /// **'Previous project'**
+  String get previousProject;
+
+  /// No description provided for @nextProject.
+  ///
+  /// In en, this message translates to:
+  /// **'Next project'**
+  String get nextProject;
+
+  /// No description provided for @selectVideo.
+  ///
+  /// In en, this message translates to:
+  /// **'Play video {number}'**
+  String selectVideo(int number);
 }
 
 class _AppLocalizationsDelegate

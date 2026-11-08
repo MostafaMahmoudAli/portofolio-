@@ -9,9 +9,8 @@ class AppPalette extends ThemeExtension<AppPalette> {
     required this.surfaceBorder,
     required this.text,
     required this.mutedText,
-    required this.accentStart,
-    required this.accentEnd,
-    required this.highlight,
+    required this.accent,
+    required this.onAccent,
   });
 
   final Color background;
@@ -19,37 +18,31 @@ class AppPalette extends ThemeExtension<AppPalette> {
   final Color surfaceBorder;
   final Color text;
   final Color mutedText;
-  final Color accentStart;
-  final Color accentEnd;
-  final Color highlight;
+  final Color accent;
+  final Color onAccent;
 
   static const dark = AppPalette(
-    background: Color(0xFF0A0A12),
-    surface: Color(0x0FFFFFFF), // white 6%
-    surfaceBorder: Color(0x1AFFFFFF), // white 10%
-    text: Color(0xFFEDEDF5),
-    mutedText: Color(0xFF9A9AB0),
-    accentStart: Color(0xFF7C5CFF),
-    accentEnd: Color(0xFF22D3EE),
-    highlight: Color(0xFFFF5C8A),
+    background: Color(0xFF15191A),
+    surface: Color(0x0AFFFFFF), // white 4%
+    surfaceBorder: Color(0x14FFFFFF), // white 8%
+    text: Color(0xFFDCE1DD),
+    mutedText: Color(0xFF8E9691),
+    accent: Color(0xFF34D399),
+    onAccent: Color(0xFF15191A),
   );
 
   static const light = AppPalette(
-    background: Color(0xFFF6F6FB),
+    background: Color(0xFFF3F4F1),
     surface: Color(0xB3FFFFFF), // white 70%
-    surfaceBorder: Color(0x0F000000), // black 6%
-    text: Color(0xFF14141C),
-    mutedText: Color(0xFF5C5C70),
-    accentStart: Color(0xFF6D4BFF),
-    accentEnd: Color(0xFF0EA5C6),
-    highlight: Color(0xFFE8457A),
+    surfaceBorder: Color(0x1423272A), // graphite 8%
+    text: Color(0xFF23272A),
+    mutedText: Color(0xFF5F6763),
+    accent: Color(0xFF34D399),
+    onAccent: Color(0xFF15191A),
   );
 
   static AppPalette of(BuildContext context) =>
       Theme.of(context).extension<AppPalette>()!;
-
-  LinearGradient get accentGradient =>
-      LinearGradient(colors: [accentStart, accentEnd]);
 
   @override
   AppPalette copyWith({
@@ -58,20 +51,17 @@ class AppPalette extends ThemeExtension<AppPalette> {
     Color? surfaceBorder,
     Color? text,
     Color? mutedText,
-    Color? accentStart,
-    Color? accentEnd,
-    Color? highlight,
-  }) =>
-      AppPalette(
-        background: background ?? this.background,
-        surface: surface ?? this.surface,
-        surfaceBorder: surfaceBorder ?? this.surfaceBorder,
-        text: text ?? this.text,
-        mutedText: mutedText ?? this.mutedText,
-        accentStart: accentStart ?? this.accentStart,
-        accentEnd: accentEnd ?? this.accentEnd,
-        highlight: highlight ?? this.highlight,
-      );
+    Color? accent,
+    Color? onAccent,
+  }) => AppPalette(
+    background: background ?? this.background,
+    surface: surface ?? this.surface,
+    surfaceBorder: surfaceBorder ?? this.surfaceBorder,
+    text: text ?? this.text,
+    mutedText: mutedText ?? this.mutedText,
+    accent: accent ?? this.accent,
+    onAccent: onAccent ?? this.onAccent,
+  );
 
   @override
   AppPalette lerp(AppPalette? other, double t) {
@@ -82,9 +72,8 @@ class AppPalette extends ThemeExtension<AppPalette> {
       surfaceBorder: Color.lerp(surfaceBorder, other.surfaceBorder, t)!,
       text: Color.lerp(text, other.text, t)!,
       mutedText: Color.lerp(mutedText, other.mutedText, t)!,
-      accentStart: Color.lerp(accentStart, other.accentStart, t)!,
-      accentEnd: Color.lerp(accentEnd, other.accentEnd, t)!,
-      highlight: Color.lerp(highlight, other.highlight, t)!,
+      accent: Color.lerp(accent, other.accent, t)!,
+      onAccent: Color.lerp(onAccent, other.onAccent, t)!,
     );
   }
 }
