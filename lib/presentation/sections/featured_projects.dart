@@ -96,7 +96,7 @@ class _FeaturedCardState extends State<_FeaturedCard> {
   @override
   Widget build(BuildContext context) {
     final screen = ScreenSize.of(context);
-    final video = widget.project.videos.firstOrNull;
+    final video = widget.project.videos.primary?.$2;
 
     final videoSide = video == null
         ? null

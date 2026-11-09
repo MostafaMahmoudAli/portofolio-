@@ -2,7 +2,7 @@ import 'localized_text.dart';
 import 'require.dart';
 
 /// One demo video of a project. Paths are relative to the site root
-/// (`media/<slug>/demo.mp4`) and are resolved against the page URL at play time.
+/// (`media/<slug>/ios.mp4` or `android.mp4`) and are resolved against the page URL at play time.
 class ProjectVideo {
   const ProjectVideo({
     required this.src,

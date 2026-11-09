@@ -5,17 +5,13 @@ import { resolve, sep } from 'node:path';
 
 const profile = JSON.parse(await readFile('assets/data/profile.json', 'utf8'));
 const { projects } = JSON.parse(await readFile('assets/data/projects.json', 'utf8'));
-const paths = new Set([
-  profile.photo,
-  profile.resumePdf,
-  ...projects.flatMap(project => [
-    project.cover,
-    ...project.videos.flatMap(video => [video.src, video.poster]),
-  ]),
-].filter(Boolean));
 const root = resolve('web');
+let total = 0;
 let failures = 0;
-for (const path of paths) {
+
+async function check(owner, field, path) {
+  if (!path) return;
+  total++;
   const file = resolve(root, path);
   if (!file.startsWith(root + sep)) throw new Error(`Path outside web/: ${path}`);
   try {
@@ -25,9 +21,29 @@ for (const path of paths) {
       throw new Error('video must be under 10 MB');
     }
   } catch (error) {
-    console.error(`BLOCKED web/${path}: ${error.code === 'ENOENT' ? 'missing' : error.message}`);
+    console.error(`[${owner}] ${field}: web/${path} — ${error.code === 'ENOENT' ? 'missing' : error.message}`);
     failures++;
   }
 }
-console.log(`${paths.size - failures}/${paths.size} referenced media files ready.`);
+
+await check('profile', 'photo', profile.photo);
+await check('profile', 'resume', profile.resumePdf);
+for (const project of projects) {
+  await check(project.slug, 'cover', project.cover);
+  for (const [i, screen] of (project.screens ?? []).entries()) {
+    await check(project.slug, `screens[${i}].src`, screen.src);
+  }
+  const videos = project.videos ?? {};
+  if (Array.isArray(videos) || typeof videos !== 'object') {
+    throw new Error(`${project.slug}: videos must be an object`);
+  }
+  for (const [platform, video] of Object.entries(videos)) {
+    if (!['ios', 'android'].includes(platform)) {
+      throw new Error(`${project.slug}: unknown videos.${platform}`);
+    }
+    await check(project.slug, `videos.${platform}.src`, video.src);
+    await check(project.slug, `videos.${platform}.poster`, video.poster);
+  }
+}
+console.log(`${total - failures}/${total} referenced media files ready.`);
 process.exitCode = failures ? 1 : 0;

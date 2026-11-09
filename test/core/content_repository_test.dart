@@ -69,7 +69,7 @@ void main() {
       expect(remix.accent, '#FF5C8A');
       expect(remix.subtitle.of(const Locale('en')), contains('duet'));
       expect(remix.subtitle.of(const Locale('ar')), isArabicText);
-      expect(remix.videos.single.src, 'media/remix/demo.mp4');
+      expect(remix.videos.android!.src, 'media/remix/android.mp4');
       expect(remix.status?.of(const Locale('ar')), isArabicText);
 
       // Every entry carries Arabic subtitles, summaries, bullets or status.
@@ -181,7 +181,7 @@ void main() {
       );
     });
 
-    test('a non-list videos field names the field, not a TypeError', () {
+    test('a non-object videos field names the field, not a TypeError', () {
       final entry = <String, dynamic>{
         'slug': 'x',
         'title': {'en': 'X'},

@@ -1,6 +1,7 @@
 import 'localized_text.dart';
 import 'project_link.dart';
-import 'project_video.dart';
+import 'project_screen.dart';
+import 'project_videos.dart';
 import 'require.dart';
 
 /// One project card, featured ("big card, phone-framed video") or one of the
@@ -21,6 +22,7 @@ class Project {
     required this.videos,
     required this.links,
     this.impact,
+    this.screens = const [],
   });
 
   factory Project.fromJson(
@@ -54,9 +56,10 @@ class Project {
     impact: json['impact'] == null
         ? null
         : LocalizedText.fromJson(json['impact'], where: where, field: 'impact'),
-    videos: [
-      for (final (i, video) in optionalMaps(json, 'videos', where).indexed)
-        ProjectVideo.fromJson(video, where: '$where: videos[$i]'),
+    videos: ProjectVideos.fromJson(json['videos'], where: where),
+    screens: [
+      for (final (i, screen) in optionalMaps(json, 'screens', where).indexed)
+        ProjectScreen.fromJson(screen, where: '$where: screens[$i]'),
     ],
     links: [
       for (final (i, link) in optionalMaps(json, 'links', where).indexed)
@@ -83,6 +86,7 @@ class Project {
   final LocalizedText? status;
   final LocalizedText? impact;
   final String? cover;
-  final List<ProjectVideo> videos;
+  final ProjectVideos videos;
+  final List<ProjectScreen> screens;
   final List<ProjectLink> links;
 }

@@ -44,7 +44,8 @@ class _ProjectVideoGalleryState extends State<ProjectVideoGallery> {
   @override
   Widget build(BuildContext context) {
     final project = widget.project;
-    if (project.videos.isEmpty) return const SizedBox.shrink();
+    final videos = project.videos.available.map((entry) => entry.$2).toList();
+    if (videos.isEmpty) return const SizedBox.shrink();
     final phone = ScreenSize.of(context) == ScreenSize.phone;
     final palette = AppPalette.of(context);
     final locale = Localizations.localeOf(context);
@@ -53,7 +54,7 @@ class _ProjectVideoGalleryState extends State<ProjectVideoGallery> {
     Widget frame(int index) => Center(
       child: ProjectMediaFrame(
         project: project,
-        video: project.videos[index],
+        video: videos[index],
         width: width,
         hero: index == 0,
       ),
@@ -65,18 +66,18 @@ class _ProjectVideoGalleryState extends State<ProjectVideoGallery> {
           child: phone
               ? PageView.builder(
                   controller: _pages,
-                  itemCount: project.videos.length,
+                  itemCount: videos.length,
                   onPageChanged: (index) => setState(() => _selected = index),
                   itemBuilder: (context, index) => frame(index),
                 )
               : frame(_selected),
         ),
-        if (project.videos[_selected].caption case final caption?)
+        if (videos[_selected].caption case final caption?)
           Padding(
             padding: const EdgeInsetsDirectional.only(top: 16),
             child: Text(caption.of(locale), textAlign: TextAlign.center),
           ),
-        if (project.videos.length > 1)
+        if (videos.length > 1)
           Padding(
             padding: const EdgeInsetsDirectional.only(top: 16),
             child: Wrap(
@@ -85,7 +86,7 @@ class _ProjectVideoGalleryState extends State<ProjectVideoGallery> {
               runSpacing: 8,
               alignment: WrapAlignment.center,
               children: [
-                for (var i = 0; i < project.videos.length; i++)
+                for (var i = 0; i < videos.length; i++)
                   Semantics(
                     selected: i == _selected,
                     child: Tooltip(
@@ -131,7 +132,7 @@ class _ProjectVideoGalleryState extends State<ProjectVideoGallery> {
                                     ),
                                   ),
                                 )
-                              : ProjectPoster(path: project.videos[i].poster),
+                              : ProjectPoster(path: videos[i].poster),
                         ),
                       ),
                     ),

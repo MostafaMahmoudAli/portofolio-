@@ -9,6 +9,7 @@ import 'package:portfolio/core/localization/locale_controller.dart';
 import 'package:portfolio/core/models/localized_text.dart';
 import 'package:portfolio/core/models/project.dart';
 import 'package:portfolio/core/models/project_video.dart';
+import 'package:portfolio/core/models/project_videos.dart';
 import 'package:portfolio/core/router/app_router.dart';
 import 'package:portfolio/core/theme/app_theme.dart';
 import 'package:portfolio/core/theme/theme_controller.dart';
@@ -128,14 +129,25 @@ Project testProject(int videos, {String? cover}) => Project(
   tech: const [],
   status: null,
   cover: cover,
-  videos: [
-    for (var i = 0; i < videos; i++)
-      ProjectVideo(
-        src: 'media/test/demo$i.mp4',
-        poster: 'media/test/poster$i.jpg',
-        caption: LocalizedText(en: 'Caption $i', ar: 'شرح $i'),
-      ),
-  ],
+  videos: ProjectVideos(
+    ios: videos > 1
+        ? const ProjectVideo(
+            src: 'media/test/ios.mp4',
+            poster: 'media/test/ios.jpg',
+            caption: LocalizedText(en: 'Caption 0', ar: 'شرح 0'),
+          )
+        : null,
+    android: videos > 0
+        ? ProjectVideo(
+            src: 'media/test/android.mp4',
+            poster: 'media/test/android.jpg',
+            caption: LocalizedText(
+              en: 'Caption ${videos > 1 ? 1 : 0}',
+              ar: 'شرح ${videos > 1 ? 1 : 0}',
+            ),
+          )
+        : null,
+  ),
   links: const [],
 );
 
@@ -435,7 +447,7 @@ Future<void> main() async {
   testWidgets('gallery keeps selection when crossing the phone breakpoint', (
     tester,
   ) async {
-    final project = testProject(3);
+    final project = testProject(2);
     await pumpPage(
       tester,
       location: '/projects/${project.slug}',
@@ -445,13 +457,13 @@ Future<void> main() async {
       find.byKey(const ValueKey('gallery-thumbnails')),
     );
     await frames(tester);
-    await tester.tap(find.byTooltip('Play video 3'));
+    await tester.tap(find.byTooltip('Play video 2'));
     await frames(tester);
     tester.view.physicalSize = const Size(375, 900);
     await frames(tester);
-    expect(find.text('Caption 2'), findsOneWidget);
+    expect(find.text('Caption 1'), findsOneWidget);
     final pageView = tester.widget<PageView>(find.byType(PageView));
-    expect(pageView.controller!.page, 2);
+    expect(pageView.controller!.page, 1);
     await unmount(tester);
   });
 
@@ -577,7 +589,7 @@ Future<void> main() async {
   });
 
   for (final width in [375.0, 768.0, 1440.0]) {
-    for (final count in [1, 3]) {
+    for (final count in [1, 2]) {
       testWidgets('gallery with $count videos at $width px', (tester) async {
         final project = testProject(count);
         await pumpPage(
@@ -598,7 +610,7 @@ Future<void> main() async {
           findsNothing,
         );
         expect(find.text('Caption 0'), findsOneWidget);
-        if (count == 3) {
+        if (count == 2) {
           await tester.ensureVisible(controls);
           await frames(tester);
           if (phone) {

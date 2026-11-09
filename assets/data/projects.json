@@ -29,13 +29,19 @@
       "tech": ["Flutter", "Flavors", "Deep Links", "Firebase", "Play Console", "App Store Connect"],
       "status": { "en": "Live on Google Play & App Store — 8 listings", "ar": "متاح على Google Play و App Store — 8 قوائم" },
       "cover": "media/egypt-consulate-apps/cover.jpg",
-      "videos": [
-        {
-          "src": "media/egypt-consulate-apps/demo.mp4",
-          "poster": "media/egypt-consulate-apps/poster.jpg",
+      "screens": [],
+      "videos": {
+        "ios": {
+          "src": "media/egypt-consulate-apps/ios.mp4",
+          "poster": "media/egypt-consulate-apps/ios.jpg",
+          "caption": { "en": "Consulate app walkthrough", "ar": "جولة داخل التطبيق القنصلي" }
+        },
+        "android": {
+          "src": "media/egypt-consulate-apps/android.mp4",
+          "poster": "media/egypt-consulate-apps/android.jpg",
           "caption": { "en": "Consulate app walkthrough", "ar": "جولة داخل التطبيق القنصلي" }
         }
-      ],
+      },
       "links": [
         { "type": "playStore", "label": "Kuwait", "url": "https://play.google.com/store/apps/details?id=com.approck.egyptian_consulate" },
         { "type": "appStore", "label": "Kuwait", "url": "https://apps.apple.com/app/id1584352269" },
@@ -71,13 +77,14 @@
       "tech": ["Flutter", "Google Maps", "SQLite", "FCM", "Platform Channels"],
       "status": { "en": "Private distribution (Android)", "ar": "توزيع خاص (أندرويد)" },
       "cover": "media/new-courier-app/cover.jpg",
-      "videos": [
-        {
-          "src": "media/new-courier-app/demo.mp4",
-          "poster": "media/new-courier-app/poster.jpg",
+      "screens": [],
+      "videos": {
+        "android": {
+          "src": "media/new-courier-app/android.mp4",
+          "poster": "media/new-courier-app/android.jpg",
           "caption": { "en": "Live tracking on the map", "ar": "تتبع مباشر على الخريطة" }
         }
-      ],
+      },
       "links": []
     },
     {
@@ -104,13 +111,19 @@
       "tech": ["Flutter", "BLoC", "Freezed", "MVVM", "Firebase"],
       "status": { "en": "Live on both stores", "ar": "متاح على المتجرين" },
       "cover": "media/alkharj-business-guide/cover.jpg",
-      "videos": [
-        {
-          "src": "media/alkharj-business-guide/demo.mp4",
-          "poster": "media/alkharj-business-guide/poster.jpg",
+      "screens": [],
+      "videos": {
+        "ios": {
+          "src": "media/alkharj-business-guide/ios.mp4",
+          "poster": "media/alkharj-business-guide/ios.jpg",
+          "caption": { "en": "Browsing the directory", "ar": "تصفح الدليل" }
+        },
+        "android": {
+          "src": "media/alkharj-business-guide/android.mp4",
+          "poster": "media/alkharj-business-guide/android.jpg",
           "caption": { "en": "Browsing the directory", "ar": "تصفح الدليل" }
         }
-      ],
+      },
       "links": [
         { "type": "playStore", "url": "https://play.google.com/store/apps/details?id=com.ahmedYosry.AlKharj_Business" },
         { "type": "appStore", "url": "https://apps.apple.com/app/id6475199617" }
@@ -141,13 +154,14 @@
       "tech": ["Flutter", "Cubit", "FFmpegKit", "CameraX", "video_player", "image_picker"],
       "status": { "en": "Private repository — walkthrough on request", "ar": "مستودع خاص — عرض توضيحي عند الطلب" },
       "cover": "media/remix/cover.jpg",
-      "videos": [
-        {
-          "src": "media/remix/demo.mp4",
-          "poster": "media/remix/poster.jpg",
+      "screens": [],
+      "videos": {
+        "android": {
+          "src": "media/remix/android.mp4",
+          "poster": "media/remix/android.jpg",
           "caption": { "en": "Duet + speed", "ar": "دويت + السرعة" }
         }
-      ],
+      },
       "links": []
     },
     {
@@ -174,13 +188,14 @@
       "tech": ["Flutter", "BLoC", "Freezed", "MVVM", "Stripe", "PayPal"],
       "status": { "en": "Shipped to Google Play; listing since retired", "ar": "منشور سابقًا على Google Play؛ القائمة أُوقفت لاحقًا" },
       "cover": "media/rehlati-uae/cover.jpg",
-      "videos": [
-        {
-          "src": "media/rehlati-uae/demo.mp4",
-          "poster": "media/rehlati-uae/poster.jpg",
+      "screens": [],
+      "videos": {
+        "android": {
+          "src": "media/rehlati-uae/android.mp4",
+          "poster": "media/rehlati-uae/android.jpg",
           "caption": { "en": "Booking an event", "ar": "حجز فعالية" }
         }
-      ],
+      },
       "links": []
     },
     {
@@ -202,7 +217,8 @@
       ],
       "tech": ["Flutter", "Responsive layouts", "Animations"],
       "cover": "media/responsive-dashboard/cover.jpg",
-      "videos": [],
+      "screens": [],
+      "videos": {},
       "links": [
         { "type": "github", "url": "https://github.com/MostafaMahmoudAli/responsive_dashboard" }
       ]
@@ -230,7 +246,8 @@
       ],
       "tech": ["Flutter", "REST API", "BLoC"],
       "cover": "media/rick-and-morty-app/cover.jpg",
-      "videos": [],
+      "screens": [],
+      "videos": {},
       "links": [
         { "type": "github", "url": "https://github.com/MostafaMahmoudAli/rick_and_motry_app" }
       ]
@@ -258,7 +275,8 @@
       ],
       "tech": ["Flutter", "SQLite", "BLoC"],
       "cover": "media/vocabs-app/cover.jpg",
-      "videos": [],
+      "screens": [],
+      "videos": {},
       "links": [
         { "type": "github", "url": "https://github.com/MostafaMahmoudAli/vocabs_app" }
       ]
@@ -282,7 +300,8 @@
       ],
       "tech": ["Flutter", "Google Maps", "Location"],
       "cover": "media/flutter-google-maps/cover.jpg",
-      "videos": [],
+      "screens": [],
+      "videos": {},
       "links": [
         { "type": "github", "url": "https://github.com/MostafaMahmoudAli/flutter_google_maps" }
       ]
@@ -310,7 +329,8 @@
       ],
       "tech": ["Flutter", "Cubit", "REST API", "Clean Architecture"],
       "cover": "media/bookly-app/cover.jpg",
-      "videos": [],
+      "screens": [],
+      "videos": {},
       "links": [
         { "type": "github", "url": "https://github.com/MostafaMahmoudAli/Bookly_App" }
       ]
@@ -338,7 +358,8 @@
       ],
       "tech": ["Flutter", "Provider", "SQLite"],
       "cover": "media/flutter-shop-app/cover.jpg",
-      "videos": [],
+      "screens": [],
+      "videos": {},
       "links": [
         { "type": "github", "url": "https://github.com/MostafaMahmoudAli/flutter_shop_app" }
       ]
@@ -366,7 +387,8 @@
       ],
       "tech": ["Flutter", "BLoC", "Firebase"],
       "cover": "media/flutter-social-app/cover.jpg",
-      "videos": [],
+      "screens": [],
+      "videos": {},
       "links": [
         { "type": "github", "url": "https://github.com/MostafaMahmoudAli/flutter_social_app" }
       ]

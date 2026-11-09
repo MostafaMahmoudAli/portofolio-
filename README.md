@@ -7,12 +7,78 @@ Mostafa Mahmoud — Flutter Developer portfolio
 Regenerate the committed 1200×630 preview with Flutter 3.41.6 and the bundled fonts:
 
 ```sh
-flutter run -d chrome --target tool/generate_og_image.dart
+flutter test tool/generate_og_image.dart
 ```
 
-The standalone Flutter tool downloads `og-image.png`; copy that file into `web/`.
-It renders at exactly 1200×630 regardless of the browser size and is not part of
-`flutter test`.
+The standalone Flutter tool writes `web/og-image.png`, the favicon and PWA icons
+directly using bundled fonts. It runs separately from the normal test suite.
+
+## Adding a project
+
+Add an entry to `assets/data/projects.json` with a unique kebab-case `slug`, the
+existing bilingual title/subtitle/summary, order, featured flag, tech and links.
+Media paths are relative to `web/` (never begin them with `/`, so Pages subpaths work).
+
+```json
+{
+  "cover": "media/my-app/cover.jpg",
+  "screens": [
+    {
+      "src": "media/my-app/screens/01.jpg",
+      "caption": { "en": "Home screen", "ar": "الشاشة الرئيسية" }
+    },
+    { "src": "media/my-app/screens/02.webp" }
+  ],
+  "videos": {
+    "ios": {
+      "src": "media/my-app/ios.mp4",
+      "poster": "media/my-app/ios.jpg",
+      "caption": { "en": "iOS walkthrough", "ar": "جولة على iOS" }
+    },
+    "android": {
+      "src": "media/my-app/android.mp4",
+      "poster": "media/my-app/android.jpg",
+      "caption": { "en": "Android walkthrough", "ar": "جولة على أندرويد" }
+    }
+  }
+}
+```
+
+`screens` is optional, allows any number of images, and defaults to `[]`. Screen
+captions are optional. `videos` is an optional object, not an array: omit either
+platform when unavailable, or use `{}`/omit `videos` for no demos. Only `ios` and
+`android` keys are allowed. A configured video requires `src` and `poster`; its
+caption is optional. iOS is primary when present, otherwise Android. Only add an
+iOS demo for an app that actually supports iOS; never add unrelated placeholder media.
+
+Put files under:
+
+```text
+web/media/my-app/
+  cover.jpg
+  ios.mp4
+  ios.jpg
+  android.mp4
+  android.jpg
+  screens/
+    01.jpg
+    02.webp
+```
+
+Images/posters: JPG or WebP, at most 1280 px on the long side. Videos must be under
+10 MB each. Use the encoding commands from `docs/PORTFOLIO_PLAN.md`, section 5,
+for each platform (substitute `ios` for `android` for the iOS recording):
+
+```sh
+ffmpeg -i raw.mp4 -vf "scale=-2:1280,fps=30" -c:v libx264 -crf 28 -preset slow -c:a aac -b:a 96k -movflags +faststart android.mp4
+ffmpeg -ss 1 -i android.mp4 -frames:v 1 -q:v 3 android.jpg
+node tool/check_media.mjs
+```
+
+The check prints missing cover, screen, video and poster paths grouped by project
+and exits nonzero while files are missing or videos exceed the size budget.
+
+## Local performance checks
 
 ```sh
 flutter build web --wasm --release
