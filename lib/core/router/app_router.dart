@@ -6,6 +6,7 @@ import '../../presentation/pages/home_section.dart';
 import '../../presentation/pages/not_found_page.dart';
 import '../../presentation/pages/project_page.dart';
 import '../app_scope.dart';
+import '../models/project_videos.dart';
 
 /// Hash URLs (`/#/projects/remix`) are go_router's default on web.
 GoRouter createRouter({String? initialLocation}) => GoRouter(
@@ -33,7 +34,12 @@ GoRouter createRouter({String? initialLocation}) => GoRouter(
               context,
               state,
               known
-                  ? ProjectPage(key: ValueKey(slug), slug: slug)
+                  ? ProjectPage(
+                      key: ValueKey(slug),
+                      slug: slug,
+                      platform: VideoPlatform.values
+                          .asNameMap()[state.uri.queryParameters['platform']],
+                    )
                   : const NotFoundPage(),
             );
           },

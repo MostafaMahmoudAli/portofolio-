@@ -1,5 +1,7 @@
 {
   "@@locale": "en",
+  "platformIos": "iOS",
+  "platformAndroid": "Android",
   "appTitle": "Mostafa Mahmoud — Flutter Developer",
   "navAbout": "About",
   "navProjects": "Projects",

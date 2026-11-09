@@ -6,6 +6,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../core/app_scope.dart';
 import '../../core/models/project.dart';
+import '../../core/models/project_videos.dart';
 import '../../core/theme/app_colors.dart';
 import '../../core/utils/breakpoints.dart';
 import '../../l10n/app_localizations.dart';
@@ -15,6 +16,7 @@ import '../widgets/reveal_on_scroll.dart';
 import '../widgets/section_title.dart';
 import '../widgets/store_badges.dart';
 import '../widgets/tech_chip.dart';
+import '../widgets/video_platform_picker.dart';
 
 /// Featured projects as slivers: a header, then one large card per featured
 /// project (sorted by `order`) in a lazy list, so off-screen cards and their
@@ -78,6 +80,7 @@ class _FeaturedCard extends StatefulWidget {
 class _FeaturedCardState extends State<_FeaturedCard> {
   /// Cursor position over the card, -0.5..0.5 on each axis; null when not hovered.
   final _tilt = ValueNotifier<Offset?>(null);
+  VideoPlatform? _selectedPlatform;
 
   @override
   void dispose() {
@@ -96,20 +99,41 @@ class _FeaturedCardState extends State<_FeaturedCard> {
   @override
   Widget build(BuildContext context) {
     final screen = ScreenSize.of(context);
-    final video = widget.project.videos.primary?.$2;
+    final available = widget.project.videos.available;
+    final entry =
+        available.where((entry) => entry.$1 == _selectedPlatform).firstOrNull ??
+        widget.project.videos.primary;
+    final video = entry?.$2;
 
     final videoSide = video == null
         ? null
-        : ProjectMediaFrame(
-            project: widget.project,
-            video: video,
-            width: switch (screen) {
-              ScreenSize.phone => 200,
-              ScreenSize.tablet => 200,
-              ScreenSize.desktop => 220,
-            },
+        : Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              ProjectMediaFrame(
+                project: widget.project,
+                video: video,
+                platform: entry!.$1,
+                width: switch (screen) {
+                  ScreenSize.phone => 200,
+                  ScreenSize.tablet => 200,
+                  ScreenSize.desktop => 210,
+                },
+              ),
+              if (available.length > 1) ...[
+                const SizedBox(height: 8),
+                SizedBox(
+                  width: screen == ScreenSize.desktop ? 210 : 200,
+                  child: VideoPlatformPicker(
+                    selected: entry.$1,
+                    onChanged: (value) =>
+                        setState(() => _selectedPlatform = value),
+                  ),
+                ),
+              ],
+            ],
           );
-    final text = _CardText(project: widget.project);
+    final text = _CardText(project: widget.project, platform: entry?.$1);
 
     final Widget body;
     if (screen == ScreenSize.phone) {
@@ -185,9 +209,10 @@ class _FeaturedCardState extends State<_FeaturedCard> {
 }
 
 class _CardText extends StatelessWidget {
-  const _CardText({required this.project});
+  const _CardText({required this.project, this.platform});
 
   final Project project;
+  final VideoPlatform? platform;
 
   @override
   Widget build(BuildContext context) {
@@ -234,7 +259,15 @@ class _CardText extends StatelessWidget {
         StoreBadges(links: project.links),
         const SizedBox(height: 12),
         TextButton.icon(
-          onPressed: () => context.go('/projects/${project.slug}'),
+          onPressed: () => context.go(
+            Uri(
+              path: '/projects/${project.slug}',
+              queryParameters:
+                  project.videos.available.length > 1 && platform != null
+                  ? {'platform': platform!.name}
+                  : null,
+            ).toString(),
+          ),
           // arrow_forward mirrors itself in RTL.
           icon: const Icon(Icons.arrow_forward_rounded, size: 18),
           label: Text(l10n.details),

@@ -1,5 +1,7 @@
 {
   "@@locale": "ar",
+  "platformIos": "iOS",
+  "platformAndroid": "Android",
   "availability": "متاح لفرص فلاتر · الإسكندرية، عن بُعد",
   "eyebrowAbout": "منهجي في العمل",
   "eyebrowProjects": "أعمال مختارة",

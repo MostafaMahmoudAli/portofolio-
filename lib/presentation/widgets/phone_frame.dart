@@ -1,26 +1,36 @@
 import 'package:flutter/material.dart';
 
 import '../../core/theme/app_colors.dart';
+import '../../core/models/project_videos.dart';
 
 /// A phone-shaped frame around a video.
 ///
 /// The frame keeps the same shape in both LTR and RTL: it is never mirrored,
 /// because a physical phone does not flip when the reading direction changes.
 class PhoneFrame extends StatelessWidget {
-  const PhoneFrame({super.key, required this.child, this.width});
+  const PhoneFrame({
+    super.key,
+    required this.child,
+    this.width,
+    this.platform = VideoPlatform.android,
+  });
 
   final Widget child;
   final double? width;
+  final VideoPlatform platform;
 
-  static const _radius = 30.0;
+  static double _radius(VideoPlatform platform) =>
+      platform == VideoPlatform.ios ? 36 : 26;
   static const _bezelTop = 22.0;
   static const _bezelBottom = 16.0;
-  static const _speakerRadius = 9.0;
   static const _borderWidth = 2.0;
 
   /// Both the poster and the separate live overlay use this exact viewport.
   /// Clip the phone's outer corners, not a second rounded video rectangle.
-  static Widget mediaLayer({required Widget child}) => PositionedDirectional(
+  static Widget mediaLayer({
+    required Widget child,
+    VideoPlatform platform = VideoPlatform.android,
+  }) => PositionedDirectional(
     top: 0,
     bottom: 0,
     start: 0,
@@ -28,8 +38,8 @@ class PhoneFrame extends StatelessWidget {
     child: Padding(
       padding: const EdgeInsetsDirectional.all(_borderWidth),
       child: ClipRRect(
-        borderRadius: const BorderRadiusDirectional.all(
-          Radius.circular(_radius - _borderWidth),
+        borderRadius: BorderRadiusDirectional.all(
+          Radius.circular(_radius(platform) - _borderWidth),
         ),
         child: Padding(
           padding: const EdgeInsetsDirectional.only(
@@ -54,12 +64,12 @@ class PhoneFrame extends StatelessWidget {
       child: DecoratedBox(
         decoration: BoxDecoration(
           color: palette.surface,
-          border: Border.all(color: palette.surfaceBorder, width: _borderWidth),
-          borderRadius: BorderRadius.circular(_radius),
+          border: Border.all(color: palette.accentInk, width: _borderWidth),
+          borderRadius: BorderRadiusDirectional.circular(_radius(platform)),
         ),
         child: Stack(
           children: [
-            mediaLayer(child: child),
+            mediaLayer(child: child, platform: platform),
             PositionedDirectional(
               top: _borderWidth,
               start: 0,
@@ -67,11 +77,12 @@ class PhoneFrame extends StatelessWidget {
               height: _bezelTop,
               child: Center(
                 child: Container(
-                  width: _speakerRadius * 2,
-                  height: _speakerRadius * 2,
+                  key: ValueKey('camera-${platform.name}'),
+                  width: platform == VideoPlatform.ios ? 44 : 10,
+                  height: platform == VideoPlatform.ios ? 12 : 10,
                   decoration: BoxDecoration(
                     color: palette.mutedText.withValues(alpha: 0.5),
-                    shape: BoxShape.circle,
+                    borderRadius: BorderRadiusDirectional.circular(12),
                   ),
                 ),
               ),

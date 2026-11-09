@@ -9,6 +9,12 @@ class AppLocalizationsAr extends AppLocalizations {
   AppLocalizationsAr([String locale = 'ar']) : super(locale);
 
   @override
+  String get platformIos => 'iOS';
+
+  @override
+  String get platformAndroid => 'Android';
+
+  @override
   String get appTitle => 'مصطفى محمود — مطوّر Flutter';
 
   @override

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../core/models/project.dart';
 import '../../core/models/project_video.dart';
+import '../../core/models/project_videos.dart';
 import 'phone_frame.dart';
 import 'project_poster.dart';
 import 'project_video_player.dart';
@@ -15,17 +16,20 @@ class ProjectMediaFrame extends StatelessWidget {
     required this.video,
     required this.width,
     this.hero = true,
+    this.platform = VideoPlatform.android,
   });
 
   final Project project;
   final ProjectVideo video;
   final double width;
   final bool hero;
+  final VideoPlatform platform;
 
   @override
   Widget build(BuildContext context) {
     final poster = PhoneFrame(
       width: width,
+      platform: platform,
       child: ProjectPoster(path: video.poster),
     );
     final route = ModalRoute.of(context);
@@ -56,6 +60,7 @@ class ProjectMediaFrame extends StatelessWidget {
                 poster,
               if (settled)
                 PhoneFrame.mediaLayer(
+                  platform: platform,
                   child: ProjectVideoPlayer(
                     key: ValueKey(video.src),
                     video: video,

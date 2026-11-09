@@ -26,7 +26,8 @@ import 'package:portfolio/presentation/widgets/page_title.dart';
 import 'package:portfolio/presentation/widgets/project_media_frame.dart';
 import 'package:portfolio/presentation/widgets/project_placeholder.dart';
 import 'package:portfolio/presentation/widgets/project_poster.dart';
-import 'package:portfolio/presentation/widgets/project_video_gallery.dart';
+import 'package:portfolio/presentation/widgets/project_platform_gallery.dart';
+import 'package:portfolio/presentation/widgets/video_platform_picker.dart';
 import 'package:portfolio/presentation/widgets/project_video_player.dart';
 import 'package:portfolio/presentation/sections/experience_section.dart';
 import 'package:portfolio/presentation/sections/skills_section.dart';
@@ -173,7 +174,7 @@ Future<void> main() async {
     final title = tester.widget<PageTitle>(
       find
           .ancestor(
-            of: find.byType(ProjectVideoGallery),
+            of: find.byType(ProjectPlatformGallery),
             matching: find.byType(PageTitle),
           )
           .first,
@@ -374,7 +375,7 @@ Future<void> main() async {
         location: '/projects/${project.slug}',
         data: Content(profile: content.profile, projects: [project]),
       );
-      await tester.ensureVisible(find.byType(ProjectVideoGallery));
+      await tester.ensureVisible(find.byType(ProjectPlatformGallery));
       await frames(tester);
       final media = find.byType(ProjectMediaFrame);
       final poster = find.descendant(
@@ -451,19 +452,25 @@ Future<void> main() async {
     await pumpPage(
       tester,
       location: '/projects/${project.slug}',
+      width: 375,
       data: Content(profile: content.profile, projects: [project]),
     );
-    await tester.ensureVisible(
-      find.byKey(const ValueKey('gallery-thumbnails')),
-    );
+    final picker = find.byType(VideoPlatformPicker);
+    await tester.ensureVisible(picker);
     await frames(tester);
-    await tester.tap(find.byTooltip('Play video 2'));
+    tester.widget<VideoPlatformPicker>(picker).onChanged(VideoPlatform.android);
     await frames(tester);
+    tester.view.physicalSize = const Size(1440, 900);
+    await frames(tester);
+    expect(find.text('Caption 0'), findsOneWidget);
+    expect(find.text('Caption 1'), findsOneWidget);
     tester.view.physicalSize = const Size(375, 900);
     await frames(tester);
     expect(find.text('Caption 1'), findsOneWidget);
-    final pageView = tester.widget<PageView>(find.byType(PageView));
-    expect(pageView.controller!.page, 1);
+    expect(
+      tester.widget<VideoPlatformPicker>(picker).selected,
+      VideoPlatform.android,
+    );
     await unmount(tester);
   });
 
@@ -557,7 +564,7 @@ Future<void> main() async {
       expect(
         find.ancestor(
           of: heroFor('remix'),
-          matching: find.byType(ProjectVideoGallery),
+          matching: find.byType(ProjectPlatformGallery),
         ),
         findsOneWidget,
       );
@@ -598,25 +605,19 @@ Future<void> main() async {
           width: width,
           data: Content(profile: content.profile, projects: [project]),
         );
-        await tester.ensureVisible(find.byType(ProjectVideoGallery));
+        await tester.ensureVisible(find.byType(ProjectPlatformGallery));
         await frames(tester);
         final phone = width < 600;
-        final controls = find.byKey(
-          ValueKey(phone ? 'gallery-dots' : 'gallery-thumbnails'),
-        );
-        expect(controls, count == 1 ? findsNothing : findsOneWidget);
-        expect(
-          find.byKey(ValueKey(phone ? 'gallery-thumbnails' : 'gallery-dots')),
-          findsNothing,
-        );
+        final controls = find.byType(VideoPlatformPicker);
+        expect(controls, count == 2 && phone ? findsOneWidget : findsNothing);
         expect(find.text('Caption 0'), findsOneWidget);
         if (count == 2) {
-          await tester.ensureVisible(controls);
-          await frames(tester);
           if (phone) {
-            await tester.drag(find.byType(PageView), const Offset(-260, 0));
-          } else {
-            await tester.tap(find.byTooltip('Play video 2'));
+            await tester.ensureVisible(controls);
+            await frames(tester);
+            tester
+                .widget<VideoPlatformPicker>(controls)
+                .onChanged(VideoPlatform.android);
           }
           await frames(tester);
           expect(find.text('Caption 1'), findsOneWidget);

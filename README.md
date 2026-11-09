@@ -78,6 +78,12 @@ node tool/check_media.mjs
 The check prints missing cover, screen, video and poster paths grouped by project
 and exits nonzero while files are missing or videos exceed the size budget.
 
+On project pages, tablet/desktop show both platform demos side by side; phones
+show a platform picker when both exist. Home cards start with the primary demo
+and let visitors switch platforms. The details link carries that choice so only
+the matching static phone frame participates in the Hero transition. A missing
+platform is omitted, not replaced by a duplicate demo.
+
 ## Local performance checks
 
 ```sh

@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../core/app_scope.dart';
 import '../../core/models/project_link.dart';
+import '../../core/models/project_videos.dart';
 import '../../core/theme/app_colors.dart';
 import '../../core/utils/open_link.dart';
 import '../../l10n/app_localizations.dart';
@@ -12,15 +13,16 @@ import '../widgets/glass_card.dart';
 import '../widgets/nav_bar.dart';
 import '../widgets/page_title.dart';
 import '../widgets/project_poster.dart';
-import '../widgets/project_video_gallery.dart';
+import '../widgets/project_platform_gallery.dart';
 import '../widgets/reveal_on_scroll.dart';
 import '../widgets/store_badges.dart';
 import '../widgets/tech_chip.dart';
 
 class ProjectPage extends StatelessWidget {
-  const ProjectPage({super.key, required this.slug});
+  const ProjectPage({super.key, required this.slug, this.platform});
 
   final String slug;
+  final VideoPlatform? platform;
 
   @override
   Widget build(BuildContext context) {
@@ -85,10 +87,12 @@ class ProjectPage extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(height: 24),
-                      ProjectVideoGallery(
-                        key: ValueKey(slug),
-                        project: project,
-                      ),
+                      if (project.videos.primary != null)
+                        ProjectPlatformGallery(
+                          key: ValueKey(slug),
+                          project: project,
+                          heroPlatform: platform,
+                        ),
                       const SizedBox(height: 32),
                       RevealOnScroll(
                         child: GlassCard(

@@ -98,6 +98,18 @@ abstract class AppLocalizations {
     Locale('en'),
   ];
 
+  /// No description provided for @platformIos.
+  ///
+  /// In en, this message translates to:
+  /// **'iOS'**
+  String get platformIos;
+
+  /// No description provided for @platformAndroid.
+  ///
+  /// In en, this message translates to:
+  /// **'Android'**
+  String get platformAndroid;
+
   /// No description provided for @appTitle.
   ///
   /// In en, this message translates to:
