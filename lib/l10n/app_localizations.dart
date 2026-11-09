@@ -128,6 +128,36 @@ abstract class AppLocalizations {
   /// **'Video position'**
   String get videoPosition;
 
+  /// No description provided for @screens.
+  ///
+  /// In en, this message translates to:
+  /// **'Screens'**
+  String get screens;
+
+  /// No description provided for @closeScreens.
+  ///
+  /// In en, this message translates to:
+  /// **'Close screenshots'**
+  String get closeScreens;
+
+  /// No description provided for @previousScreen.
+  ///
+  /// In en, this message translates to:
+  /// **'Previous screenshot'**
+  String get previousScreen;
+
+  /// No description provided for @nextScreen.
+  ///
+  /// In en, this message translates to:
+  /// **'Next screenshot'**
+  String get nextScreen;
+
+  /// No description provided for @screenshotOf.
+  ///
+  /// In en, this message translates to:
+  /// **'Screenshot {number} of {total}'**
+  String screenshotOf(int number, int total);
+
   /// No description provided for @appTitle.
   ///
   /// In en, this message translates to:

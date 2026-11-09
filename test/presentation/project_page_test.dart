@@ -10,6 +10,7 @@ import 'package:portfolio/core/models/localized_text.dart';
 import 'package:portfolio/core/models/project.dart';
 import 'package:portfolio/core/models/project_video.dart';
 import 'package:portfolio/core/models/project_videos.dart';
+import 'package:portfolio/core/models/project_screen.dart';
 import 'package:portfolio/core/router/app_router.dart';
 import 'package:portfolio/core/theme/app_theme.dart';
 import 'package:portfolio/core/theme/theme_controller.dart';
@@ -118,7 +119,11 @@ Future<void> bottom(WidgetTester tester) async {
   }
 }
 
-Project testProject(int videos, {String? cover}) => Project(
+Project testProject(
+  int videos, {
+  String? cover,
+  List<ProjectScreen> screens = const [],
+}) => Project(
   slug: 'gallery-test',
   title: const LocalizedText(en: 'Gallery test', ar: 'اختبار المعرض'),
   subtitle: const LocalizedText(en: 'Subtitle', ar: 'عنوان فرعي'),
@@ -130,6 +135,7 @@ Project testProject(int videos, {String? cover}) => Project(
   tech: const [],
   status: null,
   cover: cover,
+  screens: screens,
   videos: ProjectVideos(
     ios: videos > 1
         ? const ProjectVideo(

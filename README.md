@@ -90,6 +90,13 @@ clocks in either language. Controls stay visible while paused and hide three
 seconds after the last interaction while playing. Narrow frames use two rows
 and omit clock labels below 220px; touch targets remain at least 48×48.
 
+Projects with `screens` show a lazy, horizontally scrollable thumbnail row after
+the videos. Mouse drag and trackpad scrolling are supported. A thumbnail opens a
+full-screen viewer at that image: swipe, use the side arrows or Left/Right keys
+to browse (reading direction follows Arabic); Escape, browser Back and X close
+it. Focus returns to the thumbnail. Neighbor images are prefetched, missing
+images show the designed placeholder, and reduced motion removes the 200ms fade.
+
 ## Local performance checks
 
 ```sh

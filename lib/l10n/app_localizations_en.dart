@@ -24,6 +24,23 @@ class AppLocalizationsEn extends AppLocalizations {
   String get videoPosition => 'Video position';
 
   @override
+  String get screens => 'Screens';
+
+  @override
+  String get closeScreens => 'Close screenshots';
+
+  @override
+  String get previousScreen => 'Previous screenshot';
+
+  @override
+  String get nextScreen => 'Next screenshot';
+
+  @override
+  String screenshotOf(int number, int total) {
+    return 'Screenshot $number of $total';
+  }
+
+  @override
   String get appTitle => 'Mostafa Mahmoud — Flutter Developer';
 
   @override

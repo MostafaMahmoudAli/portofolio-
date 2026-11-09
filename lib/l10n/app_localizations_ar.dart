@@ -24,6 +24,23 @@ class AppLocalizationsAr extends AppLocalizations {
   String get videoPosition => 'موضع الفيديو';
 
   @override
+  String get screens => 'الشاشات';
+
+  @override
+  String get closeScreens => 'إغلاق لقطات الشاشة';
+
+  @override
+  String get previousScreen => 'لقطة الشاشة السابقة';
+
+  @override
+  String get nextScreen => 'لقطة الشاشة التالية';
+
+  @override
+  String screenshotOf(int number, int total) {
+    return 'لقطة الشاشة $number من $total';
+  }
+
+  @override
   String get appTitle => 'مصطفى محمود — مطوّر Flutter';
 
   @override

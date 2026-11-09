@@ -14,6 +14,7 @@ import '../widgets/nav_bar.dart';
 import '../widgets/page_title.dart';
 import '../widgets/project_poster.dart';
 import '../widgets/project_platform_gallery.dart';
+import '../widgets/screens_gallery.dart';
 import '../widgets/reveal_on_scroll.dart';
 import '../widgets/store_badges.dart';
 import '../widgets/tech_chip.dart';
@@ -93,6 +94,13 @@ class ProjectPage extends StatelessWidget {
                           project: project,
                           heroPlatform: platform,
                         ),
+                      if (project.screens.isNotEmpty) ...[
+                        const SizedBox(height: 32),
+                        ScreensGallery(
+                          key: ValueKey('screens-$slug'),
+                          screens: project.screens,
+                        ),
+                      ],
                       const SizedBox(height: 32),
                       RevealOnScroll(
                         child: GlassCard(
