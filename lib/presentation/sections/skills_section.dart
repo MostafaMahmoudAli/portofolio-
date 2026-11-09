@@ -4,7 +4,6 @@ import '../../l10n/app_localizations.dart';
 import '../widgets/reveal_on_scroll.dart';
 import '../widgets/section_content.dart';
 import '../widgets/section_title.dart';
-import '../widgets/skills_marquee.dart';
 import '../widgets/tech_chip.dart';
 
 class SkillsSection extends StatelessWidget {
@@ -14,19 +13,13 @@ class SkillsSection extends StatelessWidget {
     final profile = AppScope.of(context).content.profile;
     final locale = Localizations.localeOf(context);
     final l10n = AppLocalizations.of(context);
-    final marquee = SkillsMarquee(
-      chips: [for (final group in profile.skillGroups) ...group.chips],
-    );
     return SectionContent(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SectionTitle(l10n.navSkills),
+          SectionTitle(l10n.navSkills, eyebrow: l10n.eyebrowSkills),
           const SizedBox(height: 24),
-          if (MediaQuery.disableAnimationsOf(context))
-            marquee
-          else
-            SizedBox(height: 48, child: marquee),
+          // The chips are grouped, not repeated: one list, once.
           for (final group in profile.skillGroups)
             RevealOnScroll(
               child: Padding(

@@ -21,7 +21,7 @@ class ThemeToggle extends StatelessWidget {
         side: WidgetStateProperty.resolveWith(
           (states) => BorderSide(
             color: isDark || states.contains(WidgetState.focused)
-                ? AppPalette.of(context).accent
+                ? AppPalette.of(context).accentInk
                 : Colors.transparent,
           ),
         ),

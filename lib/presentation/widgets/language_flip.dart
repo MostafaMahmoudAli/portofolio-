@@ -90,11 +90,11 @@ class LanguageFlipState extends State<LanguageFlip>
                 decoration: BoxDecoration(
                   border: BorderDirectional(
                     start: BorderSide(
-                      color: palette.accent.withValues(alpha: 0.4 * glow),
+                      color: palette.accentInk.withValues(alpha: 0.4 * glow),
                       width: 2,
                     ),
                     end: BorderSide(
-                      color: palette.accent.withValues(alpha: 0.4 * glow),
+                      color: palette.accentInk.withValues(alpha: 0.4 * glow),
                       width: 2,
                     ),
                   ),

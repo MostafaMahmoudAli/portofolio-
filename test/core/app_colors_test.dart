@@ -20,6 +20,7 @@ void main() {
     expect(copy.text, color);
     expect(copy.background, AppPalette.dark.background);
     expect(copy.accent, const Color(0xFF34D399));
+    expect(copy.accentInk, const Color(0xFF34D399));
     expect(copy.onAccent, const Color(0xFF15191A));
   });
 
@@ -27,5 +28,13 @@ void main() {
     final middle = AppPalette.dark.lerp(AppPalette.light, 0.5);
     expect(middle.accent, AppPalette.light.accent);
     expect(middle.onAccent, AppPalette.light.onAccent);
+  });
+
+  test('accent ink splits per theme while the fill accent does not', () {
+    expect(AppPalette.light.accent, AppPalette.dark.accent);
+    expect(AppPalette.light.accentInk, isNot(AppPalette.light.accent));
+    expect(AppPalette.dark.accentInk, AppPalette.dark.accent);
+    final middle = AppPalette.dark.lerp(AppPalette.light, 0.5);
+    expect(middle.accentInk, isNot(AppPalette.dark.accentInk));
   });
 }

@@ -134,6 +134,42 @@ abstract class AppLocalizations {
   /// **'Contact'**
   String get navContact;
 
+  /// No description provided for @availability.
+  ///
+  /// In en, this message translates to:
+  /// **'Open to Flutter roles · Alexandria, Remote'**
+  String get availability;
+
+  /// No description provided for @eyebrowAbout.
+  ///
+  /// In en, this message translates to:
+  /// **'The approach'**
+  String get eyebrowAbout;
+
+  /// No description provided for @eyebrowProjects.
+  ///
+  /// In en, this message translates to:
+  /// **'Selected work'**
+  String get eyebrowProjects;
+
+  /// No description provided for @eyebrowExperience.
+  ///
+  /// In en, this message translates to:
+  /// **'The journey'**
+  String get eyebrowExperience;
+
+  /// No description provided for @eyebrowSkills.
+  ///
+  /// In en, this message translates to:
+  /// **'The toolkit'**
+  String get eyebrowSkills;
+
+  /// No description provided for @eyebrowContact.
+  ///
+  /// In en, this message translates to:
+  /// **'Let\'s connect'**
+  String get eyebrowContact;
+
   /// No description provided for @resume.
   ///
   /// In en, this message translates to:

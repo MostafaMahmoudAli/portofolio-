@@ -26,23 +26,37 @@ class _GlassCardState extends State<GlassCard> {
   Widget build(BuildContext context) {
     final palette = AppPalette.of(context);
     final radius = BorderRadiusDirectional.circular(20);
+    final dark = Theme.of(context).brightness == Brightness.dark;
 
     return MouseRegion(
       onEnter: (_) => setState(() => _hovered = true),
       onExit: (_) => setState(() => _hovered = false),
-      child: ClipRRect(
-        borderRadius: radius,
-        child: BackdropFilter(
-          filter: ImageFilter.blur(sigmaX: 12, sigmaY: 12),
-          child: DecoratedBox(
-            decoration: BoxDecoration(
-              color: palette.surface,
-              border: Border.all(
-                color: _hovered ? palette.accent : palette.surfaceBorder,
-              ),
-              borderRadius: radius,
+      // Shadow must sit outside the clip or its entire outer blur is cut off.
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          borderRadius: radius,
+          boxShadow: [
+            BoxShadow(
+              color: dark ? const Color(0x59000000) : const Color(0x0F23272A),
+              blurRadius: 24,
+              offset: const Offset(0, 6),
             ),
-            child: Padding(padding: widget.padding, child: widget.child),
+          ],
+        ),
+        child: ClipRRect(
+          borderRadius: radius,
+          child: BackdropFilter(
+            filter: ImageFilter.blur(sigmaX: 12, sigmaY: 12),
+            child: DecoratedBox(
+              decoration: BoxDecoration(
+                color: palette.surface,
+                border: Border.all(
+                  color: _hovered ? palette.accentInk : palette.surfaceBorder,
+                ),
+                borderRadius: radius,
+              ),
+              child: Padding(padding: widget.padding, child: widget.child),
+            ),
           ),
         ),
       ),

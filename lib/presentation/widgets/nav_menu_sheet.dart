@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../core/app_scope.dart';
+import '../../core/theme/app_colors.dart';
 import '../../core/utils/download_file.dart';
 import '../../l10n/app_localizations.dart';
 import '../pages/home_section.dart';
@@ -11,19 +12,26 @@ import 'theme_toggle.dart';
 Future<void> showNavMenuSheet(
   BuildContext context, {
   required ValueChanged<HomeSection> onSectionTap,
+  HomeSection? activeSection,
 }) {
   return showModalBottomSheet(
     context: context,
     showDragHandle: true,
     isScrollControlled: true,
-    builder: (_) => NavMenuSheet(onSectionTap: onSectionTap),
+    builder: (_) =>
+        NavMenuSheet(onSectionTap: onSectionTap, activeSection: activeSection),
   );
 }
 
 class NavMenuSheet extends StatelessWidget {
-  const NavMenuSheet({super.key, required this.onSectionTap});
+  const NavMenuSheet({
+    super.key,
+    required this.onSectionTap,
+    this.activeSection,
+  });
 
   final ValueChanged<HomeSection> onSectionTap;
+  final HomeSection? activeSection;
 
   @override
   Widget build(BuildContext context) {
@@ -48,6 +56,14 @@ class NavMenuSheet extends StatelessWidget {
             ),
             for (final s in HomeSection.values)
               ListTile(
+                selected: activeSection == s,
+                selectedColor: AppPalette.of(context).accentInk,
+                trailing: activeSection == s
+                    ? Icon(
+                        Icons.check_rounded,
+                        color: AppPalette.of(context).accentInk,
+                      )
+                    : null,
                 title: Text(s.label(l10n), style: titleStyle),
                 onTap: () {
                   Navigator.pop(context);

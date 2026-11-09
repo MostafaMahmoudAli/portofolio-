@@ -29,11 +29,44 @@ class _HomePageState extends State<HomePage> {
   HomeSection? _pendingSection;
   bool _sectionScrollScheduled = false;
   int _scrollRequest = 0;
+  final _navigation = ValueNotifier<(HomeSection?, double)>((null, 0));
+  bool _navigationScheduled = false;
 
   @override
   void initState() {
     super.initState();
     _pendingSection = widget.section;
+    _scroll.addListener(_scheduleNavigationUpdate);
+  }
+
+  // Coalesce geometry reads and rebuild only the navigation, not the slivers.
+  void _scheduleNavigationUpdate() {
+    if (_navigationScheduled) return;
+    _navigationScheduled = true;
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _navigationScheduled = false;
+      if (!mounted || !_scroll.hasClients) return;
+      final position = _scroll.position;
+      final marker = position.viewportDimension * 0.3;
+      HomeSection? active;
+      double nearest = double.negativeInfinity;
+      for (final section in HomeSection.values) {
+        final box = _keys[section]!.currentContext?.findRenderObject();
+        if (box is! RenderBox || !box.attached || !box.hasSize) continue;
+        final top = box.localToGlobal(Offset.zero).dy;
+        if (top <= marker && top > nearest) {
+          active = section;
+          nearest = top;
+        }
+      }
+      final progress = position.maxScrollExtent <= 0
+          ? 0.0
+          : (position.pixels / position.maxScrollExtent).clamp(0.0, 1.0);
+      if (position.extentAfter <= 1 && position.pixels > 0) {
+        active = HomeSection.contact;
+      }
+      _navigation.value = (active, progress);
+    });
   }
 
   @override
@@ -47,6 +80,7 @@ class _HomePageState extends State<HomePage> {
   @override
   void dispose() {
     _scroll.dispose();
+    _navigation.dispose();
     super.dispose();
   }
 
@@ -152,38 +186,56 @@ class _HomePageState extends State<HomePage> {
           children: [
             // Slivers, so long lists (featured cards and their videos) build lazily.
             // Nav keys sit on widgets that always exist, so ensureVisible works.
-            CustomScrollView(
-              controller: _scroll,
-              slivers: [
-                SliverToBoxAdapter(
-                  child: HeroSection(
-                    onViewProjects: () => _scrollTo(HomeSection.projects),
+            NotificationListener<ScrollMetricsNotification>(
+              onNotification: (_) {
+                _scheduleNavigationUpdate();
+                return false;
+              },
+              child: CustomScrollView(
+                controller: _scroll,
+                slivers: [
+                  SliverToBoxAdapter(
+                    child: HeroSection(
+                      onViewProjects: () => _scrollTo(HomeSection.projects),
+                    ),
                   ),
-                ),
-                SliverToBoxAdapter(
-                  child: AboutSection(key: _keys[HomeSection.about]),
-                ),
-                FeaturedProjectsSection(headerKey: _keys[HomeSection.projects]),
-                const SliverToBoxAdapter(child: MoreProjectsSection()),
-                SliverToBoxAdapter(
-                  child: ExperienceSection(key: _keys[HomeSection.experience]),
-                ),
-                SliverToBoxAdapter(
-                  child: SkillsSection(key: _keys[HomeSection.skills]),
-                ),
-                SliverToBoxAdapter(
-                  child: ContactSection(key: _keys[HomeSection.contact]),
-                ),
-                SliverToBoxAdapter(
-                  child: FooterSection(onBackToTop: _scrollToTop),
-                ),
-              ],
+                  SliverToBoxAdapter(
+                    child: AboutSection(key: _keys[HomeSection.about]),
+                  ),
+                  FeaturedProjectsSection(
+                    headerKey: _keys[HomeSection.projects],
+                  ),
+                  const SliverToBoxAdapter(child: MoreProjectsSection()),
+                  SliverToBoxAdapter(
+                    child: ExperienceSection(
+                      key: _keys[HomeSection.experience],
+                    ),
+                  ),
+                  SliverToBoxAdapter(
+                    child: SkillsSection(key: _keys[HomeSection.skills]),
+                  ),
+                  SliverToBoxAdapter(
+                    child: ContactSection(key: _keys[HomeSection.contact]),
+                  ),
+                  SliverToBoxAdapter(
+                    child: FooterSection(onBackToTop: _scrollToTop),
+                  ),
+                ],
+              ),
             ),
             PositionedDirectional(
               top: 0,
               start: 0,
               end: 0,
-              child: NavBar(onSectionTap: _scrollTo, onLogoTap: _scrollToTop),
+              child: ValueListenableBuilder<(HomeSection?, double)>(
+                valueListenable: _navigation,
+                builder: (context, navigation, _) => NavBar(
+                  onSectionTap: _scrollTo,
+                  onLogoTap: _scrollToTop,
+                  activeSection: navigation.$1,
+                  scrollProgress: navigation.$2,
+                ),
+              ),
             ),
           ],
         ),

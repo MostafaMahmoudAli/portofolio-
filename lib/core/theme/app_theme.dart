@@ -30,7 +30,7 @@ abstract final class AppTheme {
         color:
             states.contains(WidgetState.hovered) ||
                 states.contains(WidgetState.focused)
-            ? palette.accent
+            ? palette.accentInk
             : palette.surfaceBorder,
       ),
     );
@@ -42,6 +42,15 @@ abstract final class AppTheme {
         palette.text.withValues(alpha: 0.04),
       ),
       side: outline,
+    );
+    // Text buttons are links, not buttons: no border, so a row of them reads as
+    // a menu instead of a row of pills.
+    final linkStyle = secondaryStyle.copyWith(
+      side: WidgetStateProperty.resolveWith(
+        (states) => states.contains(WidgetState.focused)
+            ? BorderSide(color: palette.accentInk)
+            : BorderSide.none,
+      ),
     );
 
     return ThemeData(
@@ -55,7 +64,7 @@ abstract final class AppTheme {
         palette.mutedText,
       ),
       iconTheme: IconThemeData(color: palette.text),
-      focusColor: palette.accent.withValues(alpha: 0.15),
+      focusColor: palette.accentInk.withValues(alpha: 0.15),
       tooltipTheme: TooltipThemeData(
         decoration: BoxDecoration(
           color: palette.text,
@@ -69,13 +78,13 @@ abstract final class AppTheme {
           side: WidgetStateProperty.resolveWith(
             (states) => BorderSide(
               color: states.contains(WidgetState.focused)
-                  ? palette.accent
+                  ? palette.accentInk
                   : Colors.transparent,
             ),
           ),
         ),
       ),
-      textButtonTheme: TextButtonThemeData(style: secondaryStyle),
+      textButtonTheme: TextButtonThemeData(style: linkStyle),
       filledButtonTheme: FilledButtonThemeData(
         style: ButtonStyle(
           minimumSize: const WidgetStatePropertyAll(Size(48, 48)),

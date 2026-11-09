@@ -44,7 +44,10 @@ class FeaturedProjectsSection extends StatelessWidget {
             child: Padding(
               key: headerKey,
               padding: const EdgeInsetsDirectional.only(top: 96, bottom: 6),
-              child: SectionTitle(l10n.featuredProjects),
+              child: SectionTitle(
+                l10n.featuredProjects,
+                eyebrow: l10n.eyebrowProjects,
+              ),
             ),
           ),
           SliverList.builder(
@@ -197,6 +200,15 @@ class _CardText extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        if (project.impact case final impact?) ...[
+          Text(
+            impact.of(locale),
+            style: textTheme.titleMedium?.copyWith(
+              color: AppPalette.of(context).accentInk,
+            ),
+          ),
+          const SizedBox(height: 12),
+        ],
         Text(project.title.of(locale), style: textTheme.headlineSmall),
         const SizedBox(height: 4),
         Text(

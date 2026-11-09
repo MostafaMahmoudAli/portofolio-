@@ -131,3 +131,7 @@ flutter:
           weight: 500
         - asset: assets/fonts/IBMPlexSansArabic-Bold.ttf
           weight: 700
+    - family: Tajawal
+      fonts:
+        - asset: assets/fonts/Tajawal-Bold.ttf
+          weight: 700

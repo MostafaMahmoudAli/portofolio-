@@ -27,6 +27,24 @@ class AppLocalizationsAr extends AppLocalizations {
   String get navContact => 'تواصل';
 
   @override
+  String get availability => 'متاح لفرص فلاتر · الإسكندرية، عن بُعد';
+
+  @override
+  String get eyebrowAbout => 'منهجي في العمل';
+
+  @override
+  String get eyebrowProjects => 'أعمال مختارة';
+
+  @override
+  String get eyebrowExperience => 'المسيرة المهنية';
+
+  @override
+  String get eyebrowSkills => 'أدواتي';
+
+  @override
+  String get eyebrowContact => 'لنتواصل';
+
+  @override
   String get resume => 'السيرة الذاتية';
 
   @override

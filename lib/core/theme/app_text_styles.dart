@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 
 /// Text theme per locale: Space Grotesk headings and Inter body for Latin text,
-/// IBM Plex Sans Arabic for both in Arabic (the Latin fonts have no Arabic letters).
+/// Tajawal headings and IBM Plex Sans Arabic body in Arabic.
 abstract final class AppTextStyles {
   static const arabicFamily = 'IBMPlexSansArabic';
+  static const arabicHeadingFamily = 'Tajawal';
 
   static TextTheme textTheme(Locale locale, Color text, Color muted) {
     final arabic = locale.languageCode == 'ar';
-    final heading = arabic ? arabicFamily : 'SpaceGrotesk';
+    final heading = arabic ? arabicHeadingFamily : 'SpaceGrotesk';
     final body = arabic ? arabicFamily : 'Inter';
     // Arabic script needs more line height than Latin headings.
     final headingHeight = arabic ? 1.4 : 1.15;

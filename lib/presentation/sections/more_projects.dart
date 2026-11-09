@@ -43,7 +43,10 @@ class MoreProjectsSection extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SectionTitle(l10n.moreProjects),
+                  SectionTitle(
+                    l10n.moreProjects,
+                    eyebrow: l10n.eyebrowProjects,
+                  ),
                   const SizedBox(height: 16),
                   Wrap(
                     spacing: 16,

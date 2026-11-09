@@ -354,7 +354,7 @@ class _ControlButton extends StatelessWidget {
                   color:
                       states.contains(WidgetState.hovered) ||
                           states.contains(WidgetState.focused)
-                      ? palette.accent
+                      ? palette.accentInk
                       : palette.surfaceBorder,
                 ),
               ),

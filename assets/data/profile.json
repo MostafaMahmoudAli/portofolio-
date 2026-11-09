@@ -22,7 +22,7 @@
     { "value": 3, "suffix": "+", "label": { "en": "Years of experience", "ar": "سنوات خبرة" } },
     { "value": 6, "label": { "en": "Published apps", "ar": "تطبيقات منشورة" } },
     { "value": 310, "suffix": "K+", "label": { "en": "Downloads", "ar": "عملية تحميل" } },
-    { "value": 57, "label": { "en": "Automated test suites", "ar": "حزمة اختبارات آلية" } }
+    { "value": 57, "label": { "en": "Test suites", "ar": "حزمة اختبارات" } }
   ],
   "experience": [
     {

@@ -13,7 +13,6 @@ import 'package:portfolio/presentation/widgets/glass_card.dart';
 import 'package:portfolio/presentation/widgets/nav_bar.dart';
 import 'package:portfolio/presentation/widgets/nav_menu_sheet.dart';
 import 'package:portfolio/presentation/widgets/project_placeholder.dart';
-import 'package:portfolio/presentation/widgets/skills_marquee.dart';
 import 'package:portfolio/presentation/widgets/timeline_dot.dart';
 import 'package:video_player_platform_interface/video_player_platform_interface.dart';
 import 'package:visibility_detector/visibility_detector.dart';
@@ -41,12 +40,6 @@ Future<void> navigate(
 
 double lineHeight(WidgetTester tester) =>
     tester.getSize(find.byKey(const ValueKey('timeline-line'))).height;
-double translation(WidgetTester tester) => tester
-    .widget<Transform>(
-      find.byKey(const ValueKey('marquee-translation'), skipOffstage: false),
-    )
-    .transform
-    .storage[12];
 double dotScale(WidgetTester tester, Finder dot) => tester
     .widget<AnimatedScale>(
       find.descendant(of: dot, matching: find.byType(AnimatedScale)),
@@ -71,6 +64,7 @@ Future<void> main() async {
           ('Inter', 'Inter-Regular.ttf'),
           ('SpaceGrotesk', 'SpaceGrotesk-Bold.ttf'),
           ('IBMPlexSansArabic', 'IBMPlexSansArabic-Regular.ttf'),
+          ('Tajawal', 'Tajawal-Bold.ttf'),
         ]) {
           await (FontLoader(
             family,
@@ -166,28 +160,6 @@ Future<void> main() async {
       },
     );
 
-    testWidgets(
-      'marquee moves in reading direction and pauses offscreen in $language',
-      (tester) async {
-        await helpers.pumpPage(tester, location: '/', language: language);
-        final l10n = AppLocalizations.of(tester.element(find.byType(HomePage)));
-        await navigate(tester, l10n.navSkills);
-        final before = translation(tester);
-        await helpers.frames(tester);
-        expect(
-          translation(tester),
-          language == 'ar' ? greaterThan(before) : lessThan(before),
-        );
-        final scroll = helpers.scrollOf(tester, HomePage);
-        scroll.jumpTo(0);
-        await helpers.frames(tester, 2);
-        final paused = translation(tester);
-        await helpers.frames(tester, 20);
-        expect(translation(tester), paused);
-        await helpers.unmount(tester);
-      },
-    );
-
     testWidgets('copy email and localized footer in $language', (tester) async {
       String? copied;
       tester.binding.defaultBinaryMessenger.setMockMethodCallHandler(
@@ -245,14 +217,15 @@ Future<void> main() async {
     }
     await navigate(tester, 'Skills');
     expect(find.byKey(const ValueKey('marquee-translation')), findsNothing);
+    // The chips are listed once, grouped, and they do not move.
     final wrap = find.descendant(
-      of: find.byType(SkillsMarquee),
+      of: find.byType(SkillsSection),
       matching: find.byType(Wrap),
     );
-    expect(wrap, findsOneWidget);
-    final rect = tester.getRect(wrap);
+    expect(wrap, findsWidgets);
+    final rect = tester.getRect(wrap.first);
     await helpers.frames(tester, 20);
-    expect(tester.getRect(wrap), rect);
+    expect(tester.getRect(wrap.first), rect);
     await helpers.unmount(tester);
   });
 

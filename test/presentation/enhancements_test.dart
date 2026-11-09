@@ -25,6 +25,7 @@ Future<void> main() async {
       ('Inter', 'Inter-Regular.ttf'),
       ('SpaceGrotesk', 'SpaceGrotesk-Bold.ttf'),
       ('IBMPlexSansArabic', 'IBMPlexSansArabic-Regular.ttf'),
+      ('Tajawal', 'Tajawal-Bold.ttf'),
     ]) {
       await (FontLoader(
         family,

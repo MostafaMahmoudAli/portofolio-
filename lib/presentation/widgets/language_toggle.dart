@@ -31,7 +31,7 @@ class LanguageToggle extends StatelessWidget {
               color:
                   Localizations.localeOf(context).languageCode == 'ar' ||
                       states.contains(WidgetState.focused)
-                  ? AppPalette.of(context).accent
+                  ? AppPalette.of(context).accentInk
                   : Colors.transparent,
             ),
           ),

@@ -46,7 +46,6 @@ class _AuroraBackgroundState extends State<AuroraBackground>
   @override
   Widget build(BuildContext context) {
     final palette = AppPalette.of(context);
-    final light = Theme.of(context).brightness == Brightness.light;
 
     return Stack(
       children: [
@@ -60,7 +59,7 @@ class _AuroraBackgroundState extends State<AuroraBackground>
                     painter: _AuroraPainter(
                       progress: _controller.value,
                       palette: palette,
-                      opacity: light ? 0.10 : 0.14,
+                      opacity: 0.14,
                     ),
                   ),
                 ),
@@ -98,7 +97,7 @@ class _AuroraPainter extends CustomPainter {
       center,
       radius,
       Paint()
-        ..color = palette.accent.withValues(alpha: opacity)
+        ..color = palette.accentInk.withValues(alpha: opacity)
         ..maskFilter = MaskFilter.blur(BlurStyle.normal, radius * 0.65),
     );
   }

@@ -2,6 +2,7 @@
   "projects": [
     {
       "slug": "egypt-consulate-apps",
+      "impact": { "en": "310K+ downloads · 4 apps, one codebase", "ar": "310 ألف+ تحميل · 4 تطبيقات من كود واحد" },
       "title": { "en": "Egypt Consulate Apps", "ar": "تطبيقات القنصليات المصرية" },
       "subtitle": { "en": "Kuwait, Riyadh, Jeddah & Milan — four missions, one Flutter codebase", "ar": "الكويت، الرياض، جدة وميلانو — أربع بعثات من كود واحد" },
       "featured": true,
@@ -117,6 +118,7 @@
     },
     {
       "slug": "remix",
+      "impact": { "en": "0.5×–3× speed baked into exports", "ar": "سرعات من 0.5× إلى 3× داخل الملف الناتج" },
       "title": { "en": "Remix", "ar": "ريمكس" },
       "subtitle": { "en": "Short-form video editor — duet, trim, sound reuse & import", "ar": "محرر فيديو قصير — دويت وقص وإعادة استخدام الصوت والاستيراد" },
       "featured": true,

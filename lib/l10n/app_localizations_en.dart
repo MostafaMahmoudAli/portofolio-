@@ -27,6 +27,24 @@ class AppLocalizationsEn extends AppLocalizations {
   String get navContact => 'Contact';
 
   @override
+  String get availability => 'Open to Flutter roles · Alexandria, Remote';
+
+  @override
+  String get eyebrowAbout => 'The approach';
+
+  @override
+  String get eyebrowProjects => 'Selected work';
+
+  @override
+  String get eyebrowExperience => 'The journey';
+
+  @override
+  String get eyebrowSkills => 'The toolkit';
+
+  @override
+  String get eyebrowContact => 'Let\'s connect';
+
+  @override
   String get resume => 'Resume';
 
   @override

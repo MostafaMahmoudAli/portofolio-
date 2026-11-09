@@ -50,7 +50,7 @@ class AboutSection extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SectionTitle(l10n.navAbout),
+                  SectionTitle(l10n.navAbout, eyebrow: l10n.eyebrowAbout),
                   const SizedBox(height: 16),
                   ConstrainedBox(
                     constraints: const BoxConstraints(maxWidth: 760),

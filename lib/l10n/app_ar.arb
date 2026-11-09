@@ -1,5 +1,11 @@
 {
   "@@locale": "ar",
+  "availability": "متاح لفرص فلاتر · الإسكندرية، عن بُعد",
+  "eyebrowAbout": "منهجي في العمل",
+  "eyebrowProjects": "أعمال مختارة",
+  "eyebrowExperience": "المسيرة المهنية",
+  "eyebrowSkills": "أدواتي",
+  "eyebrowContact": "لنتواصل",
   "playVideo": "تشغيل الفيديو",
   "pauseVideo": "إيقاف الفيديو مؤقتًا",
   "muteVideo": "كتم صوت الفيديو",

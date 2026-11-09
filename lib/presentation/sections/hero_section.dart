@@ -80,6 +80,23 @@ class _HeroSectionState extends State<HeroSection> {
       key: _detailsKey,
       crossAxisAlignment: crossAlign,
       children: [
+        Container(
+          padding: const EdgeInsetsDirectional.symmetric(
+            horizontal: 12,
+            vertical: 8,
+          ),
+          decoration: BoxDecoration(
+            color: palette.surface,
+            borderRadius: BorderRadius.circular(24),
+            border: Border.all(color: palette.accentInk),
+          ),
+          child: Text(
+            l10n.availability,
+            textAlign: align,
+            style: textTheme.labelMedium?.copyWith(color: palette.accentInk),
+          ),
+        ),
+        const SizedBox(height: 16),
         entrance(0, Text(profile.name, style: nameStyle, textAlign: align)),
         const SizedBox(height: 12),
         entrance(
@@ -106,6 +123,7 @@ class _HeroSectionState extends State<HeroSection> {
             alignment: phone ? WrapAlignment.center : WrapAlignment.start,
             spacing: 12,
             runSpacing: 12,
+            crossAxisAlignment: WrapCrossAlignment.center,
             children: [
               FilledButton.icon(
                 onPressed: widget.onViewProjects,
@@ -118,20 +136,29 @@ class _HeroSectionState extends State<HeroSection> {
                 icon: const Icon(Icons.download_rounded),
                 label: Text(l10n.downloadResume),
               ),
-              TextButton.icon(
-                onPressed: () => openLink(profile.github),
-                icon: const Icon(Icons.code_rounded),
-                label: Text(l10n.github),
-              ),
-              TextButton.icon(
-                onPressed: () => openLink(profile.linkedin),
-                icon: const Icon(Icons.work_outline_rounded),
-                label: Text(l10n.linkedin),
-              ),
-              TextButton.icon(
-                onPressed: () => openLink('mailto:${profile.email}'),
-                icon: const Icon(Icons.mail_outline_rounded),
-                label: Text(l10n.email),
+              // Secondary links are icon-only: one filled action, one outlined
+              // action, three quiet circles.
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  _SocialButton(
+                    icon: Icons.code_rounded,
+                    tooltip: l10n.github,
+                    onPressed: () => openLink(profile.github),
+                  ),
+                  const SizedBox(width: 8),
+                  _SocialButton(
+                    icon: Icons.work_outline_rounded,
+                    tooltip: l10n.linkedin,
+                    onPressed: () => openLink(profile.linkedin),
+                  ),
+                  const SizedBox(width: 8),
+                  _SocialButton(
+                    icon: Icons.mail_outline_rounded,
+                    tooltip: l10n.email,
+                    onPressed: () => openLink('mailto:${profile.email}'),
+                  ),
+                ],
               ),
             ],
           ),
@@ -155,7 +182,9 @@ class _HeroSectionState extends State<HeroSection> {
     return AuroraBackground(
       child: ConstrainedBox(
         constraints: BoxConstraints(
-          minHeight: MediaQuery.sizeOf(context).height,
+          // The nav bar floats over the page, so a full viewport height would
+          // leave a band of empty space under the stats on a desktop window.
+          minHeight: MediaQuery.sizeOf(context).height * 0.85,
         ),
         child: Padding(
           padding: const EdgeInsetsDirectional.fromSTEB(24, 104, 24, 48),
@@ -185,6 +214,48 @@ class _HeroSectionState extends State<HeroSection> {
   }
 }
 
+/// A round, quiet action used for the social links in the hero.
+class _SocialButton extends StatelessWidget {
+  const _SocialButton({
+    required this.icon,
+    required this.tooltip,
+    required this.onPressed,
+  });
+
+  final IconData icon;
+  final String tooltip;
+  final VoidCallback onPressed;
+
+  @override
+  Widget build(BuildContext context) {
+    final palette = AppPalette.of(context);
+    return IconButton(
+      tooltip: tooltip,
+      onPressed: onPressed,
+      icon: Icon(icon, size: 20),
+      style: ButtonStyle(
+        minimumSize: const WidgetStatePropertyAll(Size(48, 48)),
+        backgroundColor: WidgetStatePropertyAll(palette.surface),
+        foregroundColor: WidgetStatePropertyAll(palette.text),
+        overlayColor: WidgetStatePropertyAll(
+          palette.text.withValues(alpha: 0.04),
+        ),
+        shape: WidgetStateProperty.resolveWith<OutlinedBorder?>(
+          (states) => CircleBorder(
+            side: BorderSide(
+              color:
+                  states.contains(WidgetState.hovered) ||
+                      states.contains(WidgetState.focused)
+                  ? palette.accentInk
+                  : palette.surfaceBorder,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
 class _Stats extends StatelessWidget {
   const _Stats({required this.counterDelay});
 
@@ -204,7 +275,7 @@ class _Stats extends StatelessWidget {
       children: [
         for (final stat in profile.stats)
           SizedBox(
-            width: phone ? 130 : 150,
+            width: phone ? 130 : 168,
             child: Column(
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: phone

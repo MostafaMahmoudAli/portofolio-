@@ -81,9 +81,10 @@ Future<void> main() async {
     expect(find.text(profile.title.of(const Locale('en'))), findsOneWidget);
     expect(find.text('View projects'), findsOneWidget);
     expect(find.text('Download resume'), findsOneWidget);
-    expect(find.text('GitHub'), findsOneWidget);
-    expect(find.text('LinkedIn'), findsOneWidget);
-    expect(find.text('Email'), findsOneWidget);
+    // The three secondary links are icon-only, labelled by their tooltip.
+    expect(find.byTooltip('GitHub'), findsOneWidget);
+    expect(find.byTooltip('LinkedIn'), findsOneWidget);
+    expect(find.byTooltip('Email'), findsOneWidget);
 
     // Final counter values, no count-up and no entrance animation in flight.
     expect(find.text('3+'), findsOneWidget);

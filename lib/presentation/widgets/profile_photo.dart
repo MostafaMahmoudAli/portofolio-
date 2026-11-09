@@ -152,9 +152,9 @@ class _RingPainter extends CustomPainter {
       ..style = PaintingStyle.stroke
       ..strokeWidth = stroke
       ..strokeCap = StrokeCap.round
-      ..color = palette.accent.withValues(alpha: 0.25);
+      ..color = palette.accentInk.withValues(alpha: 0.25);
     canvas.drawCircle(center, radius, paint);
-    paint.color = palette.accent;
+    paint.color = palette.accentInk;
     canvas.drawArc(
       Rect.fromCircle(center: center, radius: radius),
       turns * 2 * math.pi,

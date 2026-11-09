@@ -20,6 +20,7 @@ class Project {
     required this.cover,
     required this.videos,
     required this.links,
+    this.impact,
   });
 
   factory Project.fromJson(
@@ -50,6 +51,9 @@ class Project {
         ? null
         : LocalizedText.fromJson(json['status'], where: where, field: 'status'),
     cover: optionalString(json, 'cover', where),
+    impact: json['impact'] == null
+        ? null
+        : LocalizedText.fromJson(json['impact'], where: where, field: 'impact'),
     videos: [
       for (final (i, video) in optionalMaps(json, 'videos', where).indexed)
         ProjectVideo.fromJson(video, where: '$where: videos[$i]'),
@@ -77,6 +81,7 @@ class Project {
   final List<LocalizedText> bullets;
   final List<String> tech;
   final LocalizedText? status;
+  final LocalizedText? impact;
   final String? cover;
   final List<ProjectVideo> videos;
   final List<ProjectLink> links;

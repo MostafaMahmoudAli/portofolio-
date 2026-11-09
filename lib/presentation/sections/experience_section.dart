@@ -67,7 +67,7 @@ class _ExperienceSectionState extends State<ExperienceSection> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SectionTitle(l10n.navExperience),
+          SectionTitle(l10n.navExperience, eyebrow: l10n.eyebrowExperience),
           const SizedBox(height: 24),
           Stack(
             key: _timelineKey,
@@ -85,7 +85,7 @@ class _ExperienceSectionState extends State<ExperienceSection> {
                         : _progress,
                     child: ColoredBox(
                       key: const ValueKey('timeline-line'),
-                      color: palette.accent,
+                      color: palette.accentInk,
                       child: const SizedBox.expand(),
                     ),
                   ),

@@ -31,7 +31,7 @@ class _TechChipState extends State<TechChip> {
         decoration: BoxDecoration(
           color: palette.surface,
           border: Border.all(
-            color: _hovered ? palette.accent : palette.surfaceBorder,
+            color: _hovered ? palette.accentInk : palette.surfaceBorder,
           ),
           borderRadius: BorderRadiusDirectional.circular(20),
         ),

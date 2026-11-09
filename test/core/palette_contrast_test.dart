@@ -49,4 +49,19 @@ void main() {
       lessThan(4.5),
     );
   });
+
+  test('accent ink clears AA as text in both themes', () {
+    for (final palette in [AppPalette.light, AppPalette.dark]) {
+      expect(
+        contrast(palette.accentInk, palette.background),
+        greaterThanOrEqualTo(4.5),
+      );
+      // The surface is translucent, so compare against the composited result.
+      final composited = Color.alphaBlend(palette.surface, palette.background);
+      expect(
+        contrast(palette.accentInk, composited),
+        greaterThanOrEqualTo(4.5),
+      );
+    }
+  });
 }

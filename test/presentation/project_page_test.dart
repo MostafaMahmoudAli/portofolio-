@@ -394,10 +394,16 @@ Future<void> main() async {
                     )
                     .decoration!
                 as BoxDecoration;
-        expect(decoration.color, AppPalette.light.surface);
+        expect(
+          decoration.color,
+          Color.alphaBlend(
+            AppPalette.light.accentInk.withValues(alpha: 0.08),
+            AppPalette.light.background,
+          ),
+        );
         expect(
           (decoration.border! as Border).top.color,
-          AppPalette.light.accent,
+          AppPalette.light.accentInk.withValues(alpha: 0.30),
         );
       }
       expect(tester.takeException(), isNull);

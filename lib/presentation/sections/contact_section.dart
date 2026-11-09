@@ -20,7 +20,7 @@ class ContactSection extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SectionTitle(l10n.navContact),
+              SectionTitle(l10n.navContact, eyebrow: l10n.eyebrowContact),
               const SizedBox(height: 16),
               Text(
                 l10n.contactCta,

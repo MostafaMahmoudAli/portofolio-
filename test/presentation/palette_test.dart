@@ -7,6 +7,7 @@ import 'package:portfolio/core/theme/app_theme.dart';
 import 'package:portfolio/presentation/pages/home_page.dart';
 import 'package:portfolio/presentation/pages/project_page.dart';
 import 'package:portfolio/presentation/widgets/glass_card.dart';
+import 'package:portfolio/presentation/widgets/project_placeholder.dart';
 import 'package:portfolio/presentation/widgets/tech_chip.dart';
 import 'package:video_player_platform_interface/video_player_platform_interface.dart';
 import 'package:visibility_detector/visibility_detector.dart';
@@ -100,22 +101,30 @@ Future<void> main() async {
         final primary = theme.filledButtonTheme.style!;
         expect(primary.backgroundColor!.resolve({}), palette.accent);
         expect(primary.foregroundColor!.resolve({}), palette.onAccent);
-        for (final secondary in [
-          theme.textButtonTheme.style!,
-          theme.outlinedButtonTheme.style!,
-        ]) {
-          expect(secondary.backgroundColor!.resolve({}), Colors.transparent);
-          expect(secondary.foregroundColor!.resolve({}), palette.text);
-          expect(secondary.side!.resolve({})!.color, palette.surfaceBorder);
-          expect(
-            secondary.side!.resolve({WidgetState.hovered})!.color,
-            palette.accent,
-          );
-          expect(
-            secondary.side!.resolve({WidgetState.focused})!.color,
-            palette.accent,
-          );
-        }
+        // Text buttons are links: no border at rest.
+        final link = theme.textButtonTheme.style!;
+        expect(link.side!.resolve({})!.style, BorderStyle.none);
+        expect(
+          link.side!.resolve({WidgetState.hovered})!.style,
+          BorderStyle.none,
+        );
+        expect(
+          link.side!.resolve({WidgetState.focused})!.color,
+          palette.accentInk,
+        );
+        // Outlined buttons keep the hairline.
+        final outlined = theme.outlinedButtonTheme.style!;
+        expect(outlined.backgroundColor!.resolve({}), Colors.transparent);
+        expect(outlined.foregroundColor!.resolve({}), palette.text);
+        expect(outlined.side!.resolve({})!.color, palette.surfaceBorder);
+        expect(
+          outlined.side!.resolve({WidgetState.hovered})!.color,
+          palette.accentInk,
+        );
+        expect(
+          outlined.side!.resolve({WidgetState.focused})!.color,
+          palette.accentInk,
+        );
       },
     );
   }
@@ -139,7 +148,10 @@ Future<void> main() async {
         final decorations = tester.widgetList<DecoratedBox>(
           find.descendant(of: target, matching: find.byType(DecoratedBox)),
         );
-        final box = decorations.first.decoration as BoxDecoration;
+        final box = decorations
+            .map((widget) => widget.decoration)
+            .whereType<BoxDecoration>()
+            .firstWhere((box) => box.border != null);
         return (box.border! as Border).top.color;
       }
 
@@ -148,11 +160,59 @@ Future<void> main() async {
       await mouse.addPointer(location: Offset.zero);
       await mouse.moveTo(tester.getCenter(target));
       await helpers.frames(tester, 2);
-      expect(borderColor(), AppPalette.light.accent);
+      expect(borderColor(), AppPalette.light.accentInk);
       await mouse.moveTo(Offset.zero);
       await helpers.frames(tester, 2);
       expect(borderColor(), AppPalette.light.surfaceBorder);
       await mouse.removePointer();
+    });
+  }
+
+  for (final brightness in Brightness.values) {
+    testWidgets('placeholder is opaque over the static poster in $brightness', (
+      tester,
+    ) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          theme: AppTheme.build(brightness, const Locale('en')),
+          home: const Scaffold(body: ProjectPlaceholder(title: 'Project')),
+        ),
+      );
+      final box = tester.widget<Container>(
+        find.descendant(
+          of: find.byType(ProjectPlaceholder),
+          matching: find.byType(Container),
+        ),
+      );
+      expect((box.decoration as BoxDecoration).color!.a, 1);
+    });
+    testWidgets('card shadow is outside its clip in $brightness', (
+      tester,
+    ) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          theme: AppTheme.build(brightness, const Locale('en')),
+          home: const Scaffold(
+            body: Center(child: GlassCard(child: Text('Card'))),
+          ),
+        ),
+      );
+      final clip = find.descendant(
+        of: find.byType(GlassCard),
+        matching: find.byType(ClipRRect),
+      );
+      final outer = tester.widget<DecoratedBox>(
+        find.ancestor(of: clip, matching: find.byType(DecoratedBox)).first,
+      );
+      final shadow = (outer.decoration as BoxDecoration).boxShadow!.single;
+      expect(
+        shadow.color,
+        brightness == Brightness.light
+            ? const Color(0x0F23272A)
+            : const Color(0x59000000),
+      );
+      expect(shadow.blurRadius, 24);
+      expect(shadow.offset, const Offset(0, 6));
     });
   }
 }
