@@ -110,6 +110,24 @@ abstract class AppLocalizations {
   /// **'Android'**
   String get platformAndroid;
 
+  /// No description provided for @seekBack5.
+  ///
+  /// In en, this message translates to:
+  /// **'Back 5 seconds'**
+  String get seekBack5;
+
+  /// No description provided for @seekForward5.
+  ///
+  /// In en, this message translates to:
+  /// **'Forward 5 seconds'**
+  String get seekForward5;
+
+  /// No description provided for @videoPosition.
+  ///
+  /// In en, this message translates to:
+  /// **'Video position'**
+  String get videoPosition;
+
   /// No description provided for @appTitle.
   ///
   /// In en, this message translates to:

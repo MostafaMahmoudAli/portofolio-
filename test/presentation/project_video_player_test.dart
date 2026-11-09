@@ -18,6 +18,9 @@ class FakeVideoPlatform extends VideoPlayerPlatform {
   final live = <int>{};
   final calls = <String>[];
   final volumes = <double>[];
+  Duration duration = const Duration(seconds: 10);
+  final positions = <int, Duration>{};
+  final seeks = <(int, Duration)>[];
   final _events = <int, StreamController<VideoEvent>>{};
 
   @override
@@ -32,7 +35,7 @@ class FakeVideoPlatform extends VideoPlayerPlatform {
       ..add(
         VideoEvent(
           eventType: VideoEventType.initialized,
-          duration: const Duration(seconds: 10),
+          duration: duration,
           size: const Size(9, 16),
         ),
       );
@@ -67,13 +70,21 @@ class FakeVideoPlatform extends VideoPlayerPlatform {
   Future<void> setLooping(int playerId, bool looping) async {}
 
   @override
-  Future<void> seekTo(int playerId, Duration position) async {}
+  Future<void> seekTo(int playerId, Duration position) async {
+    seeks.add((playerId, position));
+    positions[playerId] = position;
+  }
 
   @override
   Future<void> setPlaybackSpeed(int playerId, double speed) async {}
 
   @override
-  Future<Duration> getPosition(int playerId) async => Duration.zero;
+  Future<Duration> getPosition(int playerId) async =>
+      positions[playerId] ?? Duration.zero;
+
+  void reportPosition(Duration position, {int? playerId}) {
+    positions[playerId ?? live.first] = position;
+  }
 
   @override
   Future<void> setMixWithOthers(bool mixWithOthers) async {}
@@ -250,7 +261,7 @@ void main() {
     await scrollTo(tester, scroll, 800);
     expect(platform.created, 1);
     expect(platform.calls, isNot(contains('play')));
-    expect(find.byIcon(Icons.play_circle_rounded), findsOneWidget);
+    expect(find.byIcon(Icons.play_arrow), findsOneWidget);
     await unmount(tester);
   });
 }

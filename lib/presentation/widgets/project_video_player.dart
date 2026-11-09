@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import '../../l10n/app_localizations.dart';
 import 'package:video_player/video_player.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
 import '../../core/models/project_video.dart';
-import '../../core/theme/app_colors.dart';
 import 'project_placeholder.dart';
+import 'project_video_controls.dart';
 
 /// Keeps at most two video controllers alive at a time. When a third
 /// controller is needed, the oldest (least recently used) one is disposed.
@@ -98,8 +97,6 @@ class ProjectVideoPlayer extends StatefulWidget {
 class _ProjectVideoPlayerState extends State<ProjectVideoPlayer> {
   VideoPlayerController? _controller;
   bool _visible = false;
-  bool _muted = true;
-  bool _showControls = false;
   bool _videoError = false;
 
   bool get _reduceMotion => MediaQuery.disableAnimationsOf(context);
@@ -138,7 +135,6 @@ class _ProjectVideoPlayerState extends State<ProjectVideoPlayer> {
       if (!mounted || _controller != controller) return;
       await controller.setLooping(true);
       await controller.setVolume(0.0);
-      _muted = true;
       if (_visible && !_reduceMotion) {
         await controller.play();
       }
@@ -156,8 +152,9 @@ class _ProjectVideoPlayerState extends State<ProjectVideoPlayer> {
     try {
       await controller.pause();
     } catch (_) {}
-    _muted = true;
-    _showControls = false;
+    try {
+      await controller.setVolume(0);
+    } catch (_) {}
   }
 
   void _onControllerChanged() {
@@ -173,7 +170,6 @@ class _ProjectVideoPlayerState extends State<ProjectVideoPlayer> {
   void _onEvicted() {
     _controller?.removeListener(_onControllerChanged);
     _controller = null;
-    _showControls = false;
     if (mounted) setState(() {});
   }
 
@@ -189,56 +185,10 @@ class _ProjectVideoPlayerState extends State<ProjectVideoPlayer> {
     // No rebuild here: play/pause repaint through the controller's listener.
   }
 
-  Future<void> _unmute() async {
-    _muted = false;
-    final controller = _controller;
-    if (controller == null) return;
-    try {
-      await controller.setVolume(1.0);
-    } catch (_) {}
-    if (mounted) setState(() {});
-  }
-
-  Future<void> _play() async {
-    final controller = _controller;
-    if (controller == null) return;
-    try {
-      await controller.play();
-    } catch (_) {}
-    if (mounted) setState(() {});
-  }
-
-  Future<void> _togglePlayPause() async {
-    final controller = _controller;
-    if (controller == null) return;
-    if (controller.value.isPlaying) {
-      await controller.pause();
-    } else {
-      await controller.play();
-    }
-    if (mounted) setState(() {});
-  }
-
-  Future<void> _toggleMute() async {
-    _muted = !_muted;
-    final controller = _controller;
-    if (controller == null) return;
-    try {
-      await controller.setVolume(_muted ? 0.0 : 1.0);
-    } catch (_) {}
-    if (mounted) setState(() {});
-  }
-
   Future<void> _onPlayTap() async {
     // Nothing to play until the video has scrolled into view.
-    if (!_visible && _controller == null) return;
-    if (_reduceMotion) {
-      await _unmute();
-      await _play();
-    } else {
-      setState(() => _showControls = true);
-      await _unmute();
-    }
+    if (!_visible || _controller == null || _reduceMotion) return;
+    await _controller!.setVolume(1);
   }
 
   @override
@@ -274,92 +224,17 @@ class _ProjectVideoPlayerState extends State<ProjectVideoPlayer> {
               ),
             ),
             if (_showVideo) Positioned.fill(child: VideoPlayer(_controller!)),
-            Positioned.fill(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  // Reduced motion never autoplays: offer play until it plays.
-                  if (_reduceMotion &&
-                      _visible &&
-                      !(_controller?.value.isPlaying ?? false))
-                    _ControlButton(
-                      label: AppLocalizations.of(context).playVideo,
-                      icon: Icons.play_circle_rounded,
-                      onTap: _onPlayTap,
-                    ),
-                  if (_showControls)
-                    Row(
-                      mainAxisSize: MainAxisSize.min,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        _ControlButton(
-                          label: _controller!.value.isPlaying
-                              ? AppLocalizations.of(context).pauseVideo
-                              : AppLocalizations.of(context).playVideo,
-                          icon: _controller!.value.isPlaying
-                              ? Icons.pause
-                              : Icons.play_arrow,
-                          onTap: _togglePlayPause,
-                        ),
-                        const SizedBox(width: 8),
-                        _ControlButton(
-                          label: _muted
-                              ? AppLocalizations.of(context).unmuteVideo
-                              : AppLocalizations.of(context).muteVideo,
-                          icon: _muted ? Icons.volume_off : Icons.volume_up,
-                          onTap: _toggleMute,
-                        ),
-                      ],
-                    ),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class _ControlButton extends StatelessWidget {
-  const _ControlButton({
-    required this.icon,
-    required this.onTap,
-    required this.label,
-  });
-
-  final IconData icon;
-  final VoidCallback onTap;
-  final String label;
-
-  @override
-  Widget build(BuildContext context) {
-    final palette = AppPalette.of(context);
-    return Material(
-      color: Colors.transparent,
-      child: IconButton(
-        tooltip: label,
-        onPressed: onTap,
-        style:
-            IconButton.styleFrom(
-              minimumSize: const Size(48, 48),
-              backgroundColor: palette.surface,
-              side: BorderSide(color: palette.surfaceBorder),
-              shape: const RoundedRectangleBorder(
-                borderRadius: BorderRadiusDirectional.all(Radius.circular(10)),
-              ),
-            ).copyWith(
-              side: WidgetStateProperty.resolveWith(
-                (states) => BorderSide(
-                  color:
-                      states.contains(WidgetState.hovered) ||
-                          states.contains(WidgetState.focused)
-                      ? palette.accentInk
-                      : palette.surfaceBorder,
+            // Reduced motion never autoplays: the paused bar offers play.
+            if (_controller?.value.isInitialized ?? false)
+              Positioned.fill(
+                child: ProjectVideoControls(
+                  key: ObjectKey(_controller),
+                  controller: _controller!,
+                  onSurfaceTap: _onPlayTap,
                 ),
               ),
-            ),
-        icon: Icon(icon, size: 20, color: palette.text),
+          ],
+        ),
       ),
     );
   }

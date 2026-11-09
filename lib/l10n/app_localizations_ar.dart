@@ -15,6 +15,15 @@ class AppLocalizationsAr extends AppLocalizations {
   String get platformAndroid => 'Android';
 
   @override
+  String get seekBack5 => 'الرجوع 5 ثوانٍ';
+
+  @override
+  String get seekForward5 => 'التقديم 5 ثوانٍ';
+
+  @override
+  String get videoPosition => 'موضع الفيديو';
+
+  @override
   String get appTitle => 'مصطفى محمود — مطوّر Flutter';
 
   @override

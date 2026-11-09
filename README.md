@@ -84,6 +84,12 @@ and let visitors switch platforms. The details link carries that choice so only
 the matching static phone frame participates in the Hero transition. A missing
 platform is omitted, not replaced by a duplicate demo.
 
+Video controls provide play/pause, ±5-second seeking, a scrubber and mute. Focus
+the player to use Space and Left/Right. The timeline stays LTR with Western-digit
+clocks in either language. Controls stay visible while paused and hide three
+seconds after the last interaction while playing. Narrow frames use two rows
+and omit clock labels below 220px; touch targets remain at least 48×48.
+
 ## Local performance checks
 
 ```sh
