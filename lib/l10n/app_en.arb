@@ -60,7 +60,7 @@
   "capabilityArchitectureTitle": "Clean Architecture",
   "capabilityArchitectureBody": "Feature-first modules with clear layers, testable use cases and dependency injection.",
   "capabilityReleasesTitle": "Store releases",
-  "capabilityReleasesBody": "End-to-end Play Console and App Store Connect releases, gated by CI.",
+  "capabilityReleasesBody": "Release updates to Play Console and App Store Connect, gated by CI.",
   "capabilityMediaTitle": "Media & FFmpeg",
   "capabilityMediaBody": "On-device video and audio editing with FFmpeg, CameraX and custom pipelines.",
   "featuredProjects": "Featured Projects",

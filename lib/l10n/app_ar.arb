@@ -59,7 +59,7 @@
   "capabilityArchitectureTitle": "المعمارية النظيفة",
   "capabilityArchitectureBody": "وحدات مبنية على الميزات بطبقات واضحة وحالات استخدام قابلة للاختبار وحقن للتبعيات.",
   "capabilityReleasesTitle": "إصدارات المتاجر",
-  "capabilityReleasesBody": "إصدارات كاملة على Play Console و App Store Connect مع بوابات CI.",
+  "capabilityReleasesBody": "تحديثات الإصدارات على Play Console و App Store Connect مع بوابات CI.",
   "capabilityMediaTitle": "الوسائط و FFmpeg",
   "capabilityMediaBody": "تحرير الفيديو والصوت على الجهاز باستخدام FFmpeg و CameraX ومسارات مخصصة.",
   "featuredProjects": "المشاريع المميزة",

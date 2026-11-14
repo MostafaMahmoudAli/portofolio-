@@ -188,7 +188,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get capabilityReleasesBody =>
-      'إصدارات كاملة على Play Console و App Store Connect مع بوابات CI.';
+      'تحديثات الإصدارات على Play Console و App Store Connect مع بوابات CI.';
 
   @override
   String get capabilityMediaTitle => 'الوسائط و FFmpeg';

@@ -443,7 +443,7 @@ abstract class AppLocalizations {
   /// No description provided for @capabilityReleasesBody.
   ///
   /// In en, this message translates to:
-  /// **'End-to-end Play Console and App Store Connect releases, gated by CI.'**
+  /// **'Release updates to Play Console and App Store Connect, gated by CI.'**
   String get capabilityReleasesBody;
 
   /// No description provided for @capabilityMediaTitle.

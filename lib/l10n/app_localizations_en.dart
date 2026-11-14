@@ -188,7 +188,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get capabilityReleasesBody =>
-      'End-to-end Play Console and App Store Connect releases, gated by CI.';
+      'Release updates to Play Console and App Store Connect, gated by CI.';
 
   @override
   String get capabilityMediaTitle => 'Media & FFmpeg';

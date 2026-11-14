@@ -124,7 +124,7 @@
     },
     {
       "title": { "en": "State & Routing", "ar": "إدارة الحالة والتوجيه" },
-      "chips": ["BLoC", "Cubit", "go_router", "get_it", "MVVM", "Provider", "app_links", "bloc_test"]
+      "chips": ["BLoC", "Cubit", "go_router", "get_it", "MVVM", "Provider", "app_links"]
     },
     {
       "title": { "en": "Architecture", "ar": "المعمارية" },
