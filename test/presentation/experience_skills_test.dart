@@ -4,6 +4,7 @@ import 'package:portfolio/core/data/content_repository.dart';
 import 'package:portfolio/presentation/sections/experience_section.dart';
 import 'package:portfolio/presentation/sections/skills_section.dart';
 import 'package:portfolio/presentation/widgets/timeline_dot.dart';
+import 'package:portfolio/presentation/widgets/glass_card.dart';
 import 'package:video_player_platform_interface/video_player_platform_interface.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
@@ -81,35 +82,36 @@ Future<void> main() async {
     await helpers.unmount(tester);
   });
 
-  testWidgets('education, certifications and languages are three labeled rows', (
-    tester,
-  ) async {
-    await helpers.pumpPage(
-      tester,
-      location: '/',
-      width: 1440,
-      language: 'en',
-      reducedMotion: true,
-    );
-    await tester.scrollUntilVisible(find.byType(ExperienceSection), 500);
-    await helpers.frames(tester, 4);
+  testWidgets(
+    'education, certifications and languages are three labeled rows',
+    (tester) async {
+      await helpers.pumpPage(
+        tester,
+        location: '/',
+        width: 1440,
+        language: 'en',
+        reducedMotion: true,
+      );
+      await tester.scrollUntilVisible(find.byType(ExperienceSection), 500);
+      await helpers.frames(tester, 4);
 
-    expect(find.text('Education'), findsOneWidget);
-    expect(find.text('Certifications'), findsOneWidget);
-    expect(find.text('Languages'), findsOneWidget);
+      expect(find.text('Education'), findsOneWidget);
+      expect(find.text('Certifications'), findsOneWidget);
+      expect(find.text('Languages'), findsOneWidget);
 
-    // The languages moved out of the skills section.
-    await tester.scrollUntilVisible(find.byType(SkillsSection), 500);
-    await helpers.frames(tester, 4);
-    expect(
-      find.descendant(
-        of: find.byType(SkillsSection),
-        matching: find.text('Languages'),
-      ),
-      findsNothing,
-    );
-    await helpers.unmount(tester);
-  });
+      // The languages moved out of the skills section.
+      await tester.scrollUntilVisible(find.byType(SkillsSection), 500);
+      await helpers.frames(tester, 4);
+      expect(
+        find.descendant(
+          of: find.byType(SkillsSection),
+          matching: find.text('Languages'),
+        ),
+        findsNothing,
+      );
+      await helpers.unmount(tester);
+    },
+  );
 
   testWidgets('a skill group shows five chips and expands on demand', (
     tester,
@@ -137,4 +139,27 @@ Future<void> main() async {
     expect(find.text(group.chips[5]), findsOneWidget);
     await helpers.unmount(tester);
   });
+
+  for (final width in [375.0, 800.0, 1440.0]) {
+    testWidgets('skill cards retain grid width at $width px', (tester) async {
+      await helpers.pumpPage(
+        tester,
+        location: '/',
+        width: width,
+        reducedMotion: true,
+      );
+      await tester.scrollUntilVisible(find.byType(SkillsSection), 500);
+      await helpers.frames(tester, 4);
+      final cards = find.descendant(
+        of: find.byType(SkillsSection),
+        matching: find.byType(GlassCard),
+      );
+      expect(cards, findsNWidgets(9));
+      expect(
+        tester.getSize(cards.last).width,
+        closeTo(tester.getSize(cards.first).width, 0.01),
+      );
+      await helpers.unmount(tester);
+    });
+  }
 }

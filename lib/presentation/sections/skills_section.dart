@@ -55,18 +55,20 @@ class _SkillsSectionState extends State<SkillsSection> {
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  for (var i = 0; i < row.length; i++) ...[
+                  for (var i = 0; i < columns; i++) ...[
                     if (i > 0) const SizedBox(width: 16),
                     Expanded(
-                      child: _SkillGroupCard(
-                        group: row[i],
-                        expanded: _expanded.contains(row[i].title.en),
-                        onToggle: () => setState(() {
-                          if (!_expanded.remove(row[i].title.en)) {
-                            _expanded.add(row[i].title.en);
-                          }
-                        }),
-                      ),
+                      child: i < row.length
+                          ? _SkillGroupCard(
+                              group: row[i],
+                              expanded: _expanded.contains(row[i].title.en),
+                              onToggle: () => setState(() {
+                                if (!_expanded.remove(row[i].title.en)) {
+                                  _expanded.add(row[i].title.en);
+                                }
+                              }),
+                            )
+                          : const SizedBox.shrink(),
                     ),
                   ],
                 ],
@@ -106,10 +108,7 @@ class _SkillGroupCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              group.title.of(locale),
-              style: textTheme.titleLarge,
-            ),
+            Text(group.title.of(locale), style: textTheme.titleLarge),
             const SizedBox(height: 12),
             Wrap(
               spacing: 8,

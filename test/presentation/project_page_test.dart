@@ -335,25 +335,26 @@ Future<void> main() async {
     await unmount(tester);
   });
 
-  testWidgets('project logo consumes top request without replaying old scroll', (
-    tester,
-  ) async {
-    final router = await pumpPage(
-      tester,
-      location: '/?section=experience',
-      reducedMotion: true,
-    );
-    expect(scrollOf(tester, HomePage).pixels, greaterThan(0));
-    router.go('/projects/remix');
-    await frames(tester, 16);
-    tester.widget<NavBar>(find.byType(NavBar)).onLogoTap!();
-    await frames(tester, 16);
-    expect(scrollOf(tester, HomePage).pixels, 0);
-    expect(router.routeInformationProvider.value.uri.toString(), '/');
-    await frames(tester, 4);
-    expect(scrollOf(tester, HomePage).pixels, 0);
-    await unmount(tester);
-  });
+  testWidgets(
+    'project logo consumes top request without replaying old scroll',
+    (tester) async {
+      final router = await pumpPage(
+        tester,
+        location: '/?section=experience',
+        reducedMotion: true,
+      );
+      expect(scrollOf(tester, HomePage).pixels, greaterThan(0));
+      router.go('/projects/remix');
+      await frames(tester, 16);
+      tester.widget<NavBar>(find.byType(NavBar)).onLogoTap();
+      await frames(tester, 16);
+      expect(scrollOf(tester, HomePage).pixels, 0);
+      expect(router.routeInformationProvider.value.uri.toString(), '/');
+      await frames(tester, 4);
+      expect(scrollOf(tester, HomePage).pixels, 0);
+      await unmount(tester);
+    },
+  );
 
   for (final cover in [null, 'media/custom/alternate.jpg']) {
     testWidgets('empty cover banner is omitted for $cover', (tester) async {

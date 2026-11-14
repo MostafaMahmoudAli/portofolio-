@@ -57,6 +57,7 @@ Future<void> main() async {
       );
       await helpers.bottom(tester);
       expect(find.byType(ContactBand), findsOneWidget);
+      expect(tester.getSize(find.byType(ContactBand)).width, 375 - 48);
       expect(find.text(helpers.content.profile.phone!), findsOneWidget);
       expect(
         find.descendant(

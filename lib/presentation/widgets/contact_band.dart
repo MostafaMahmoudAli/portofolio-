@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import '../../core/app_scope.dart';
 import '../../core/theme/app_colors.dart';
 import '../../core/utils/open_link.dart';
+import '../../core/utils/breakpoints.dart';
 import '../../l10n/app_localizations.dart';
 import 'brand_icon.dart';
 import 'glass_card.dart';
@@ -23,78 +24,86 @@ class ContactBand extends StatelessWidget {
     final textTheme = Theme.of(context).textTheme;
     final palette = AppPalette.of(context);
     final phone = profile.phone;
+    final compact = ScreenSize.of(context) == ScreenSize.phone;
 
-    return GlassCard(
-      padding: const EdgeInsetsDirectional.all(32),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            l10n.contactCta,
-            style: textTheme.displaySmall?.copyWith(color: palette.text),
-          ),
-          const SizedBox(height: 20),
-          Wrap(
-            crossAxisAlignment: WrapCrossAlignment.center,
-            spacing: 12,
-            runSpacing: 8,
-            children: [
-              Text(
-                profile.email,
-                style: textTheme.headlineSmall?.copyWith(color: palette.text),
-              ),
-              IconButton(
-                tooltip: l10n.copyEmail,
-                onPressed: () async {
-                  await Clipboard.setData(
-                    ClipboardData(text: profile.email),
-                  );
-                  if (!context.mounted) return;
-                  ScaffoldMessenger.of(
-                    context,
-                  ).showSnackBar(SnackBar(content: Text(l10n.emailCopied)));
-                },
-                icon: const Icon(Icons.copy_rounded),
-              ),
-              if (phone != null && phone.isNotEmpty)
+    return SizedBox(
+      width: double.infinity,
+      child: GlassCard(
+        padding: EdgeInsetsDirectional.all(compact ? 24 : 32),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              l10n.contactCta,
+              style: textTheme.displaySmall?.copyWith(color: palette.text),
+            ),
+            const SizedBox(height: 20),
+            Wrap(
+              crossAxisAlignment: WrapCrossAlignment.center,
+              spacing: 12,
+              runSpacing: 8,
+              children: [
                 Text(
-                  phone,
-                  style: textTheme.titleMedium?.copyWith(
-                    color: palette.mutedText,
+                  profile.email,
+                  textDirection: TextDirection.ltr,
+                  style:
+                      (compact
+                              ? textTheme.titleMedium
+                              : textTheme.headlineSmall)
+                          ?.copyWith(color: palette.text),
+                ),
+                IconButton(
+                  tooltip: l10n.copyEmail,
+                  onPressed: () async {
+                    await Clipboard.setData(ClipboardData(text: profile.email));
+                    if (!context.mounted) return;
+                    ScaffoldMessenger.of(
+                      context,
+                    ).showSnackBar(SnackBar(content: Text(l10n.emailCopied)));
+                  },
+                  icon: const Icon(Icons.copy_rounded),
+                ),
+                if (phone != null && phone.isNotEmpty)
+                  Text(
+                    phone,
+                    textDirection: TextDirection.ltr,
+                    style: textTheme.titleMedium?.copyWith(
+                      color: palette.mutedText,
+                    ),
                   ),
+              ],
+            ),
+            const SizedBox(height: 24),
+            Wrap(
+              spacing: 12,
+              runSpacing: 12,
+              children: [
+                FilledButton.icon(
+                  onPressed: () => openLink('mailto:${profile.email}'),
+                  icon: const Icon(Icons.mail_outline_rounded),
+                  label: Text(l10n.sendEmail),
                 ),
-            ],
-          ),
-          const SizedBox(height: 24),
-          Wrap(
-            spacing: 12,
-            runSpacing: 12,
-            children: [
-              FilledButton.icon(
-                onPressed: () => openLink('mailto:${profile.email}'),
-                icon: const Icon(Icons.mail_outline_rounded),
-                label: Text(l10n.sendEmail),
-              ),
-              if (phone != null && phone.isNotEmpty)
+                if (phone != null && phone.isNotEmpty)
+                  OutlinedButton.icon(
+                    onPressed: () =>
+                        openLink('https://wa.me/${phoneDigits(phone)}'),
+                    icon: const BrandIcon(BrandMark.whatsapp, size: 18),
+                    label: Text(l10n.whatsapp),
+                  ),
                 OutlinedButton.icon(
-                  onPressed: () =>
-                      openLink('https://wa.me/${phoneDigits(phone)}'),
-                  icon: const BrandIcon(BrandMark.whatsapp, size: 18),
-                  label: Text(l10n.whatsapp),
+                  onPressed: () => openLink(profile.linkedin),
+                  icon: const BrandIcon(BrandMark.linkedin, size: 18),
+                  label: Text(l10n.linkedin),
                 ),
-              OutlinedButton.icon(
-                onPressed: () => openLink(profile.linkedin),
-                icon: const BrandIcon(BrandMark.linkedin, size: 18),
-                label: Text(l10n.linkedin),
-              ),
-              OutlinedButton.icon(
-                onPressed: () => openLink(profile.github),
-                icon: const BrandIcon(BrandMark.github, size: 18),
-                label: Text(l10n.github),
-              ),
-            ],
-          ),
-        ],
+                OutlinedButton.icon(
+                  onPressed: () => openLink(profile.github),
+                  icon: const BrandIcon(BrandMark.github, size: 18),
+                  label: Text(l10n.github),
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }

@@ -129,8 +129,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   void _scheduleSectionScroll() {
-    if (_sectionScrollScheduled ||
-        (_pendingSection == null && !_pendingTop)) {
+    if (_sectionScrollScheduled || (_pendingSection == null && !_pendingTop)) {
       return;
     }
     _sectionScrollScheduled = true;

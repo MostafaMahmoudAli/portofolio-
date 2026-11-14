@@ -22,13 +22,48 @@ void main() {
     });
 
     test('profile parses with all four stats', () {
-      expect(content.profile.name.of(const Locale('en')), 'Mostafa Mahmoud Ali');
+      expect(
+        content.profile.name.of(const Locale('en')),
+        'Mostafa Mahmoud Ali',
+      );
       expect(content.profile.title.of(const Locale('en')), 'Flutter Developer');
       expect(content.profile.stats.map((stat) => stat.value), [3, 6, 310, 57]);
       expect(
         content.profile.experience.map((entry) => entry.company),
         contains('AppRock Software Development'),
       );
+    });
+
+    test('education year and experience emphasis exist in both languages', () {
+      for (final locale in [const Locale('en'), const Locale('ar')]) {
+        expect(content.profile.education.of(locale), contains('2021'));
+        for (final entry in content.profile.experience) {
+          for (final bullet in entry.bullets) {
+            expect(bullet.of(locale), contains(RegExp(r'\*\*.+?\*\*')));
+          }
+        }
+      }
+      expect(
+        content.profile.experience
+            .singleWhere((entry) => entry.company.startsWith('MDQ'))
+            .bullets,
+        hasLength(1),
+      );
+    });
+
+    test('consulate work credits development at AppRock, not publication', () {
+      final project = content.projects.singleWhere(
+        (project) => project.slug == 'egypt-consulate-apps',
+      );
+      for (final locale in [const Locale('en'), const Locale('ar')]) {
+        expect(project.summary.of(locale), contains('AppRock'));
+        expect(project.bullets.first.of(locale), contains('AppRock'));
+        final description = [
+          project.summary.of(locale),
+          ...project.bullets.map((bullet) => bullet.of(locale)),
+        ].join(' ');
+        expect(description, isNot(contains(RegExp('publish|نشرت|منشورة'))));
+      }
     });
 
     test('the name is localized in both languages', () {
@@ -44,7 +79,10 @@ void main() {
         profile.pageTitleOf(const Locale('en')),
         'Mostafa Mahmoud Ali — Flutter Developer',
       );
-      expect(profile.pageTitleOf(const Locale('ar')), contains('مصطفى محمود علي'));
+      expect(
+        profile.pageTitleOf(const Locale('ar')),
+        contains('مصطفى محمود علي'),
+      );
     });
 
     test('profile text is translated in Arabic', () {
