@@ -7,6 +7,7 @@ import '../../l10n/app_localizations.dart';
 import '../widgets/glass_card.dart';
 import '../widgets/reveal_on_scroll.dart';
 import '../widgets/section_title.dart';
+import '../widgets/tech_chip.dart';
 
 /// Short summary plus three capability tiles on glass cards.
 class AboutSection extends StatelessWidget {
@@ -61,6 +62,17 @@ class AboutSection extends StatelessWidget {
                         height: 1.6,
                       ),
                     ),
+                  ),
+                  const SizedBox(height: 40),
+                  Text(l10n.languages, style: textTheme.titleMedium),
+                  const SizedBox(height: 12),
+                  Wrap(
+                    spacing: 8,
+                    runSpacing: 8,
+                    children: [
+                      for (final language in profile.languages)
+                        TechChip(label: language.of(locale)),
+                    ],
                   ),
                   const SizedBox(height: 40),
                   if (phone)

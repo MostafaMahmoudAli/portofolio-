@@ -151,17 +151,8 @@
       "chips": ["flutter_test", "bloc_test", "GitHub Actions", "Play Console", "App Store Connect", "Widget testing", "Mocktail", "flutter_lints", "DevTools profiling", "flutter_flavorizr", "Play App Signing", "build_runner", "Git & GitHub"]
     }
   ],
-  "education": {
-    "en": "Bachelor of Tourism & Hotels — High Institute EGOTH, Alexandria · 2021 (Grade: Very Good)",
-    "ar": "بكالوريوس السياحة والفنادق — المعهد العالي للسياحة والفنادق (EGOTH)، الإسكندرية · 2021 (التقدير: جيد جدًا)"
-  },
   "languages": [
     { "en": "Arabic (Native)", "ar": "العربية (اللغة الأم)" },
     { "en": "English (Professional working proficiency)", "ar": "الإنجليزية (إجادة العمل)" }
-  ],
-  "certifications": [
-    { "en": "Flutter Advanced: Bloc & MVVM", "ar": "فلاتر متقدم: Bloc و MVVM" },
-    { "en": "Complete Flutter & Dart Course (2022)", "ar": "دورة فلاتر ودارت كاملة (2022)" },
-    { "en": "Complete Dart Learning Guide", "ar": "دليل تعلّم دارت كامل" }
   ]
 }

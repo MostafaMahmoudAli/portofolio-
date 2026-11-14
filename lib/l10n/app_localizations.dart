@@ -302,24 +302,6 @@ abstract class AppLocalizations {
   /// **'التبديل إلى العربية'**
   String get languageToggleTooltip;
 
-  /// No description provided for @educationCertifications.
-  ///
-  /// In en, this message translates to:
-  /// **'Education & certifications'**
-  String get educationCertifications;
-
-  /// No description provided for @educationRow.
-  ///
-  /// In en, this message translates to:
-  /// **'Education'**
-  String get educationRow;
-
-  /// No description provided for @certificationsRow.
-  ///
-  /// In en, this message translates to:
-  /// **'Certifications'**
-  String get certificationsRow;
-
   /// No description provided for @languages.
   ///
   /// In en, this message translates to:

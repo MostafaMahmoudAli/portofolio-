@@ -113,15 +113,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get languageToggleTooltip => 'التبديل إلى العربية';
 
   @override
-  String get educationCertifications => 'Education & certifications';
-
-  @override
-  String get educationRow => 'Education';
-
-  @override
-  String get certificationsRow => 'Certifications';
-
-  @override
   String get languages => 'Languages';
 
   @override

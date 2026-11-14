@@ -25,9 +25,7 @@ class Profile {
     required this.stats,
     required this.experience,
     required this.skillGroups,
-    required this.education,
     required this.languages,
-    required this.certifications,
   });
 
   factory Profile.fromJson(Map<String, dynamic> json, {required String where}) {
@@ -75,26 +73,9 @@ class Profile {
         ).indexed)
           SkillGroup.fromJson(entry, where: '$where: skillGroups[$i]'),
       ],
-      education: LocalizedText.fromJson(
-        json['education'],
-        where: where,
-        field: 'education',
-      ),
       languages: [
         for (final (i, entry) in requiredMaps(json, 'languages', where).indexed)
           LocalizedText.fromJson(entry, where: where, field: 'languages[$i]'),
-      ],
-      certifications: [
-        for (final (i, entry) in requiredMaps(
-          json,
-          'certifications',
-          where,
-        ).indexed)
-          LocalizedText.fromJson(
-            entry,
-            where: where,
-            field: 'certifications[$i]',
-          ),
       ],
     );
   }
@@ -115,9 +96,7 @@ class Profile {
   final List<Stat> stats;
   final List<Experience> experience;
   final List<SkillGroup> skillGroups;
-  final LocalizedText education;
   final List<LocalizedText> languages;
-  final List<LocalizedText> certifications;
 
   /// The browser/page title: the name, then the role, in the page's language.
   String pageTitleOf(Locale locale) =>

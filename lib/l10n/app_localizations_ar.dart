@@ -113,15 +113,6 @@ class AppLocalizationsAr extends AppLocalizations {
   String get languageToggleTooltip => 'Switch to English';
 
   @override
-  String get educationCertifications => 'التعليم والشهادات';
-
-  @override
-  String get educationRow => 'التعليم';
-
-  @override
-  String get certificationsRow => 'الشهادات';
-
-  @override
   String get languages => 'اللغات';
 
   @override

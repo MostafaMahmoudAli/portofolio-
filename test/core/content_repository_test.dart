@@ -34,9 +34,8 @@ void main() {
       );
     });
 
-    test('education year and experience emphasis exist in both languages', () {
+    test('experience emphasis exists in both languages', () {
       for (final locale in [const Locale('en'), const Locale('ar')]) {
-        expect(content.profile.education.of(locale), contains('2021'));
         for (final entry in content.profile.experience) {
           for (final bullet in entry.bullets) {
             expect(bullet.of(locale), contains(RegExp(r'\*\*.+?\*\*')));
