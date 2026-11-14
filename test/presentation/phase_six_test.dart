@@ -281,7 +281,7 @@ Future<void> main() async {
     for (final language in ['en', 'ar']) {
       for (final brightness in Brightness.values) {
         testWidgets(
-          'whole page fits $width $language $brightness without phone text',
+          'whole page fits $width $language $brightness with visible phone text',
           (tester) async {
             await helpers.pumpPage(
               tester,
@@ -325,17 +325,9 @@ Future<void> main() async {
                   );
                 }
               }
-              expect(
-                find.byWidgetPredicate(
-                  (w) =>
-                      w is Text &&
-                      (w.data ?? w.textSpan?.toPlainText() ?? '').contains(
-                        phone,
-                      ),
-                ),
-                findsNothing,
-              );
             }
+            await tester.scrollUntilVisible(find.text(phone), 500);
+            expect(find.text(phone), findsOneWidget);
             await helpers.unmount(tester);
           },
         );

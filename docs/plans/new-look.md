@@ -236,3 +236,4 @@ and the home page and one project page have been checked in a browser in light, 
 - Test decision: contact text is lazy-built; assert the visible phone after scrolling to it, not at every intermediate scroll offset.
 - Build-first gate passed: analyzer clean; all 259 tests pass. Phase 5 build-repair localization travels with Phase 5; the phone regression travels with Phase 6.
 - trail check reports broad lexical conflicts against old branch-wide README/design-pass text and ordinary build/release terminology, not semantic regressions. Proceed with the explicit new-look plan (which supersedes the old tile-accent decision); no palette, thumbnail-laziness or scrubbing changes.
+- Phase 6: reuse ContactBand after previous/next on every project; preserve the shared copy-email action, visible phone, international-digit WhatsApp URL and existing vector brand icons. Add coverage across all twelve project routes.

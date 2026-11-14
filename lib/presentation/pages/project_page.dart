@@ -10,6 +10,7 @@ import '../../core/theme/app_colors.dart';
 import '../../core/utils/open_link.dart';
 import '../../l10n/app_localizations.dart';
 import '../widgets/glass_card.dart';
+import '../widgets/contact_band.dart';
 import '../widgets/nav_bar.dart';
 import '../widgets/page_title.dart';
 import '../widgets/project_poster.dart';
@@ -206,6 +207,8 @@ class ProjectPage extends StatelessWidget {
                           ),
                         ],
                       ),
+                      const SizedBox(height: 48),
+                      const ContactBand(),
                     ],
                   ),
                 ),
