@@ -1,12 +1,63 @@
 {
   "projects": [
     {
+      "slug": "egypt-abroad",
+      "impact": { "en": "Built from scratch · live on both stores", "ar": "بُني من الصفر · متاح على المتجرين" },
+      "title": { "en": "Egypt Abroad", "ar": "مصري بالخارج" },
+      "subtitle": { "en": "Consular services super-app for Egyptians abroad", "ar": "تطبيق شامل للخدمات القنصلية للمصريين بالخارج" },
+      "featured": true,
+      "order": 1,
+      "accent": "#F97316",
+      "summary": {
+        "en": "Consular services super-app for Egyptians abroad, built from scratch with the team at AppRock, in Arabic and English.",
+        "ar": "تطبيق شامل للخدمات القنصلية للمصريين بالخارج، بُني من الصفر مع فريق AppRock باللغتين العربية والإنجليزية."
+      },
+      "bullets": [
+        {
+          "en": "Citizens book, reschedule and cancel consulate appointments for themselves and family members.",
+          "ar": "يحجز المواطنون مواعيد القنصلية لأنفسهم ولأفراد أسرهم، مع إمكانية تعديل المواعيد وإلغائها."
+        },
+        {
+          "en": "Track transactions and fees, file complaints with ticket chat, and follow consulate news, holidays and locations.",
+          "ar": "متابعة المعاملات والرسوم، وتقديم الشكاوى مع محادثة ضمن التذكرة، والاطلاع على أخبار القنصليات وعطلاتها ومواقعها."
+        },
+        {
+          "en": "Real-time AI assistant, OCR national-ID verification at sign-up, biometric and Google/Apple sign-in, and QR device linking.",
+          "ar": "مساعد ذكي لحظي، والتحقق من البطاقة القومية عند التسجيل عبر OCR، وتسجيل الدخول بالبصمة أو عبر Google و Apple، وربط الأجهزة برمز QR."
+        },
+        {
+          "en": "Push notifications that open the right appointment.",
+          "ar": "إشعارات فورية تفتح الموعد المعني مباشرة."
+        }
+      ],
+      "tech": ["Flutter", "Clean Architecture", "Cubit", "Dio", "SSE", "go_router", "Firebase", "Flavors"],
+      "status": { "en": "Live on both stores", "ar": "متاح على المتجرين" },
+      "cover": "media/egypt-abroad/cover.jpg",
+      "screens": [],
+      "videos": {
+        "ios": {
+          "src": "media/egypt-abroad/ios.mp4",
+          "poster": "media/egypt-abroad/ios.jpg",
+          "caption": { "en": "Consular services walkthrough", "ar": "جولة في الخدمات القنصلية" }
+        },
+        "android": {
+          "src": "media/egypt-abroad/android.mp4",
+          "poster": "media/egypt-abroad/android.jpg",
+          "caption": { "en": "Consular services walkthrough", "ar": "جولة في الخدمات القنصلية" }
+        }
+      },
+      "links": [
+        { "type": "playStore", "url": "https://play.google.com/store/apps/details?id=com.approc.mfa.egyptconsulate" },
+        { "type": "appStore", "url": "https://apps.apple.com/app/id6806766895" }
+      ]
+    },
+    {
       "slug": "egypt-consulate-apps",
       "impact": { "en": "310K+ downloads · 4 apps, one codebase", "ar": "310 ألف+ تحميل · 4 تطبيقات من كود واحد" },
       "title": { "en": "Egypt Consulate Apps", "ar": "تطبيقات القنصليات المصرية" },
       "subtitle": { "en": "Kuwait, Riyadh, Jeddah & Milan — four missions, one Flutter codebase", "ar": "الكويت، الرياض، جدة وميلانو — أربع بعثات من كود واحد" },
       "featured": true,
-      "order": 1,
+      "order": 2,
       "accent": "#7C5CFF",
       "summary": {
         "en": "Four consulate apps built at AppRock from a single Flutter codebase — 310K+ Google Play downloads and 8 live store listings.",
@@ -59,7 +110,7 @@
       "title": { "en": "New Courier App", "ar": "تطبيق البريد الجديد" },
       "subtitle": { "en": "Delivery tracking with Google Maps — live location & offline SQLite sync", "ar": "تتبع الشحنات عبر خرائط Google — موقع مباشر ومزامنة بدون إنترنت" },
       "featured": true,
-      "order": 2,
+      "order": 3,
       "accent": "#22D3EE",
       "summary": {
         "en": "A delivery-tracking app with real-time location, offline SQLite support and deep-linked push notifications.",
@@ -94,7 +145,7 @@
       "title": { "en": "Alkharj Business Guide", "ar": "دليل الأعمال بالخرج" },
       "subtitle": { "en": "Mobile app & web admin panel — local businesses directory", "ar": "تطبيق موبايل ولوحة إدارة ويب — دليل الأعمال المحلية" },
       "featured": true,
-      "order": 3,
+      "order": 4,
       "accent": "#34D399",
       "summary": {
         "en": "A business directory for Alkharj city with category filters, proximity search and Firebase phone auth, plus a web admin panel.",
@@ -137,7 +188,7 @@
       "title": { "en": "Remix", "ar": "ريمكس" },
       "subtitle": { "en": "Short-form video editor — duet, trim, sound reuse & import", "ar": "محرر فيديو قصير — دويت وقص وإعادة استخدام الصوت والاستيراد" },
       "featured": true,
-      "order": 4,
+      "order": 5,
       "accent": "#FF5C8A",
       "summary": {
         "en": "A TikTok-style remix toolkit built on FFmpeg compositing — lag-free scrubbing and 0.5×–3× speed baked into exports.",
@@ -172,7 +223,7 @@
       "title": { "en": "RehlatiUAE", "ar": "رحلاتي الإمارات" },
       "subtitle": { "en": "Event booking for UAE & Singapore travellers — Stripe, PayPal & cards", "ar": "حجز الفعاليات لمسافري الإمارات وسنغافورة — Stripe و PayPal والبطاقات" },
       "featured": true,
-      "order": 5,
+      "order": 6,
       "accent": "#FBBF24",
       "summary": {
         "en": "Event booking for UAE & Singapore travellers with PayPal, Stripe and card payments across currencies and languages.",
@@ -206,7 +257,7 @@
       "title": { "en": "Responsive Dashboard", "ar": "Responsive Dashboard" },
       "subtitle": { "en": "Responsive & adaptive dashboard for desktop, tablet and mobile", "ar": "لوحة تحكم متجاوبة لسطح المكتب والتابلت والموبايل" },
       "featured": false,
-      "order": 6,
+      "order": 7,
       "accent": "#7C5CFF",
       "summary": {
         "en": "Adaptive dashboard layouts for desktop, tablet and mobile.",
@@ -231,7 +282,7 @@
       "title": { "en": "Rick & Morty App", "ar": "Rick & Morty App" },
       "subtitle": { "en": "Rick & Morty characters browser — clean architecture & the REST API", "ar": "متصفح شخصيات Rick & Morty — معمارية نظيفة وواجهة REST" },
       "featured": false,
-      "order": 7,
+      "order": 8,
       "accent": "#34D399",
       "summary": {
         "en": "Browse Rick & Morty characters from the public REST API.",
@@ -260,7 +311,7 @@
       "title": { "en": "Vocabs App", "ar": "Vocabs App" },
       "subtitle": { "en": "Vocabulary practice — build your own word lists and drill them", "ar": "تدريب على المفردات — ابنِ قوائم كلماتك وتدرّب عليها" },
       "featured": false,
-      "order": 8,
+      "order": 9,
       "accent": "#22D3EE",
       "summary": {
         "en": "Build your own word lists, then drill them until they stick.",
@@ -289,7 +340,7 @@
       "title": { "en": "Flutter Google Maps", "ar": "Flutter Google Maps" },
       "subtitle": { "en": "Google Maps in Flutter — markers, polylines & camera moves", "ar": "خرائط Google في فلاتر — علامات ومسارات وانتقالات الكاميرا" },
       "featured": false,
-      "order": 9,
+      "order": 10,
       "accent": "#FBBF24",
       "summary": {
         "en": "Markers, polylines and animated camera moves on Google Maps.",
@@ -314,7 +365,7 @@
       "title": { "en": "Bookly App", "ar": "Bookly App" },
       "subtitle": { "en": "Book store app — browse, search & save via the Google Books API", "ar": "تطبيق متجر كتب — تصفح وابحث واحفظ عبر Google Books API" },
       "featured": false,
-      "order": 10,
+      "order": 11,
       "accent": "#FF5C8A",
       "summary": {
         "en": "Browse, search and save books through the Google Books API.",
@@ -343,7 +394,7 @@
       "title": { "en": "Flutter Shop App", "ar": "Flutter Shop App" },
       "subtitle": { "en": "Shopping app — catalog, cart & checkout", "ar": "تطبيق تسوق — كتالوج وسلة ودفع" },
       "featured": false,
-      "order": 11,
+      "order": 12,
       "accent": "#7C5CFF",
       "summary": {
         "en": "Product catalog, persistent cart and a checkout flow.",
@@ -372,7 +423,7 @@
       "title": { "en": "Flutter Social App", "ar": "Flutter Social App" },
       "subtitle": { "en": "Social feed — posts, likes & profiles", "ar": "منشورات اجتماعية — منشورات وإعجابات وملفات شخصية" },
       "featured": false,
-      "order": 12,
+      "order": 13,
       "accent": "#22D3EE",
       "summary": {
         "en": "A social feed with posts, likes, comments and profiles.",

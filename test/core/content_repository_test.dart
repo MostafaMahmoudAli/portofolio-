@@ -110,11 +110,11 @@ void main() {
       expect(titles, isNot(contains('Testing & Quality')));
     });
 
-    test('all twelve projects parse in both languages', () {
-      expect(content.projects, hasLength(12));
+    test('all thirteen projects parse in both languages', () {
+      expect(content.projects, hasLength(13));
       expect(
         content.projects.where((project) => project.featured),
-        hasLength(5),
+        hasLength(6),
       );
 
       final remix = content.projects.singleWhere(
@@ -193,7 +193,7 @@ void main() {
 
     test('every featured project carries an impact line in both languages', () {
       final featured = content.projects.where((project) => project.featured);
-      expect(featured, hasLength(5));
+      expect(featured, hasLength(6));
       for (final project in featured) {
         expect(project.impact, isNotNull, reason: project.slug);
         expect(
@@ -216,6 +216,36 @@ void main() {
       expect(chips, contains('easy_localization'));
       expect(chips, contains('Firestore'));
       expect(chips, contains('Stripe & PayPal'));
+    });
+
+    test('Egypt Abroad is first, bilingual and linked to both stores', () {
+      final projects = [...content.projects]
+        ..sort((a, b) => a.order.compareTo(b.order));
+      final project = projects.first;
+      expect(project.slug, 'egypt-abroad');
+      expect(project.order, 1);
+      expect(project.featured, isTrue);
+      expect(project.title.en, 'Egypt Abroad');
+      expect(project.title.of(const Locale('ar')), 'مصري بالخارج');
+      expect(project.bullets, hasLength(4));
+      expect(project.summary.en, contains('with the team at AppRock'));
+      expect(project.summary.of(const Locale('ar')), contains('فريق AppRock'));
+      expect(project.videos.available, hasLength(2));
+      expect(project.videos.ios!.src, 'media/egypt-abroad/ios.mp4');
+      expect(project.videos.android!.poster, 'media/egypt-abroad/android.jpg');
+      expect(project.cover, 'media/egypt-abroad/cover.jpg');
+      expect(
+        project.links.map((link) => link.url),
+        containsAll([
+          'https://play.google.com/store/apps/details?id=com.approc.mfa.egyptconsulate',
+          'https://apps.apple.com/app/id6806766895',
+        ]),
+      );
+      expect(
+        projects.skip(1).where((p) => p.featured).map((p) => p.accent),
+        isNot(contains(project.accent)),
+      );
+      expect(projects.map((p) => p.order).toSet(), hasLength(13));
     });
 
     test('a featured project links to both stores', () {
