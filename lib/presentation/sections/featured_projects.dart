@@ -10,6 +10,7 @@ import '../../core/theme/app_colors.dart';
 import '../../core/utils/breakpoints.dart';
 import '../../l10n/app_localizations.dart';
 import '../widgets/glass_card.dart';
+import '../widgets/landscape_project_frame.dart';
 import '../widgets/project_media_frame.dart';
 import '../widgets/reveal_on_scroll.dart';
 import '../widgets/section_title.dart';
@@ -21,7 +22,7 @@ import '../widgets/video_platform_picker.dart';
 enum _TileLayout { wide, stacked }
 
 /// Featured projects as a bento grid: the first project gets a full-width
-/// tile, the other four sit in a two by two grid (one column on a phone).
+/// tile, the rest share two columns (one on a phone), with no trailing hole.
 ///
 /// The tiles are slivers, so off-screen tiles and their video players are
 /// never built.
@@ -89,19 +90,20 @@ class FeaturedProjectsSection extends StatelessWidget {
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    for (var i = 0; i < columns; i++) ...[
+                    for (var i = 0; i < row.length; i++) ...[
                       if (i > 0) const SizedBox(width: 16),
                       Expanded(
-                        child: i < row.length
-                            ? RevealOnScroll(
-                                child: _ProjectTile(
-                                  project: row[i],
-                                  layout: screen == ScreenSize.desktop
-                                      ? _TileLayout.wide
-                                      : _TileLayout.stacked,
-                                ),
-                              )
-                            : const SizedBox.shrink(),
+                        child: RevealOnScroll(
+                          child: _ProjectTile(
+                            project: row[i],
+                            layout:
+                                screen == ScreenSize.desktop ||
+                                    row.length == 1 &&
+                                        screen == ScreenSize.tablet
+                                ? _TileLayout.wide
+                                : _TileLayout.stacked,
+                          ),
+                        ),
                       ),
                     ],
                   ],
@@ -152,14 +154,16 @@ class _ProjectTileState extends State<_ProjectTile> {
     // A frame narrower than 160 cannot hold three 48px video controls in a
     // row, so the small tiles keep their controls usable.
     final frameWidth = switch (widget.layout) {
-      _TileLayout.wide => widget.hero
-          ? (screen == ScreenSize.tablet ? 180.0 : 200.0)
-          : 160.0,
+      _TileLayout.wide =>
+        widget.hero ? (screen == ScreenSize.tablet ? 180.0 : 200.0) : 160.0,
       _TileLayout.stacked => 160.0,
     };
 
     final media = video == null
-        ? null
+        ? SizedBox(
+            width: widget.layout == _TileLayout.wide ? 280 : double.infinity,
+            child: LandscapeProjectFrame(project: project),
+          )
         : Column(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -196,10 +200,8 @@ class _ProjectTileState extends State<_ProjectTile> {
       body = Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          if (media != null) ...[
-            Center(child: media),
-            const SizedBox(height: 20),
-          ],
+          Center(child: media),
+          const SizedBox(height: 20),
           text,
         ],
       );
@@ -207,10 +209,8 @@ class _ProjectTileState extends State<_ProjectTile> {
       body = Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          if (media != null) ...[
-            media,
-            const SizedBox(width: 24),
-          ],
+          media,
+          const SizedBox(width: 24),
           Expanded(child: text),
         ],
       );
@@ -225,10 +225,7 @@ class _ProjectTileState extends State<_ProjectTile> {
           borderRadius: BorderRadius.circular(20),
           boxShadow: [
             if (_hovered)
-              BoxShadow(
-                color: accent.withValues(alpha: 0.18),
-                blurRadius: 32,
-              ),
+              BoxShadow(color: accent.withValues(alpha: 0.18), blurRadius: 32),
           ],
         ),
         child: GlassCard(
@@ -247,11 +244,7 @@ class _ProjectTileState extends State<_ProjectTile> {
 /// The text column of a tile: impact, title, subtitle, chips, badges and the
 /// details button. The summary lives on the project page, not on the tile.
 class _TileText extends StatelessWidget {
-  const _TileText({
-    required this.project,
-    required this.hero,
-    this.platform,
-  });
+  const _TileText({required this.project, required this.hero, this.platform});
 
   final Project project;
   final bool hero;

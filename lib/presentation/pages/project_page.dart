@@ -15,6 +15,7 @@ import '../sections/footer_section.dart';
 import '../widgets/brand_icon.dart';
 import '../widgets/contact_band.dart';
 import '../widgets/glass_card.dart';
+import '../widgets/landscape_project_frame.dart';
 import '../widgets/nav_bar.dart';
 import '../widgets/page_title.dart';
 import '../widgets/project_platform_gallery.dart';
@@ -158,7 +159,9 @@ class _ProjectPageState extends State<ProjectPage> {
       ],
     );
     final gallery = project.videos.primary == null
-        ? null
+        ? project.featured
+              ? LandscapeProjectFrame(project: project)
+              : null
         : ProjectPlatformGallery(
             key: _galleryKey,
             project: project,

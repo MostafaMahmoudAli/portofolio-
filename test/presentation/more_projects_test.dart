@@ -16,7 +16,10 @@ Future<void> pumpFrames(WidgetTester tester, [int frames = 12]) async {
   }
 }
 
-Future<void> pumpApp(WidgetTester tester, {Size size = const Size(1440, 900)}) async {
+Future<void> pumpApp(
+  WidgetTester tester, {
+  Size size = const Size(1440, 900),
+}) async {
   tester.view.physicalSize = size;
   tester.view.devicePixelRatio = 1;
   addTearDown(tester.view.reset);
@@ -51,7 +54,12 @@ Future<void> main() async {
     await pumpFrames(tester);
 
     // Seven small projects, four of them shown first.
-    expect(find.text('View on GitHub'), findsNWidgets(4));
+    expect(find.text('View on GitHub'), findsNWidgets(3));
+    expect(find.text('RehlatiUAE'), findsOneWidget);
+    expect(
+      find.text('Shipped to Google Play; listing since retired'),
+      findsOneWidget,
+    );
     // Bring the button to the middle of the viewport, clear of the floating
     // nav bar, then tap it.
     final scroll = tester
@@ -64,7 +72,7 @@ Future<void> main() async {
     await tester.tap(find.text('Show all'));
     await pumpFrames(tester, 4);
     expect(tester.takeException(), isNull);
-    expect(find.text('View on GitHub'), findsNWidgets(7));
+    expect(find.text('View on GitHub'), findsNWidgets(6));
     expect(find.text('Show all'), findsNothing);
   });
 }

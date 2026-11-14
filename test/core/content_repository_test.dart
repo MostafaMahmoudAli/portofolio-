@@ -248,6 +248,26 @@ void main() {
       expect(projects.map((p) => p.order).toSet(), hasLength(13));
     });
 
+    test('round 2 featured order and seven other projects are explicit', () {
+      final featured = content.projects.where((p) => p.featured).toList()
+        ..sort((a, b) => a.order.compareTo(b.order));
+      expect(featured.map((p) => p.slug), [
+        'egypt-abroad',
+        'egypt-consulate-apps',
+        'new-courier-app',
+        'alkharj-business-guide',
+        'remix',
+        'responsive-dashboard',
+      ]);
+      final rehlati = content.projects.singleWhere(
+        (p) => p.slug == 'rehlati-uae',
+      );
+      expect(rehlati.featured, isFalse);
+      expect(rehlati.videos.available, isEmpty);
+      expect(rehlati.links, isEmpty);
+      expect(content.projects.where((p) => !p.featured), hasLength(7));
+    });
+
     test('a featured project links to both stores', () {
       final alkharj = content.projects.singleWhere(
         (project) => project.slug == 'alkharj-business-guide',

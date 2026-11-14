@@ -137,11 +137,12 @@ Future<void> main() async {
     await pumpApp(tester);
     await tester.ensureVisible(find.text('Kuwait', skipOffstage: false));
     await pumpFrames(tester);
-    for (final city in ['Kuwait', 'Riyadh', 'Jeddah', 'Milan']) {
+    // The consulate project is now a small tile: one city pair, all on its page.
+    for (final city in ['Kuwait']) {
       expect(find.text(city), findsOneWidget);
     }
-    expect(find.text('Google Play'), findsAtLeast(4));
-    expect(find.text('App Store'), findsAtLeast(4));
+    expect(find.text('Google Play'), findsAtLeast(2));
+    expect(find.text('App Store'), findsAtLeast(2));
     await unmount(tester);
   });
 

@@ -25,7 +25,9 @@ Future<void> main() async {
   testWidgets('desktop media pins beside facts and omits repeated summary', (
     tester,
   ) async {
-    final project = helpers.content.projects.first;
+    final project = helpers.content.projects.singleWhere(
+      (p) => p.slug == 'egypt-consulate-apps',
+    );
     await helpers.pumpPage(
       tester,
       location: '/projects/${project.slug}',

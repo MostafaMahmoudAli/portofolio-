@@ -27,6 +27,7 @@ import 'package:portfolio/presentation/widgets/page_title.dart';
 import 'package:portfolio/presentation/widgets/project_media_frame.dart';
 import 'package:portfolio/presentation/widgets/project_placeholder.dart';
 import 'package:portfolio/presentation/widgets/project_poster.dart';
+import 'package:portfolio/presentation/widgets/landscape_project_frame.dart';
 import 'package:portfolio/presentation/widgets/project_platform_gallery.dart';
 import 'package:portfolio/presentation/widgets/video_platform_picker.dart';
 import 'package:portfolio/presentation/widgets/project_video_player.dart';
@@ -357,14 +358,18 @@ Future<void> main() async {
   );
 
   for (final cover in [null, 'media/custom/alternate.jpg']) {
-    testWidgets('empty cover banner is omitted for $cover', (tester) async {
+    testWidgets('videoless featured project uses a wide cover frame for $cover', (tester) async {
       final project = testProject(0, cover: cover);
       await pumpPage(
         tester,
         location: '/projects/${project.slug}',
         data: Content(profile: content.profile, projects: [project]),
       );
-      expect(find.byType(ProjectPoster), findsNothing);
+      expect(find.byType(LandscapeProjectFrame), findsOneWidget);
+      expect(
+        tester.widget<ProjectPoster>(find.byType(ProjectPoster)).path,
+        cover,
+      );
       await unmount(tester);
     });
   }

@@ -93,3 +93,6 @@ In `assets/data/profile.json`, `experience[0]` (AppRock), en + ar:
 
 - Task 1: add Egypt Abroad as a team-built product with natural Arabic, two platform placeholder paths and an orange accent unused by the other featured projects. Shift all existing order values by one; keep the fixed profile stats unchanged.
 - Execution: continue on `new-look`, preserve all listed uncommitted files (including the newer PDF until Task 7), no push/merge/PR. Use `trail.cmd` because PowerShell blocks the `.ps1` shim.
+- Task 2: use orders 1–6 for the six featured projects and 7 for RehlatiUAE. The last bento row shares its whole width, including tablet; preserve lazy slivers. A shared 16:10 browser-style frame handles featured projects without videos on Home and their detail pages; no placeholder phone or video controller is created.
+- Task 2: RehlatiUAE keeps its retired-listing status in place of a nonexistent GitHub button, with no videos or store link. More projects still contains seven entries (three GitHub buttons before expansion, six after).
+- Task 2 tests: update old “no poster for video-less featured projects” assertions to the new landscape frame; keep sticky-media regression on the longer consulate fixture rather than depending on whichever project happens to be first.

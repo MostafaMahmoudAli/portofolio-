@@ -222,12 +222,12 @@
       "impact": { "en": "Stripe, PayPal & cards · multi-currency checkout", "ar": "Stripe و PayPal والبطاقات · سلة دفع متعددة العملات" },
       "title": { "en": "RehlatiUAE", "ar": "رحلاتي الإمارات" },
       "subtitle": { "en": "Event booking for UAE & Singapore travellers — Stripe, PayPal & cards", "ar": "حجز الفعاليات لمسافري الإمارات وسنغافورة — Stripe و PayPal والبطاقات" },
-      "featured": true,
-      "order": 6,
+      "featured": false,
+      "order": 7,
       "accent": "#FBBF24",
       "summary": {
-        "en": "Event booking for UAE & Singapore travellers with PayPal, Stripe and card payments across currencies and languages.",
-        "ar": "حجز فعاليات لمسافري الإمارات وسنغافورة بمدفوعات PayPal و Stripe والبطاقات بعملات ولغات متعددة."
+        "en": "Event booking with multi-currency PayPal, Stripe and card checkout.",
+        "ar": "حجز فعاليات ودفع بعملات متعددة عبر PayPal و Stripe والبطاقات."
       },
       "bullets": [
         {
@@ -243,21 +243,15 @@
       "status": { "en": "Shipped to Google Play; listing since retired", "ar": "منشور سابقًا على Google Play؛ القائمة أُوقفت لاحقًا" },
       "cover": "media/rehlati-uae/cover.jpg",
       "screens": [],
-      "videos": {
-        "android": {
-          "src": "media/rehlati-uae/android.mp4",
-          "poster": "media/rehlati-uae/android.jpg",
-          "caption": { "en": "Booking an event", "ar": "حجز فعالية" }
-        }
-      },
       "links": []
     },
     {
       "slug": "responsive-dashboard",
+      "impact": { "en": "Adaptive layouts for desktop, tablet and mobile", "ar": "تخطيطات متكيفة لسطح المكتب والتابلت والموبايل" },
       "title": { "en": "Responsive Dashboard", "ar": "Responsive Dashboard" },
       "subtitle": { "en": "Responsive & adaptive dashboard for desktop, tablet and mobile", "ar": "لوحة تحكم متجاوبة لسطح المكتب والتابلت والموبايل" },
-      "featured": false,
-      "order": 7,
+      "featured": true,
+      "order": 6,
       "accent": "#7C5CFF",
       "summary": {
         "en": "Adaptive dashboard layouts for desktop, tablet and mobile.",

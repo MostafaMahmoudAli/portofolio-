@@ -175,6 +175,12 @@ class _MoreCard extends StatelessWidget {
                 label: Text(l10n.viewOnGitHub),
               ),
             ),
+          if (githubLink == null)
+            if (project.status case final status?)
+              Text(
+                status.of(locale),
+                style: textTheme.bodySmall?.copyWith(color: palette.mutedText),
+              ),
         ],
       ),
     );
