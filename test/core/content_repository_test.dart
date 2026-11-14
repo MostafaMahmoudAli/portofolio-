@@ -22,13 +22,29 @@ void main() {
     });
 
     test('profile parses with all four stats', () {
-      expect(content.profile.name, 'Mostafa Mahmoud Ali');
+      expect(content.profile.name.of(const Locale('en')), 'Mostafa Mahmoud Ali');
       expect(content.profile.title.of(const Locale('en')), 'Flutter Developer');
       expect(content.profile.stats.map((stat) => stat.value), [3, 6, 310, 57]);
       expect(
         content.profile.experience.map((entry) => entry.company),
         contains('AppRock Software Development'),
       );
+    });
+
+    test('the name is localized in both languages', () {
+      final name = content.profile.name;
+      expect(name.of(const Locale('en')), 'Mostafa Mahmoud Ali');
+      expect(name.of(const Locale('ar')), isArabicText);
+      expect(name.of(const Locale('ar')), 'مصطفى محمود علي');
+    });
+
+    test('the page title joins the localized name and role', () {
+      final profile = content.profile;
+      expect(
+        profile.pageTitleOf(const Locale('en')),
+        'Mostafa Mahmoud Ali — Flutter Developer',
+      );
+      expect(profile.pageTitleOf(const Locale('ar')), contains('مصطفى محمود علي'));
     });
 
     test('profile text is translated in Arabic', () {
@@ -114,9 +130,54 @@ void main() {
         hasLength(4),
       );
       expect(
-        consulates.links.map((link) => link.label),
+        consulates.links.map((link) => link.label!.en),
         containsAll(['Kuwait', 'Riyadh', 'Jeddah', 'Milan']),
       );
+    });
+
+    test('store link labels are translated', () {
+      final consulates = content.projects.singleWhere(
+        (project) => project.slug == 'egypt-consulate-apps',
+      );
+      final arabic = <String>{
+        for (final link in consulates.links) link.label!.of(const Locale('ar')),
+      };
+      expect(arabic, {'الكويت', 'الرياض', 'جدة', 'ميلانو'});
+      for (final link in consulates.links) {
+        expect(link.label!.of(const Locale('ar')), isArabicText);
+      }
+      // A GitHub link carries no label at all.
+      final bookly = content.projects.singleWhere(
+        (project) => project.slug == 'bookly-app',
+      );
+      expect(bookly.links.single.label, isNull);
+    });
+
+    test('every featured project carries an impact line in both languages', () {
+      final featured = content.projects.where((project) => project.featured);
+      expect(featured, hasLength(5));
+      for (final project in featured) {
+        expect(project.impact, isNotNull, reason: project.slug);
+        expect(
+          project.impact!.of(const Locale('en')),
+          isNotEmpty,
+          reason: project.slug,
+        );
+        expect(
+          project.impact!.of(const Locale('ar')),
+          isArabicText,
+          reason: project.slug,
+        );
+      }
+    });
+
+    test('the resume skills are on the site', () {
+      final chips = content.profile.skillGroups
+          .expand((group) => group.chips)
+          .toSet();
+      expect(chips, contains('easy_localization'));
+      expect(chips, contains('Firestore'));
+      expect(chips, contains('Stripe & PayPal'));
     });
 
     test('a featured project links to both stores', () {

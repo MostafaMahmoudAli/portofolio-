@@ -158,12 +158,6 @@ abstract class AppLocalizations {
   /// **'Screenshot {number} of {total}'**
   String screenshotOf(int number, int total);
 
-  /// No description provided for @appTitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Mostafa Mahmoud — Flutter Developer'**
-  String get appTitle;
-
   /// No description provided for @navAbout.
   ///
   /// In en, this message translates to:

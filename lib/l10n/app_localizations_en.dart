@@ -41,9 +41,6 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get appTitle => 'Mostafa Mahmoud — Flutter Developer';
-
-  @override
   String get navAbout => 'About';
 
   @override

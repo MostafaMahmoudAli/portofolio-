@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../core/app_scope.dart';
 import '../../core/theme/app_colors.dart';
 import '../../l10n/app_localizations.dart';
 import '../widgets/page_title.dart';
@@ -11,11 +12,14 @@ class NotFoundPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
+    final profile = AppScope.of(context).content.profile;
     final textTheme = Theme.of(context).textTheme;
     final palette = AppPalette.of(context);
 
     return PageTitle(
-      title: '${l10n.notFoundTitle} — ${l10n.appTitle}',
+      title:
+          '${l10n.notFoundTitle} — '
+          '${profile.pageTitleOf(Localizations.localeOf(context))}',
       child: Scaffold(
         body: Center(
           child: Padding(

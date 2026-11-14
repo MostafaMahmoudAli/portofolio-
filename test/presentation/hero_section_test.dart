@@ -76,7 +76,7 @@ Future<void> main() async {
     final l10n = AppLocalizations.of(tester.element(find.byType(HeroSection)));
     final profile = content.profile;
 
-    expect(find.text(profile.name), findsOneWidget);
+    expect(find.text(profile.name.of(const Locale('en'))), findsOneWidget);
     expect(find.text(l10n.heroRoleMobile), findsOneWidget);
     expect(find.text(profile.title.of(const Locale('en'))), findsOneWidget);
     expect(find.text('View projects'), findsOneWidget);

@@ -10,7 +10,7 @@
       "accent": "#7C5CFF",
       "summary": {
         "en": "Four consulate apps published from a single Flutter codebase — 310K+ Google Play downloads and 8 live store listings.",
-        "ar": "أربعة تطبيقات قنصلية منشورة من كود فلاتر واحد — أكثر من 310 ألف تحميل على Google Play و8 قوائم متاجر."
+        "ar": "أربعة تطبيقات قنصلية منشورة من كود فلاتر واحد — أكثر من 310 ألف تحميل على Google Play و 8 قوائم متاجر."
       },
       "bullets": [
         {
@@ -43,18 +43,19 @@
         }
       },
       "links": [
-        { "type": "playStore", "label": "Kuwait", "url": "https://play.google.com/store/apps/details?id=com.approck.egyptian_consulate" },
-        { "type": "appStore", "label": "Kuwait", "url": "https://apps.apple.com/app/id1584352269" },
-        { "type": "playStore", "label": "Riyadh", "url": "https://play.google.com/store/apps/details?id=com.approck.egyptian_consulateruh" },
-        { "type": "appStore", "label": "Riyadh", "url": "https://apps.apple.com/app/id6444722856" },
-        { "type": "playStore", "label": "Jeddah", "url": "https://play.google.com/store/apps/details?id=com.approc.egyconsgad" },
-        { "type": "appStore", "label": "Jeddah", "url": "https://apps.apple.com/app/id6478158874" },
-        { "type": "playStore", "label": "Milan", "url": "https://play.google.com/store/apps/details?id=com.approc.egyconsmilano" },
-        { "type": "appStore", "label": "Milan", "url": "https://apps.apple.com/app/id6752235486" }
+        { "type": "playStore", "label": { "en": "Kuwait", "ar": "الكويت" }, "url": "https://play.google.com/store/apps/details?id=com.approck.egyptian_consulate" },
+        { "type": "appStore", "label": { "en": "Kuwait", "ar": "الكويت" }, "url": "https://apps.apple.com/app/id1584352269" },
+        { "type": "playStore", "label": { "en": "Riyadh", "ar": "الرياض" }, "url": "https://play.google.com/store/apps/details?id=com.approck.egyptian_consulateruh" },
+        { "type": "appStore", "label": { "en": "Riyadh", "ar": "الرياض" }, "url": "https://apps.apple.com/app/id6444722856" },
+        { "type": "playStore", "label": { "en": "Jeddah", "ar": "جدة" }, "url": "https://play.google.com/store/apps/details?id=com.approc.egyconsgad" },
+        { "type": "appStore", "label": { "en": "Jeddah", "ar": "جدة" }, "url": "https://apps.apple.com/app/id6478158874" },
+        { "type": "playStore", "label": { "en": "Milan", "ar": "ميلانو" }, "url": "https://play.google.com/store/apps/details?id=com.approc.egyconsmilano" },
+        { "type": "appStore", "label": { "en": "Milan", "ar": "ميلانو" }, "url": "https://apps.apple.com/app/id6752235486" }
       ]
     },
     {
       "slug": "new-courier-app",
+      "impact": { "en": "Offline-first sync · cold-start deep links", "ar": "مزامنة تعمل بدون إنترنت · روابط مباشرة عند بدء التشغيل البارد" },
       "title": { "en": "New Courier App", "ar": "تطبيق البريد الجديد" },
       "subtitle": { "en": "Delivery tracking with Google Maps — live location & offline SQLite sync", "ar": "تتبع الشحنات عبر خرائط Google — موقع مباشر ومزامنة بدون إنترنت" },
       "featured": true,
@@ -89,6 +90,7 @@
     },
     {
       "slug": "alkharj-business-guide",
+      "impact": { "en": "Live on both stores · app + web admin panel", "ar": "متاح على المتجرين · تطبيق ولوحة إدارة ويب" },
       "title": { "en": "Alkharj Business Guide", "ar": "دليل الأعمال بالخرج" },
       "subtitle": { "en": "Mobile app & web admin panel — local businesses directory", "ar": "تطبيق موبايل ولوحة إدارة ويب — دليل الأعمال المحلية" },
       "featured": true,
@@ -166,6 +168,7 @@
     },
     {
       "slug": "rehlati-uae",
+      "impact": { "en": "Stripe, PayPal & cards · multi-currency checkout", "ar": "Stripe و PayPal والبطاقات · سلة دفع متعددة العملات" },
       "title": { "en": "RehlatiUAE", "ar": "رحلاتي الإمارات" },
       "subtitle": { "en": "Event booking for UAE & Singapore travellers — Stripe, PayPal & cards", "ar": "حجز الفعاليات لمسافري الإمارات وسنغافورة — Stripe و PayPal والبطاقات" },
       "featured": true,
@@ -206,8 +209,8 @@
       "order": 6,
       "accent": "#7C5CFF",
       "summary": {
-        "en": "A responsive and adaptive dashboard working on desktop, tablet and mobile screens.",
-        "ar": "لوحة تحكم متجاوبة وقابلة للتكييف تعمل على شاشات سطح المكتب والتابلت والموبايل."
+        "en": "Adaptive dashboard layouts for desktop, tablet and mobile.",
+        "ar": "تخطيطات لوحة تحكم متكيفة لسطح المكتب والتابلت والموبايل."
       },
       "bullets": [
         {
@@ -231,8 +234,8 @@
       "order": 7,
       "accent": "#34D399",
       "summary": {
-        "en": "Browses Rick & Morty characters from the public REST API with search and favorites.",
-        "ar": "تصفح شخصيات Rick & Morty من واجهة REST العامة مع البحث والمفضلة."
+        "en": "Browse Rick & Morty characters from the public REST API.",
+        "ar": "تصفح شخصيات Rick & Morty من واجهة REST العامة."
       },
       "bullets": [
         {
@@ -260,8 +263,8 @@
       "order": 8,
       "accent": "#22D3EE",
       "summary": {
-        "en": "A vocabulary learning app: build word lists, then practice them.",
-        "ar": "تطبيق لتعلّم المفردات: ابنِ قوائم الكلمات ثم تدرّب عليها."
+        "en": "Build your own word lists, then drill them until they stick.",
+        "ar": "ابنِ قوائم كلماتك ثم تدرّب عليها حتى تثبت."
       },
       "bullets": [
         {
@@ -289,8 +292,8 @@
       "order": 9,
       "accent": "#FBBF24",
       "summary": {
-        "en": "A Google Maps playground: markers, routes and camera animations.",
-        "ar": "ساحة تجارب لخرائط Google: علامات ومسارات وحركات الكاميرا."
+        "en": "Markers, polylines and animated camera moves on Google Maps.",
+        "ar": "علامات ومسارات وحركات كاميرا متحركة على خرائط Google."
       },
       "bullets": [
         {
@@ -314,8 +317,8 @@
       "order": 10,
       "accent": "#FF5C8A",
       "summary": {
-        "en": "A book browsing app with clean architecture: featured lists, search and a details page.",
-        "ar": "تطبيق لتصفح الكتب بمعمارية نظيفة: قوائم مميزة وبحث وصفحة تفاصيل."
+        "en": "Browse, search and save books through the Google Books API.",
+        "ar": "تصفح الكتب وابحث واحفظ عبر Google Books API."
       },
       "bullets": [
         {
@@ -343,8 +346,8 @@
       "order": 11,
       "accent": "#7C5CFF",
       "summary": {
-        "en": "A shopping app with a product catalog, cart and checkout flow.",
-        "ar": "تطبيق تسوق بكتالوج منتجات وسلة ومسار دفع."
+        "en": "Product catalog, persistent cart and a checkout flow.",
+        "ar": "كتالوج منتجات وسلة محفوظة ومسار دفع."
       },
       "bullets": [
         {
@@ -372,8 +375,8 @@
       "order": 12,
       "accent": "#22D3EE",
       "summary": {
-        "en": "A social app with a feed, post interactions and user profiles.",
-        "ar": "تطبيق اجتماعي بمنشورات وتفاعلات وملفات مستخدمين."
+        "en": "A social feed with posts, likes, comments and profiles.",
+        "ar": "منشورات اجتماعية مع إعجابات وتعليقات وملفات شخصية."
       },
       "bullets": [
         {

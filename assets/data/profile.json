@@ -1,5 +1,8 @@
 {
-  "name": "Mostafa Mahmoud Ali",
+  "name": {
+    "en": "Mostafa Mahmoud Ali",
+    "ar": "مصطفى محمود علي"
+  },
   "title": {
     "en": "Flutter Developer",
     "ar": "مطوّر تطبيقات فلاتر"
@@ -15,8 +18,8 @@
   "photo": "media/profile.jpg",
   "resumePdf": "resume.pdf",
   "summary": {
-    "en": "Flutter Developer with 3+ years building cross-platform apps across government, logistics and travel — six published to Google Play and the App Store, four consulate apps shipped from a single codebase with 310K+ combined downloads. Owns feature modules end-to-end — Clean Architecture, BLoC/Cubit, Dio, go_router, get_it — with full RTL delivery experience.",
-    "ar": "مطوّر تطبيقات فلاتر بخبرة تتجاوز 3 سنوات في بناء تطبيقات متعددة المنصات في مجالات الحكومة واللوجستيات والسفر — ستة تطبيقات منشورة على Google Play و App Store، أربعة منها للتطبيقات القنصلية من كود واحد بإجمالي 310 ألف+ عملية تحميل. يعمل على وحدات الميزات من البداية للنهاية — معمارية نظيفة، BLoC/Cubit، Dio، go_router، get_it — بخبرة كاملة في دعم العربية من اليمين لليسار."
+    "en": "Flutter Developer with 3+ years building cross-platform apps across government, logistics and travel — six published to Google Play and the App Store, four consulate apps shipped from a single codebase with 310K+ combined downloads. Owns feature modules end-to-end, using Clean Architecture with BLoC/Cubit, Dio, go_router and get_it, with full RTL delivery experience.",
+    "ar": "مطوّر تطبيقات فلاتر بخبرة تتجاوز 3 سنوات في بناء تطبيقات متعددة المنصات في مجالات الحكومة واللوجستيات والسفر. ستة تطبيقات منشورة على Google Play و App Store، أربعة منها للتطبيقات القنصلية من كود واحد بإجمالي 310 ألف+ عملية تحميل. يعمل على وحدات الميزات من البداية للنهاية باستخدام معمارية نظيفة وأدوات BLoC/Cubit و Dio و go_router و get_it، مع خبرة كاملة في دعم العربية من اليمين لليسار."
   },
   "stats": [
     { "value": 3, "suffix": "+", "label": { "en": "Years of experience", "ar": "سنوات خبرة" } },
@@ -46,6 +49,22 @@
         {
           "en": "Grew coverage to 57 test suites and handled full Play Console / App Store Connect releases gated by GitHub Actions.",
           "ar": "رفعت التغطية إلى 57 حزمة اختبارات وتولّيت الإصدار الكامل على Play Console و App Store Connect عبر إجراءات GitHub Actions."
+        },
+        {
+          "en": "Three build flavors — dev, staging, prod — each with its own application ID and Firebase project.",
+          "ar": "ثلاث نسخ build هي dev و staging و prod، لكل منها معرّف تطبيق ومشروع Firebase مستقل."
+        },
+        {
+          "en": "Fixed a Play App Signing / Firebase SHA-1 mismatch that was blocking release uploads.",
+          "ar": "عالجت تعارض Play App Signing مع بصمة SHA-1 في Firebase الذي كان يمنع رفع الإصدارات."
+        },
+        {
+          "en": "QR-based device linking for handing a live session to a second device.",
+          "ar": "ربط الأجهزة عبر رمز QR لتسليم جلسة نشطة إلى جهاز آخر."
+        },
+        {
+          "en": "FCM with actionable notifications, plus an image and PDF upload pipeline.",
+          "ar": "إشعارات FCM التفاعلية، مع خط رفع للصور وملفات PDF."
         }
       ]
     },
@@ -105,7 +124,7 @@
     },
     {
       "title": { "en": "Flutter & UI", "ar": "فلاتر وواجهات" },
-      "chips": ["Flutter 3.x", "Material 3", "Cupertino", "Responsive layouts", "Animations", "RTL / LTR", "flutter_svg", "Lottie"]
+      "chips": ["Flutter 3.x", "Material 3", "Cupertino", "Responsive layouts", "Animations", "RTL / LTR", "easy_localization", "flutter_svg", "Lottie"]
     },
     {
       "title": { "en": "State & Routing", "ar": "إدارة الحالة والتوجيه" },
@@ -121,11 +140,11 @@
     },
     {
       "title": { "en": "Persistence & Storage", "ar": "التخزين" },
-      "chips": ["SQLite", "flutter_secure_storage", "Envied", "path_provider", "Offline-first sync"]
+      "chips": ["SQLite", "Firestore", "flutter_secure_storage", "path_provider", "Offline-first sync"]
     },
     {
       "title": { "en": "Native & Device", "ar": "المنصات والجهاز" },
-      "chips": ["Platform channels", "Firebase", "Google & Apple Sign-In", "local_auth", "Root detection", "mobile_scanner", "Google Maps", "flutter_map"]
+      "chips": ["Platform channels", "Firebase", "Google & Apple Sign-In", "local_auth", "Stripe & PayPal", "Root detection", "mobile_scanner", "Google Maps", "flutter_map"]
     },
     {
       "title": { "en": "Media & Video", "ar": "الوسائط والفيديو" },

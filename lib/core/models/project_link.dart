@@ -1,11 +1,12 @@
+import 'localized_text.dart';
 import 'require.dart';
 
 /// Where a project link points.
 enum ProjectLinkType { github, playStore, appStore, live }
 
 /// One external link of a project. The URL is language-independent, and so is
-/// the optional short [label] naming the link (a plain string like a tech
-/// chip, e.g. "Kuwait", "Riyadh").
+/// the optional short [label] naming the link (a city such as "Kuwait" or
+/// "Riyadh", translated per language).
 class ProjectLink {
   const ProjectLink({required this.type, required this.url, this.label});
 
@@ -23,13 +24,19 @@ class ProjectLink {
     return ProjectLink(
       type: type,
       url: requiredString(json, 'url', where),
-      label: optionalString(json, 'label', where),
+      label: json['label'] == null
+          ? null
+          : LocalizedText.fromJson(
+              json['label'],
+              where: where,
+              field: 'label',
+            ),
     );
   }
 
   final ProjectLinkType type;
   final String url;
 
-  /// Short plain text naming the link, e.g. "Riyadh".
-  final String? label;
+  /// Short text naming the link, e.g. "Riyadh" / "الرياض".
+  final LocalizedText? label;
 }

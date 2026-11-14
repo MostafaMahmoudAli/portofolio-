@@ -104,7 +104,7 @@ void main() {
       );
       text(
         canvas,
-        content.profile.name,
+        content.profile.name.of(const Locale('en')),
         const Offset(64, 257),
         64,
         palette.text,

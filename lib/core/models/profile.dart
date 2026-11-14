@@ -1,3 +1,5 @@
+import 'package:flutter/widgets.dart' show Locale;
+
 import 'experience.dart';
 import 'localized_text.dart';
 import 'skill_group.dart';
@@ -31,7 +33,7 @@ class Profile {
   factory Profile.fromJson(Map<String, dynamic> json, {required String where}) {
     final phone = optionalString(json, 'phone', where);
     return Profile(
-      name: requiredString(json, 'name', where),
+      name: LocalizedText.fromJson(json['name'], where: where, field: 'name'),
       title: LocalizedText.fromJson(
         json['title'],
         where: where,
@@ -97,7 +99,8 @@ class Profile {
     );
   }
 
-  final String name;
+  /// The owner's name, in both site languages.
+  final LocalizedText name;
   final LocalizedText title;
   final LocalizedText location;
   final String email;
@@ -115,4 +118,8 @@ class Profile {
   final LocalizedText education;
   final List<LocalizedText> languages;
   final List<LocalizedText> certifications;
+
+  /// The browser/page title: the name, then the role, in the page's language.
+  String pageTitleOf(Locale locale) =>
+      '${name.of(locale)} — ${title.of(locale)}';
 }

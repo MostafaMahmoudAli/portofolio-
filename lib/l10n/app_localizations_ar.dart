@@ -41,9 +41,6 @@ class AppLocalizationsAr extends AppLocalizations {
   }
 
   @override
-  String get appTitle => 'مصطفى محمود — مطوّر Flutter';
-
-  @override
   String get navAbout => 'نبذة';
 
   @override
@@ -185,14 +182,14 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get capabilityReleasesBody =>
-      'إصدارات كاملة على Play Console وApp Store Connect مع بوابات CI.';
+      'إصدارات كاملة على Play Console و App Store Connect مع بوابات CI.';
 
   @override
-  String get capabilityMediaTitle => 'الوسائط وFFmpeg';
+  String get capabilityMediaTitle => 'الوسائط و FFmpeg';
 
   @override
   String get capabilityMediaBody =>
-      'تحرير الفيديو والصوت على الجهاز باستخدام FFmpeg وCameraX ومسارات مخصصة.';
+      'تحرير الفيديو والصوت على الجهاز باستخدام FFmpeg و CameraX ومسارات مخصصة.';
 
   @override
   String get featuredProjects => 'المشاريع المميزة';

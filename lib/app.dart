@@ -51,7 +51,9 @@ class _PortfolioAppState extends State<PortfolioApp> {
         builder: (context, _) {
           final locale = widget.localeController.value;
           return MaterialApp.router(
-            onGenerateTitle: (context) => AppLocalizations.of(context).appTitle,
+            onGenerateTitle: (context) => AppScope.of(
+              context,
+            ).content.profile.pageTitleOf(Localizations.localeOf(context)),
             debugShowCheckedModeBanner: false,
             theme: AppTheme.build(Brightness.light, locale),
             darkTheme: AppTheme.build(Brightness.dark, locale),

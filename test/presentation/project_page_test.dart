@@ -187,7 +187,7 @@ Future<void> main() async {
     );
     expect(
       title.title,
-      'Remix — ${AppLocalizations.of(tester.element(find.byType(ProjectPage))).appTitle}',
+      'Remix — ${content.profile.pageTitleOf(const Locale('en'))}',
     );
     await tester.tap(find.byType(BackButton));
     await frames(tester);
@@ -249,33 +249,34 @@ Future<void> main() async {
       );
       final router = await pumpPage(tester, location: '/', language: language);
       final l10n = AppLocalizations.of(tester.element(find.byType(HomePage)));
-      expect(labels.last, l10n.appTitle);
+      final pageTitle = content.profile.pageTitleOf(Locale(language));
+      expect(labels.last, pageTitle);
       router.go('/projects/remix');
       await frames(tester);
       expect(
         labels.last,
-        '${content.projects.firstWhere((p) => p.slug == 'remix').title.of(Locale(language))} — ${l10n.appTitle}',
+        '${content.projects.firstWhere((p) => p.slug == 'remix').title.of(Locale(language))} — $pageTitle',
       );
       await tester.tap(find.byType(BackButton));
       await frames(tester);
-      expect(labels.last, l10n.appTitle);
+      expect(labels.last, pageTitle);
       router.go('/projects/remix');
       await frames(tester);
       await tester.tap(
         find.descendant(of: find.byType(NavBar), matching: find.text('MM')),
       );
       await frames(tester);
-      expect(labels.last, l10n.appTitle);
+      expect(labels.last, pageTitle);
       for (final path in ['/projects/unknown', '/unknown']) {
         router.go('/projects/remix');
         await frames(tester);
         router.go(path);
         await frames(tester, 16);
-        expect(labels.last, '${l10n.notFoundTitle} — ${l10n.appTitle}');
+        expect(labels.last, '${l10n.notFoundTitle} — $pageTitle');
       }
       await tester.tap(find.text(l10n.backHome));
       await frames(tester, 16);
-      expect(labels.last, l10n.appTitle);
+      expect(labels.last, pageTitle);
       await unmount(tester);
     });
 

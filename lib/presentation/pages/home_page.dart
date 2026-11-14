@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../l10n/app_localizations.dart';
+import '../../core/app_scope.dart';
 import '../sections/about_section.dart';
 import '../sections/featured_projects.dart';
 import '../sections/hero_section.dart';
@@ -180,7 +180,9 @@ class _HomePageState extends State<HomePage> {
     final current = ModalRoute.isCurrentOf(context) ?? true;
     if (current) _scheduleSectionScroll();
     return PageTitle(
-      title: AppLocalizations.of(context).appTitle,
+      title: AppScope.of(
+        context,
+      ).content.profile.pageTitleOf(Localizations.localeOf(context)),
       child: Scaffold(
         body: Stack(
           children: [

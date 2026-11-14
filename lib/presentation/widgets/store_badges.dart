@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../core/models/project_link.dart';
+import '../../core/models/localized_text.dart';
 import '../../core/theme/app_colors.dart';
 import '../../core/utils/open_link.dart';
 
@@ -33,16 +34,21 @@ class StoreBadge extends StatelessWidget {
 }
 
 /// Groups store links by their [ProjectLink.label] and renders each group
-/// under its label heading. Links without a label are rendered as a group of
-/// their own.
+/// under its label heading: one row per city, with its badge pair. Links
+/// without a label are rendered as a group of their own.
+///
+/// [maxGroups] caps how many labelled groups are shown, so a small card can
+/// show one city and leave the rest to the project page.
 class StoreBadges extends StatelessWidget {
-  const StoreBadges({super.key, required this.links});
+  const StoreBadges({super.key, required this.links, this.maxGroups});
 
   final List<ProjectLink> links;
+  final int? maxGroups;
 
   @override
   Widget build(BuildContext context) {
     final grouped = <String, List<ProjectLink>>{};
+    final labels = <String, LocalizedText>{};
     final unlabeled = <ProjectLink>[];
     // Badges are for store links only; GitHub and live links get their own buttons.
     for (final link in links.where(
@@ -51,19 +57,27 @@ class StoreBadges extends StatelessWidget {
           l.type == ProjectLinkType.appStore,
     )) {
       final label = link.label;
-      if (label == null || label.isEmpty) {
+      if (label == null || label.en.isEmpty) {
         unlabeled.add(link);
       } else {
-        grouped.putIfAbsent(label, () => <ProjectLink>[]).add(link);
+        // The English text is the stable identity of a group; the visible
+        // label follows the page language.
+        grouped.putIfAbsent(label.en, () => <ProjectLink>[]).add(link);
+        labels.putIfAbsent(label.en, () => label);
       }
     }
+
+    final entries = grouped.entries.toList();
+    final shown = maxGroups == null
+        ? entries
+        : entries.take(maxGroups!.clamp(0, entries.length)).toList();
 
     return Wrap(
       spacing: 10,
       runSpacing: 10,
       children: [
-        for (final entry in grouped.entries)
-          _StoreGroup(label: entry.key, links: entry.value),
+        for (final entry in shown)
+          _StoreGroup(label: labels[entry.key], links: entry.value),
         if (unlabeled.isNotEmpty) _StoreGroup(links: unlabeled),
       ],
     );
@@ -73,11 +87,12 @@ class StoreBadges extends StatelessWidget {
 class _StoreGroup extends StatelessWidget {
   const _StoreGroup({this.label, required this.links});
 
-  final String? label;
+  final LocalizedText? label;
   final List<ProjectLink> links;
 
   @override
   Widget build(BuildContext context) {
+    final locale = Localizations.localeOf(context);
     final textTheme = Theme.of(context).textTheme;
     final palette = AppPalette.of(context);
 
@@ -87,7 +102,7 @@ class _StoreGroup extends StatelessWidget {
       children: [
         if (label != null) ...[
           Text(
-            label!,
+            label!.of(locale),
             style: textTheme.labelSmall?.copyWith(
               color: palette.mutedText,
               fontWeight: FontWeight.w600,

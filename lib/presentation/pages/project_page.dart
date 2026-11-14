@@ -41,7 +41,9 @@ class ProjectPage extends StatelessWidget {
       horizontal: math.max(24, (MediaQuery.sizeOf(context).width - 1200) / 2),
     );
     return PageTitle(
-      title: '${project.title.of(locale)} — ${l10n.appTitle}',
+      title:
+          '${project.title.of(locale)} — '
+          '${AppScope.of(context).content.profile.pageTitleOf(locale)}',
       child: Scaffold(
         body: Stack(
           children: [

@@ -97,7 +97,10 @@ class _HeroSectionState extends State<HeroSection> {
           ),
         ),
         const SizedBox(height: 16),
-        entrance(0, Text(profile.name, style: nameStyle, textAlign: align)),
+        entrance(
+          0,
+          Text(profile.name.of(locale), style: nameStyle, textAlign: align),
+        ),
         const SizedBox(height: 12),
         entrance(
           1,
@@ -170,7 +173,7 @@ class _HeroSectionState extends State<HeroSection> {
 
     final photo = ProfilePhoto(
       key: _photoKey,
-      name: profile.name,
+      name: profile.name.of(locale),
       photo: profile.photo,
       size: switch (screen) {
         ScreenSize.phone => 176,

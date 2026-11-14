@@ -69,7 +69,7 @@ void main() async {
     );
     expect(find.text('المعمارية النظيفة'), findsOneWidget);
     expect(find.text('إصدارات المتاجر'), findsOneWidget);
-    expect(find.text('الوسائط وFFmpeg'), findsOneWidget);
+    expect(find.text('الوسائط و FFmpeg'), findsOneWidget);
     expect(tester.takeException(), isNull);
   });
 
