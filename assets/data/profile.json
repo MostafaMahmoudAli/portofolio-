@@ -35,16 +35,16 @@
       "mode": { "en": "Remote, full-time", "ar": "عن بُعد، بدوام كامل" },
       "bullets": [
         {
-          "en": "Own feature modules end-to-end across a **23-module** consular super-app — **Clean Architecture**, **get_it**, feature-first.",
-          "ar": "مسؤول عن وحدات الميزات من البداية للنهاية في تطبيق قنصلي ضخم من **23 وحدة** — **معمارية نظيفة**، **get_it**، وتقسيم المنتج إلى ميزات مستقلة."
+          "en": "Own feature modules end-to-end across a **23-module** consular super-app, **Egypt Abroad** — **Clean Architecture**, **get_it**, feature-first.",
+          "ar": "مسؤول عن وحدات الميزات من البداية للنهاية في التطبيق القنصلي الشامل **مصري بالخارج**، المؤلف من **23 وحدة** — **معمارية نظيفة**، **get_it**، وتقسيم المنتج إلى ميزات مستقلة."
         },
         {
           "en": "Built a real-time AI assistant on an **SSE** client over **Dio**, with stream cancellation, an idle watchdog and **last-event-id** resumption.",
           "ar": "بنيت مساعدًا ذكيًا يعمل في الوقت الفعلي عبر عميل **SSE** فوق **Dio** مع إلغاء البث ومؤقّت خمول واستكمال من **آخر حدث** عند انقطاع الاتصال."
         },
         {
-          "en": "Shipped **OCR** national-ID verification and hardened the app with **biometrics**, **Firebase App Check** and root/jailbreak detection.",
-          "ar": "نفّذت التحقق من البطاقة القومية بالـ **OCR** وحصّنت التطبيق عبر **البصمة**، **Firebase App Check** وكشف الـ jailbreak."
+          "en": "Contributed to **OCR** national-ID verification and helped harden the app with **biometrics**, **Firebase App Check** and root/jailbreak detection.",
+          "ar": "ساهمت في التحقق من البطاقة القومية عبر **OCR** وساعدت في تعزيز أمان التطبيق باستخدام **البصمة** و **Firebase App Check** وكشف الـ root و jailbreak."
         },
         {
           "en": "Grew coverage to **57 test suites** and handled full **Play Console / App Store Connect** releases gated by **GitHub Actions**.",

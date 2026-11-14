@@ -217,6 +217,17 @@ void main() {
       expect(chips, contains('Stripe & PayPal'));
     });
 
+    test('AppRock credits the named product and shared security work', () {
+      final bullets = content.profile.experience.first.bullets;
+      expect(bullets.first.en, contains('**23-module**'));
+      expect(bullets.first.en, contains('**Egypt Abroad**'));
+      expect(bullets.first.of(const Locale('ar')), contains('**مصري بالخارج**'));
+      expect(bullets[2].en, startsWith('Contributed to **OCR**'));
+      expect(bullets[2].en, contains('helped harden'));
+      expect(bullets[2].of(const Locale('ar')), startsWith('ساهمت'));
+      expect(content.profile.stats.map((s) => s.value), [3, 6, 310, 57]);
+    });
+
     test('Egypt Abroad is first, bilingual and linked to both stores', () {
       final projects = [...content.projects]
         ..sort((a, b) => a.order.compareTo(b.order));
