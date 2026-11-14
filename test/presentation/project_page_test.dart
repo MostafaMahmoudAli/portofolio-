@@ -124,11 +124,12 @@ Project testProject(
   int videos, {
   String? cover,
   List<ProjectScreen> screens = const [],
+  bool featured = true,
 }) => Project(
   slug: 'gallery-test',
   title: const LocalizedText(en: 'Gallery test', ar: 'اختبار المعرض'),
   subtitle: const LocalizedText(en: 'Subtitle', ar: 'عنوان فرعي'),
-  featured: true,
+  featured: featured,
   order: 0,
   accent: '#7C5CFF',
   summary: const LocalizedText(en: 'Summary', ar: 'ملخص'),
@@ -358,20 +359,23 @@ Future<void> main() async {
   );
 
   for (final cover in [null, 'media/custom/alternate.jpg']) {
-    testWidgets('videoless featured project uses a wide cover frame for $cover', (tester) async {
-      final project = testProject(0, cover: cover);
-      await pumpPage(
-        tester,
-        location: '/projects/${project.slug}',
-        data: Content(profile: content.profile, projects: [project]),
-      );
-      expect(find.byType(LandscapeProjectFrame), findsOneWidget);
-      expect(
-        tester.widget<ProjectPoster>(find.byType(ProjectPoster)).path,
-        cover,
-      );
-      await unmount(tester);
-    });
+    testWidgets(
+      'videoless featured project uses a wide cover frame for $cover',
+      (tester) async {
+        final project = testProject(0, cover: cover);
+        await pumpPage(
+          tester,
+          location: '/projects/${project.slug}',
+          data: Content(profile: content.profile, projects: [project]),
+        );
+        expect(find.byType(LandscapeProjectFrame), findsOneWidget);
+        expect(
+          tester.widget<ProjectPoster>(find.byType(ProjectPoster)).path,
+          cover,
+        );
+        await unmount(tester);
+      },
+    );
   }
 
   testWidgets(

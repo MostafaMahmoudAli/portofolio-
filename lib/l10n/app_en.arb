@@ -69,6 +69,8 @@
   "featuredProjects": "Featured Projects",
   "moreProjects": "More Projects",
   "details": "Details",
+  "openProject": "View project: {title}",
+  "@openProject": { "placeholders": { "title": { "type": "String" } } },
   "moreOnGithub": "More on GitHub",
   "viewOnGitHub": "View on GitHub",
   "viewLive": "View live site",

@@ -216,6 +216,11 @@ class AppLocalizationsEn extends AppLocalizations {
   String get details => 'Details';
 
   @override
+  String openProject(String title) {
+    return 'View project: $title';
+  }
+
+  @override
   String get moreOnGithub => 'More on GitHub';
 
   @override

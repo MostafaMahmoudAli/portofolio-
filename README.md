@@ -51,6 +51,10 @@ platform when unavailable, or use `{}`/omit `videos` for no demos. Only `ios` an
 caption is optional. iOS is primary when present, otherwise Android. Only add an
 iOS demo for an app that actually supports iOS; never add unrelated placeholder media.
 
+To add project images, set one `cover` path in `assets/data/projects.json` for the
+card thumbnail, and add any number of `{ "src": "media/my-app/screens/01.jpg" }`
+entries to `screens` for its project page. Put the files under `web/media/`.
+
 Put files under:
 
 ```text
@@ -78,7 +82,7 @@ node tool/check_media.mjs
 The check prints missing cover, screen, video and poster paths grouped by project
 and exits nonzero while files are missing or videos exceed the size budget.
 
-On project pages, tablet/desktop show both platform demos side by side; phones
+On project pages, tablet shows both platform demos side by side; desktop/phones
 show a platform picker when both exist. Home cards start with the primary demo
 and let visitors switch platforms. The details link carries that choice so only
 the matching static phone frame participates in the Hero transition. A missing

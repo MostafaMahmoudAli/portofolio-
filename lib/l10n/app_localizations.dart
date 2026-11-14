@@ -494,6 +494,12 @@ abstract class AppLocalizations {
   /// **'Details'**
   String get details;
 
+  /// No description provided for @openProject.
+  ///
+  /// In en, this message translates to:
+  /// **'View project: {title}'**
+  String openProject(String title);
+
   /// No description provided for @moreOnGithub.
   ///
   /// In en, this message translates to:

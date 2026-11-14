@@ -68,6 +68,8 @@
   "featuredProjects": "المشاريع المميزة",
   "moreProjects": "مزيد من المشاريع",
   "details": "التفاصيل",
+  "openProject": "عرض مشروع: {title}",
+  "@openProject": { "placeholders": { "title": { "type": "String" } } },
   "moreOnGithub": "المزيد على GitHub",
   "viewOnGitHub": "عرض على GitHub",
   "viewLive": "عرض الموقع",

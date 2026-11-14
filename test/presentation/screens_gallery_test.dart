@@ -85,6 +85,31 @@ Future<void> main() async {
     VisibilityDetectorController.instance.updateInterval = Duration.zero;
   });
 
+  testWidgets('non-featured project shows two screens and opens the second', (
+    tester,
+  ) async {
+    final project = helpers.testProject(
+      0,
+      featured: false,
+      screens: screens(2),
+    );
+    await helpers.pumpPage(
+      tester,
+      location: '/projects/${project.slug}',
+      data: Content(profile: helpers.content.profile, projects: [
+        helpers.content.projects.first,
+        project,
+      ]),
+      reducedMotion: true,
+    );
+    await tester.ensureVisible(find.byType(ScreensGallery));
+    await open(tester, 1);
+    expect(find.byType(ScreensViewer), findsOneWidget);
+    expect(find.text('2 / 2'), findsOneWidget);
+    expect(tester.takeException(), isNull);
+    await helpers.unmount(tester);
+  });
+
   testWidgets(
     'third thumbnail opens at 3, missing image falls back, X restores focus',
     (tester) async {

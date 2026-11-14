@@ -17,6 +17,8 @@ class ProjectPoster extends StatelessWidget {
       : Image.network(
           Uri.base.resolve(path!).toString(),
           fit: BoxFit.cover,
+          frameBuilder: (context, child, frame, synchronous) =>
+              frame != null ? child : ProjectPlaceholder(accent: accent),
           errorBuilder: (context, error, stackTrace) =>
               ProjectPlaceholder(accent: accent),
         );

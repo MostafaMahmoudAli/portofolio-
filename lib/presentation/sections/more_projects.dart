@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../core/app_scope.dart';
 import '../../core/models/project_link.dart';
@@ -9,7 +10,7 @@ import '../../core/utils/open_link.dart';
 import '../../l10n/app_localizations.dart';
 import '../widgets/brand_icon.dart';
 import '../widgets/glass_card.dart';
-import '../widgets/project_placeholder.dart';
+import '../widgets/lazy_project_cover.dart';
 import '../widgets/reveal_on_scroll.dart';
 import '../widgets/section_title.dart';
 import '../widgets/tech_chip.dart';
@@ -108,16 +109,24 @@ class _MoreProjectsSectionState extends State<MoreProjectsSection> {
   }
 }
 
-class _MoreCard extends StatelessWidget {
+class _MoreCard extends StatefulWidget {
   const _MoreCard({required this.project});
 
   final Project project;
+
+  @override
+  State<_MoreCard> createState() => _MoreCardState();
+}
+
+class _MoreCardState extends State<_MoreCard> {
+  bool _focused = false;
 
   /// The height of the cover thumbnail area at the top of the card.
   static const _coverHeight = 88.0;
 
   @override
   Widget build(BuildContext context) {
+    final project = widget.project;
     final l10n = AppLocalizations.of(context);
     final locale = Localizations.localeOf(context);
     final textTheme = Theme.of(context).textTheme;
@@ -127,6 +136,7 @@ class _MoreCard extends StatelessWidget {
     final githubLink = project.links
         .where((link) => link.type == ProjectLinkType.github)
         .firstOrNull;
+    void openProject() => context.go('/projects/${project.slug}');
 
     return GlassCard(
       padding: const EdgeInsetsDirectional.all(16),
@@ -135,19 +145,50 @@ class _MoreCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // The cover area renders the placeholder, tinted with the project's
-          // own accent.
-          SizedBox(
-            height: _coverHeight,
-            width: double.infinity,
-            child: ProjectPlaceholder(accent: project.accentColor),
-          ),
-          const SizedBox(height: 12),
-          Text(
-            title,
-            style: textTheme.titleMedium,
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
+          Semantics(
+            button: true,
+            excludeSemantics: true,
+            label: l10n.openProject(title),
+            onTap: openProject,
+            child: DecoratedBox(
+              key: ValueKey('more-focus-${project.slug}'),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadiusDirectional.circular(12),
+                border: Border.all(
+                  width: 2,
+                  color: _focused ? palette.accentInk : Colors.transparent,
+                ),
+              ),
+              child: InkWell(
+                key: ValueKey('more-open-${project.slug}'),
+                borderRadius: BorderRadiusDirectional.circular(12).resolve(
+                  Directionality.of(context),
+                ),
+                onTap: openProject,
+                onFocusChange: (focused) => setState(() => _focused = focused),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(
+                      height: _coverHeight,
+                      width: double.infinity,
+                      child: LazyProjectCover(
+                        key: ValueKey('${project.slug}-${project.cover}'),
+                        path: project.cover,
+                        accent: project.accentColor,
+                      ),
+                    ),
+                    const SizedBox(height: 12),
+                    Text(
+                      title,
+                      style: textTheme.titleMedium,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ],
+                ),
+              ),
+            ),
           ),
           const SizedBox(height: 6),
           Text(
