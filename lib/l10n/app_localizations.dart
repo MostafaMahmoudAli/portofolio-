@@ -170,6 +170,12 @@ abstract class AppLocalizations {
   /// **'Show all'**
   String get showAll;
 
+  /// No description provided for @showLess.
+  ///
+  /// In en, this message translates to:
+  /// **'Show less'**
+  String get showLess;
+
   /// No description provided for @navProjects.
   ///
   /// In en, this message translates to:
@@ -302,6 +308,18 @@ abstract class AppLocalizations {
   /// **'Education & certifications'**
   String get educationCertifications;
 
+  /// No description provided for @educationRow.
+  ///
+  /// In en, this message translates to:
+  /// **'Education'**
+  String get educationRow;
+
+  /// No description provided for @certificationsRow.
+  ///
+  /// In en, this message translates to:
+  /// **'Certifications'**
+  String get certificationsRow;
+
   /// No description provided for @languages.
   ///
   /// In en, this message translates to:
@@ -331,6 +349,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Send email'**
   String get sendEmail;
+
+  /// No description provided for @whatsapp.
+  ///
+  /// In en, this message translates to:
+  /// **'WhatsApp'**
+  String get whatsapp;
 
   /// No description provided for @backToTop.
   ///

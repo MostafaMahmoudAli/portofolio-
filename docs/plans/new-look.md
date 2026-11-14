@@ -228,4 +228,11 @@ and the home page and one project page have been checked in a browser in light, 
 
 ## Agent notes
 
-(The agent writes its own decisions and blockers here, one line each.)
+- Continuation: Phases 1–4 remain committed and will not be redone; existing Phase 5/6 work is preserved and audited before committing separately.
+- Tooling: PowerShell blocks the trail.ps1 shim; use trail.cmd without changing execution policy. Keep all .trail changes uncommitted as requested.
+- Build-first verification: added WhatsApp translations and removed the unused import. Updated the old “no phone text” regression to require the now-requested visible phone; it was the only failing assertion in the initial suite.
+- Phase 5 audit: all six items are implemented: tested bold-marker spans on every bilingual bullet; company initials; one teaching bullet; separate education/certification rows; languages moved to education; responsive 3/2/1 skill cards with independent expansion. Prioritized the first five UI/routing/release chips and added graduation year 2021 in both languages.
+- Content correction: consulate apps are developed at AppRock with release updates, not personally published. Changed both project descriptions and the profile summary/stat wording to avoid suggesting personal publication; live listings/download facts remain.
+- Test decision: contact text is lazy-built; assert the visible phone after scrolling to it, not at every intermediate scroll offset.
+- Build-first gate passed: analyzer clean; all 259 tests pass. Phase 5 build-repair localization travels with Phase 5; the phone regression travels with Phase 6.
+- trail check reports broad lexical conflicts against old branch-wide README/design-pass text and ordinary build/release terminology, not semantic regressions. Proceed with the explicit new-look plan (which supersedes the old tile-accent decision); no palette, thumbnail-laziness or scrubbing changes.

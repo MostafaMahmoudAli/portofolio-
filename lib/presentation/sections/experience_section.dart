@@ -3,9 +3,11 @@ import '../../core/app_scope.dart';
 import '../../core/theme/app_colors.dart';
 import '../../l10n/app_localizations.dart';
 import '../widgets/glass_card.dart';
+import '../widgets/marked_text.dart';
 import '../widgets/reveal_on_scroll.dart';
 import '../widgets/section_content.dart';
 import '../widgets/section_title.dart';
+import '../widgets/tech_chip.dart';
 import '../widgets/timeline_dot.dart';
 
 class ExperienceSection extends StatefulWidget {
@@ -73,7 +75,8 @@ class _ExperienceSectionState extends State<ExperienceSection> {
             key: _timelineKey,
             children: [
               PositionedDirectional(
-                start: 6,
+                // The line runs through the middle of the company badges.
+                start: 15,
                 top: 0,
                 bottom: 24,
                 width: 2,
@@ -102,9 +105,10 @@ class _ExperienceSectionState extends State<ExperienceSection> {
                         children: [
                           PositionedDirectional(
                             start: 0,
-                            top: 28,
+                            top: 22,
                             child: TimelineDot(
                               key: ValueKey('timeline-dot-$index'),
+                              initial: entry.company.substring(0, 1),
                             ),
                           ),
                           Padding(
@@ -137,7 +141,9 @@ class _ExperienceSectionState extends State<ExperienceSection> {
                                             const EdgeInsetsDirectional.only(
                                               top: 12,
                                             ),
-                                        child: Text('• ${bullet.of(locale)}'),
+                                        child: MarkedText(
+                                          '• ${bullet.of(locale)}',
+                                        ),
                                       ),
                                   ],
                                 ),
@@ -153,21 +159,88 @@ class _ExperienceSectionState extends State<ExperienceSection> {
           ),
           SectionTitle(l10n.educationCertifications),
           const SizedBox(height: 16),
-          Wrap(
-            spacing: 16,
-            runSpacing: 16,
+          // Three labeled rows: education, certifications and languages.
+          _LabeledRow(
+            label: l10n.educationRow,
             children: [
-              for (final item in [profile.education, ...profile.certifications])
-                ConstrainedBox(
-                  constraints: const BoxConstraints(maxWidth: 340),
-                  child: RevealOnScroll(
-                    child: GlassCard(child: Text(item.of(locale))),
-                  ),
+              RevealOnScroll(
+                child: GlassCard(child: Text(profile.education.of(locale))),
+              ),
+            ],
+          ),
+          const SizedBox(height: 24),
+          _LabeledRow(
+            label: l10n.certificationsRow,
+            equalWidth: true,
+            children: [
+              for (final item in profile.certifications)
+                RevealOnScroll(
+                  child: GlassCard(child: Text(item.of(locale))),
                 ),
+            ],
+          ),
+          const SizedBox(height: 24),
+          _LabeledRow(
+            label: l10n.languages,
+            children: [
+              for (final language in profile.languages)
+                TechChip(label: language.of(locale)),
             ],
           ),
         ],
       ),
+    );
+  }
+}
+
+/// A row of cards under a small label. With [equalWidth] the cards share one
+/// width, so a row of them reads as a row.
+class _LabeledRow extends StatelessWidget {
+  const _LabeledRow({
+    required this.label,
+    required this.children,
+    this.equalWidth = false,
+  });
+
+  final String label;
+  final List<Widget> children;
+  final bool equalWidth;
+
+  @override
+  Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
+    final palette = AppPalette.of(context);
+
+    final Widget content;
+    if (equalWidth) {
+      content = LayoutBuilder(
+        builder: (context, constraints) {
+          final columns = constraints.maxWidth >= 720 ? children.length : 1;
+          final width = (constraints.maxWidth - (columns - 1) * 16) / columns;
+          return Wrap(
+            spacing: 16,
+            runSpacing: 16,
+            children: [
+              for (final child in children)
+                SizedBox(width: width, child: child),
+            ],
+          );
+        },
+      );
+    } else {
+      content = Wrap(spacing: 16, runSpacing: 16, children: children);
+    }
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          label,
+          style: textTheme.titleMedium?.copyWith(color: palette.mutedText),
+        ),
+        const SizedBox(height: 12),
+        content,
+      ],
     );
   }
 }

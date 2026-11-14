@@ -47,6 +47,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get showAll => 'Show all';
 
   @override
+  String get showLess => 'Show less';
+
+  @override
   String get navProjects => 'Projects';
 
   @override
@@ -113,6 +116,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get educationCertifications => 'Education & certifications';
 
   @override
+  String get educationRow => 'Education';
+
+  @override
+  String get certificationsRow => 'Certifications';
+
+  @override
   String get languages => 'Languages';
 
   @override
@@ -126,6 +135,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get sendEmail => 'Send email';
+
+  @override
+  String get whatsapp => 'WhatsApp';
 
   @override
   String get backToTop => 'Back to top';

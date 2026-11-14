@@ -9,13 +9,13 @@
       "order": 1,
       "accent": "#7C5CFF",
       "summary": {
-        "en": "Four consulate apps published from a single Flutter codebase — 310K+ Google Play downloads and 8 live store listings.",
-        "ar": "أربعة تطبيقات قنصلية منشورة من كود فلاتر واحد — أكثر من 310 ألف تحميل على Google Play و 8 قوائم متاجر."
+        "en": "Four consulate apps built at AppRock from a single Flutter codebase — 310K+ Google Play downloads and 8 live store listings.",
+        "ar": "أربعة تطبيقات قنصلية طُوّرت في AppRock من كود فلاتر واحد — أكثر من 310 ألف تحميل على Google Play و 8 قوائم متاجر."
       },
       "bullets": [
         {
-          "en": "Developed and published four separate consulate apps from one Flutter codebase using flavor-based builds — three Gulf missions and one in Europe.",
-          "ar": "طوّرت ونشرت أربعة تطبيقات قنصلية منفصلة من كود فلاتر واحد باستخدام نسخ build متعددة (Flavors) — ثلاث بعثات خليجية وواحدة في أوروبا."
+          "en": "Develop four separate consulate apps at AppRock and ship release updates from one Flutter codebase using flavor-based builds — three Gulf missions and one in Europe.",
+          "ar": "أطوّر أربعة تطبيقات قنصلية منفصلة في AppRock وأجهّز تحديثات الإصدارات من كود فلاتر واحد باستخدام نسخ build متعددة (Flavors) — ثلاث بعثات خليجية وواحدة في أوروبا."
         },
         {
           "en": "Each app ships region-specific feature sets, branding and store listings.",

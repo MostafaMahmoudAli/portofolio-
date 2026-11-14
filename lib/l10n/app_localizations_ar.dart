@@ -47,6 +47,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get showAll => 'عرض الكل';
 
   @override
+  String get showLess => 'عرض أقل';
+
+  @override
   String get navProjects => 'المشاريع';
 
   @override
@@ -113,6 +116,12 @@ class AppLocalizationsAr extends AppLocalizations {
   String get educationCertifications => 'التعليم والشهادات';
 
   @override
+  String get educationRow => 'التعليم';
+
+  @override
+  String get certificationsRow => 'الشهادات';
+
+  @override
   String get languages => 'اللغات';
 
   @override
@@ -126,6 +135,9 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get sendEmail => 'إرسال بريد إلكتروني';
+
+  @override
+  String get whatsapp => 'واتساب';
 
   @override
   String get backToTop => 'العودة إلى الأعلى';

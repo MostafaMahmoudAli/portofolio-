@@ -18,12 +18,12 @@
   "photo": "media/profile.jpg",
   "resumePdf": "resume.pdf",
   "summary": {
-    "en": "Flutter Developer with 3+ years building cross-platform apps across government, logistics and travel — six published to Google Play and the App Store, four consulate apps shipped from a single codebase with 310K+ combined downloads. Owns feature modules end-to-end, using Clean Architecture with BLoC/Cubit, Dio, go_router and get_it, with full RTL delivery experience.",
-    "ar": "مطوّر تطبيقات فلاتر بخبرة تتجاوز 3 سنوات في بناء تطبيقات متعددة المنصات في مجالات الحكومة واللوجستيات والسفر. ستة تطبيقات منشورة على Google Play و App Store، أربعة منها للتطبيقات القنصلية من كود واحد بإجمالي 310 ألف+ عملية تحميل. يعمل على وحدات الميزات من البداية للنهاية باستخدام معمارية نظيفة وأدوات BLoC/Cubit و Dio و go_router و get_it، مع خبرة كاملة في دعم العربية من اليمين لليسار."
+    "en": "Flutter Developer with 3+ years building cross-platform apps across government, logistics and travel — six live on Google Play and the App Store, four consulate apps developed at AppRock from a single codebase with 310K+ combined downloads. Owns feature modules end-to-end, using Clean Architecture with BLoC/Cubit, Dio, go_router and get_it, with full RTL delivery experience.",
+    "ar": "مطوّر تطبيقات فلاتر بخبرة تتجاوز 3 سنوات في بناء تطبيقات متعددة المنصات في مجالات الحكومة واللوجستيات والسفر. ستة تطبيقات متاحة على Google Play و App Store، أربعة منها تطبيقات قنصلية طُوّرت في AppRock من كود واحد بإجمالي 310 ألف+ عملية تحميل. يعمل على وحدات الميزات من البداية للنهاية باستخدام معمارية نظيفة وأدوات BLoC/Cubit و Dio و go_router و get_it، مع خبرة كاملة في دعم العربية من اليمين لليسار."
   },
   "stats": [
     { "value": 3, "suffix": "+", "label": { "en": "Years of experience", "ar": "سنوات خبرة" } },
-    { "value": 6, "label": { "en": "Published apps", "ar": "تطبيقات منشورة" } },
+    { "value": 6, "label": { "en": "Live apps", "ar": "تطبيقات متاحة" } },
     { "value": 310, "suffix": "K+", "label": { "en": "Downloads", "ar": "عملية تحميل" } },
     { "value": 57, "label": { "en": "Test suites", "ar": "حزمة اختبارات" } }
   ],
@@ -35,36 +35,36 @@
       "mode": { "en": "Remote, full-time", "ar": "عن بُعد، بدوام كامل" },
       "bullets": [
         {
-          "en": "Own feature modules end-to-end across a 23-module consular super-app — Clean Architecture, get_it, feature-first.",
-          "ar": "مسؤول عن وحدات الميزات من البداية للنهاية في تطبيق قنصلي ضخم من 23 وحدة — معمارية نظيفة، get_it، وتقسيم المنتج إلى ميزات مستقلة."
+          "en": "Own feature modules end-to-end across a **23-module** consular super-app — **Clean Architecture**, **get_it**, feature-first.",
+          "ar": "مسؤول عن وحدات الميزات من البداية للنهاية في تطبيق قنصلي ضخم من **23 وحدة** — **معمارية نظيفة**، **get_it**، وتقسيم المنتج إلى ميزات مستقلة."
         },
         {
-          "en": "Built a real-time AI assistant on an SSE client over Dio, with stream cancellation, an idle watchdog and last-event-id resumption.",
-          "ar": "بنيت مساعدًا ذكيًا يعمل في الوقت الفعلي عبر عميل SSE فوق Dio مع إلغاء البث ومؤقّت خمول واستكمال من آخر حدث عند انقطاع الاتصال."
+          "en": "Built a real-time AI assistant on an **SSE** client over **Dio**, with stream cancellation, an idle watchdog and **last-event-id** resumption.",
+          "ar": "بنيت مساعدًا ذكيًا يعمل في الوقت الفعلي عبر عميل **SSE** فوق **Dio** مع إلغاء البث ومؤقّت خمول واستكمال من **آخر حدث** عند انقطاع الاتصال."
         },
         {
-          "en": "Shipped OCR national-ID verification and hardened the app with biometrics, Firebase App Check and root/jailbreak detection.",
-          "ar": "نفّذت التحقق من البطاقة القومية بالـ OCR وحصّنت التطبيق عبر البصمة، Firebase App Check وكشف الـ jailbreak."
+          "en": "Shipped **OCR** national-ID verification and hardened the app with **biometrics**, **Firebase App Check** and root/jailbreak detection.",
+          "ar": "نفّذت التحقق من البطاقة القومية بالـ **OCR** وحصّنت التطبيق عبر **البصمة**، **Firebase App Check** وكشف الـ jailbreak."
         },
         {
-          "en": "Grew coverage to 57 test suites and handled full Play Console / App Store Connect releases gated by GitHub Actions.",
-          "ar": "رفعت التغطية إلى 57 حزمة اختبارات وتولّيت الإصدار الكامل على Play Console و App Store Connect عبر إجراءات GitHub Actions."
+          "en": "Grew coverage to **57 test suites** and handled full **Play Console / App Store Connect** releases gated by **GitHub Actions**.",
+          "ar": "رفعت التغطية إلى **57 حزمة اختبارات** وتولّيت الإصدار الكامل على **Play Console** و **App Store Connect** عبر إجراءات **GitHub Actions**."
         },
         {
-          "en": "Three build flavors — dev, staging, prod — each with its own application ID and Firebase project.",
-          "ar": "ثلاث نسخ build هي dev و staging و prod، لكل منها معرّف تطبيق ومشروع Firebase مستقل."
+          "en": "**Three build flavors** — dev, staging, prod — each with its own **application ID** and **Firebase** project.",
+          "ar": "**ثلاث نسخ build** هي dev و staging و prod، لكل منها **معرّف تطبيق** و**مشروع Firebase** مستقل."
         },
         {
-          "en": "Fixed a Play App Signing / Firebase SHA-1 mismatch that was blocking release uploads.",
-          "ar": "عالجت تعارض Play App Signing مع بصمة SHA-1 في Firebase الذي كان يمنع رفع الإصدارات."
+          "en": "Fixed a **Play App Signing / Firebase SHA-1** mismatch that was blocking release uploads.",
+          "ar": "عالجت تعارض **Play App Signing** مع بصمة **SHA-1** في **Firebase** الذي كان يمنع رفع الإصدارات."
         },
         {
-          "en": "QR-based device linking for handing a live session to a second device.",
-          "ar": "ربط الأجهزة عبر رمز QR لتسليم جلسة نشطة إلى جهاز آخر."
+          "en": "**QR-based** device linking for handing a live session to a second device.",
+          "ar": "**ربط عبر رمز QR** لتسليم جلسة نشطة إلى جهاز آخر."
         },
         {
-          "en": "FCM with actionable notifications, plus an image and PDF upload pipeline.",
-          "ar": "إشعارات FCM التفاعلية، مع خط رفع للصور وملفات PDF."
+          "en": "**FCM** with **actionable notifications**, plus an image and **PDF** upload pipeline.",
+          "ar": "**إشعارات FCM** التفاعلية، مع خط رفع للصور وملفات **PDF**."
         }
       ]
     },
@@ -75,12 +75,12 @@
       "mode": { "en": "Remote, part-time", "ar": "عن بُعد، بدوام جزئي" },
       "bullets": [
         {
-          "en": "Delivered client Flutter apps end-to-end — production UI, REST APIs and payments — under BLoC, Freezed and MVVM.",
-          "ar": "أنجزت تطبيقات فلاتر للعملاء من البداية للنهاية — واجهات إنتاجية وواجهات REST API وأنظمة دفع — بأنماط BLoC و Freezed و MVVM."
+          "en": "Delivered client Flutter apps end-to-end — production UI, **REST APIs** and **payments** — under **BLoC**, **Freezed** and **MVVM**.",
+          "ar": "أنجزت تطبيقات فلاتر للعملاء من البداية للنهاية — واجهات إنتاجية وواجهات **REST API** وأنظمة **دفع** — بأنماط **BLoC** و **Freezed** و **MVVM**."
         },
         {
-          "en": "Built multi-currency checkout (PayPal, Stripe, Visa, MasterCard), phone authentication and multilingual content flows.",
-          "ar": "بنيت سلة دفع متعددة العملات (PayPal و Stripe و Visa و MasterCard) ومصادقة الهاتف ومحتوى متعدد اللغات."
+          "en": "Built **multi-currency checkout** (**PayPal**, **Stripe**, **Visa**, **MasterCard**), phone authentication and **multilingual** content flows.",
+          "ar": "بنيت **سلة دفع متعددة العملات** (**PayPal**، **Stripe**، **Visa**، **MasterCard**) ومصادقة الهاتف ومحتوى **متعدد اللغات**."
         }
       ]
     },
@@ -91,12 +91,8 @@
       "mode": { "en": "Remote, part-time", "ar": "عن بُعد، بدوام جزئي" },
       "bullets": [
         {
-          "en": "Taught weekly programming fundamentals to students aged 10–14.",
-          "ar": "درّست أساسيات البرمجة أسبوعيًا لطلاب من 10 إلى 14 سنة."
-        },
-        {
-          "en": "Designed lesson plans and coached debugging and problem-solving strategies live in class.",
-          "ar": "صممت خطط الدروس ووجّهت الطلاب في تصحيح الأخطاء واستراتيجيات حل المشكلات مباشرة داخل الفصل."
+          "en": "Taught weekly **programming fundamentals** to students aged **10–14**, with my own lesson plans and live coaching in debugging and problem-solving.",
+           "ar": "درّست **أساسيات البرمجة** أسبوعيًا لطلاب من **10 إلى 14 سنة**، بخطط دروس من إعدادي وتوجيه مباشر في تصحيح الأخطاء وحل المشكلات."
         }
       ]
     },
@@ -107,12 +103,12 @@
       "mode": { "en": "On-site", "ar": "دوام حضوري" },
       "bullets": [
         {
-          "en": "Implemented designs and resolved defects alongside senior developers on shipped Flutter applications.",
-          "ar": "نفّذت التصميمات وعالجت الأخطاء بجانب مطوّرين خبراء في تطبيقات فلاتر منشورة."
+          "en": "Implemented designs and resolved defects alongside **senior developers** on shipped **Flutter** applications.",
+          "ar": "نفّذت التصميمات وعالجت الأخطاء بجانب **مطوّرين خبراء** في تطبيقات **فلاتر** منشورة."
         },
         {
-          "en": "Wrote tests for shipped Flutter applications.",
-          "ar": "كتبت اختبارات لتطبيقات فلاتر منشورة."
+          "en": "Wrote **tests** for shipped Flutter applications.",
+          "ar": "كتبت **اختبارات** لتطبيقات فلاتر منشورة."
         }
       ]
     }
@@ -124,11 +120,11 @@
     },
     {
       "title": { "en": "Flutter & UI", "ar": "فلاتر وواجهات" },
-      "chips": ["Flutter 3.x", "Material 3", "Cupertino", "Responsive layouts", "Animations", "RTL / LTR", "easy_localization", "flutter_svg", "Lottie"]
+      "chips": ["Flutter 3.x", "Material 3", "Responsive layouts", "RTL / LTR", "easy_localization", "Cupertino", "Animations", "flutter_svg", "Lottie"]
     },
     {
       "title": { "en": "State & Routing", "ar": "إدارة الحالة والتوجيه" },
-      "chips": ["BLoC", "Cubit", "Provider", "MVVM", "go_router", "app_links", "get_it", "bloc_test"]
+      "chips": ["BLoC", "Cubit", "go_router", "get_it", "MVVM", "Provider", "app_links", "bloc_test"]
     },
     {
       "title": { "en": "Architecture", "ar": "المعمارية" },
@@ -152,12 +148,12 @@
     },
     {
       "title": { "en": "Testing & Release", "ar": "الاختبارات والإصدار" },
-      "chips": ["flutter_test", "Widget testing", "bloc_test", "Mocktail", "flutter_lints", "DevTools profiling", "flutter_flavorizr", "Play Console", "App Store Connect", "Play App Signing", "build_runner", "Git & GitHub", "GitHub Actions"]
+      "chips": ["flutter_test", "bloc_test", "GitHub Actions", "Play Console", "App Store Connect", "Widget testing", "Mocktail", "flutter_lints", "DevTools profiling", "flutter_flavorizr", "Play App Signing", "build_runner", "Git & GitHub"]
     }
   ],
   "education": {
-    "en": "Bachelor of Tourism & Hotels — High Institute EGOTH, Alexandria (Grade: Very Good)",
-    "ar": "بكالوريوس السياحة والفنادق — المعهد العالي للسياحة والفنادق (EGOTH)، الإسكندرية (التقدير: جيد جدًا)"
+    "en": "Bachelor of Tourism & Hotels — High Institute EGOTH, Alexandria · 2021 (Grade: Very Good)",
+    "ar": "بكالوريوس السياحة والفنادق — المعهد العالي للسياحة والفنادق (EGOTH)، الإسكندرية · 2021 (التقدير: جيد جدًا)"
   },
   "languages": [
     { "en": "Arabic (Native)", "ar": "العربية (اللغة الأم)" },
