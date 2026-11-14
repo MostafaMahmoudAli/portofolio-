@@ -10,10 +10,18 @@ class GlassCard extends StatefulWidget {
     super.key,
     required this.child,
     this.padding = const EdgeInsetsDirectional.all(24),
+    this.borderColor,
+    this.hoverBorderColor,
   });
 
   final Widget child;
   final EdgeInsetsGeometry padding;
+
+  /// The resting border colour; the theme's hairline by default.
+  final Color? borderColor;
+
+  /// The border colour while hovered; the theme's accent ink by default.
+  final Color? hoverBorderColor;
 
   @override
   State<GlassCard> createState() => _GlassCardState();
@@ -51,7 +59,9 @@ class _GlassCardState extends State<GlassCard> {
               decoration: BoxDecoration(
                 color: palette.surface,
                 border: Border.all(
-                  color: _hovered ? palette.accentInk : palette.surfaceBorder,
+                  color: _hovered
+                      ? (widget.hoverBorderColor ?? palette.accentInk)
+                      : (widget.borderColor ?? palette.surfaceBorder),
                 ),
                 borderRadius: radius,
               ),

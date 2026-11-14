@@ -1,6 +1,5 @@
 import 'dart:math' as math;
 
-import 'package:flutter/gestures.dart' show PointerHoverEvent;
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -18,9 +17,14 @@ import '../widgets/store_badges.dart';
 import '../widgets/tech_chip.dart';
 import '../widgets/video_platform_picker.dart';
 
-/// Featured projects as slivers: a header, then one large card per featured
-/// project (sorted by `order`) in a lazy list, so off-screen cards and their
-/// video players are never built.
+/// How a tile arranges its frame and its text.
+enum _TileLayout { wide, stacked }
+
+/// Featured projects as a bento grid: the first project gets a full-width
+/// tile, the other four sit in a two by two grid (one column on a phone).
+///
+/// The tiles are slivers, so off-screen tiles and their video players are
+/// never built.
 class FeaturedProjectsSection extends StatelessWidget {
   const FeaturedProjectsSection({super.key, this.headerKey});
 
@@ -31,9 +35,19 @@ class FeaturedProjectsSection extends StatelessWidget {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
     final width = MediaQuery.sizeOf(context).width;
+    final screen = ScreenSize.of(context);
     final featured = [
       ...AppScope.of(context).content.projects.where((p) => p.featured),
     ]..sort((a, b) => a.order.compareTo(b.order));
+
+    final first = featured.first;
+    final rest = featured.skip(1).toList();
+    // Two columns once a tile can still hold a readable line of text.
+    final columns = screen == ScreenSize.phone ? 1 : 2;
+    final rows = <List<Project>>[
+      for (var i = 0; i < rest.length; i += columns)
+        rest.sublist(i, (i + columns).clamp(0, rest.length)),
+    ];
 
     return SliverPadding(
       // Same 1200 max content width as the other sections.
@@ -52,14 +66,48 @@ class FeaturedProjectsSection extends StatelessWidget {
               ),
             ),
           ),
-          SliverList.builder(
-            itemCount: featured.length,
-            itemBuilder: (context, index) => Padding(
+          SliverToBoxAdapter(
+            child: Padding(
               padding: const EdgeInsetsDirectional.symmetric(vertical: 12),
               child: RevealOnScroll(
-                child: _FeaturedCard(project: featured[index], index: index),
+                child: _ProjectTile(
+                  project: first,
+                  hero: true,
+                  layout: screen == ScreenSize.phone
+                      ? _TileLayout.stacked
+                      : _TileLayout.wide,
+                ),
               ),
             ),
+          ),
+          SliverList.builder(
+            itemCount: rows.length,
+            itemBuilder: (context, index) {
+              final row = rows[index];
+              return Padding(
+                padding: const EdgeInsetsDirectional.symmetric(vertical: 12),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    for (var i = 0; i < columns; i++) ...[
+                      if (i > 0) const SizedBox(width: 16),
+                      Expanded(
+                        child: i < row.length
+                            ? RevealOnScroll(
+                                child: _ProjectTile(
+                                  project: row[i],
+                                  layout: screen == ScreenSize.desktop
+                                      ? _TileLayout.wide
+                                      : _TileLayout.stacked,
+                                ),
+                              )
+                            : const SizedBox.shrink(),
+                      ),
+                    ],
+                  ],
+                ),
+              );
+            },
           ),
         ],
       ),
@@ -67,65 +115,68 @@ class FeaturedProjectsSection extends StatelessWidget {
   }
 }
 
-class _FeaturedCard extends StatefulWidget {
-  const _FeaturedCard({required this.project, required this.index});
+/// One project tile: the phone frame, the impact line, the title, the
+/// subtitle, the tech chips, the store badges and the details button.
+class _ProjectTile extends StatefulWidget {
+  const _ProjectTile({
+    required this.project,
+    required this.layout,
+    this.hero = false,
+  });
 
   final Project project;
-  final int index;
+  final _TileLayout layout;
+
+  /// The full-width tile: it keeps the status line and every store badge.
+  final bool hero;
 
   @override
-  State<_FeaturedCard> createState() => _FeaturedCardState();
+  State<_ProjectTile> createState() => _ProjectTileState();
 }
 
-class _FeaturedCardState extends State<_FeaturedCard> {
-  /// Cursor position over the card, -0.5..0.5 on each axis; null when not hovered.
-  final _tilt = ValueNotifier<Offset?>(null);
+class _ProjectTileState extends State<_ProjectTile> {
   VideoPlatform? _selectedPlatform;
-
-  @override
-  void dispose() {
-    _tilt.dispose();
-    super.dispose();
-  }
-
-  void _onHover(PointerHoverEvent event) {
-    final size = (context.findRenderObject()! as RenderBox).size;
-    _tilt.value = Offset(
-      event.localPosition.dx / size.width - 0.5,
-      event.localPosition.dy / size.height - 0.5,
-    );
-  }
+  bool _hovered = false;
 
   @override
   Widget build(BuildContext context) {
     final screen = ScreenSize.of(context);
-    final available = widget.project.videos.available;
+    final project = widget.project;
+    final accent = project.accentColor;
+    final available = project.videos.available;
     final entry =
         available.where((entry) => entry.$1 == _selectedPlatform).firstOrNull ??
-        widget.project.videos.primary;
+        project.videos.primary;
     final video = entry?.$2;
 
-    final videoSide = video == null
+    // A frame narrower than 160 cannot hold three 48px video controls in a
+    // row, so the small tiles keep their controls usable.
+    final frameWidth = switch (widget.layout) {
+      _TileLayout.wide => widget.hero
+          ? (screen == ScreenSize.tablet ? 180.0 : 200.0)
+          : 160.0,
+      _TileLayout.stacked => 160.0,
+    };
+
+    final media = video == null
         ? null
         : Column(
             mainAxisSize: MainAxisSize.min,
             children: [
               ProjectMediaFrame(
-                project: widget.project,
+                project: project,
                 video: video,
                 platform: entry!.$1,
-                width: switch (screen) {
-                  ScreenSize.phone => 200,
-                  ScreenSize.tablet => 200,
-                  ScreenSize.desktop => 210,
-                },
+                width: frameWidth,
+                accent: accent,
               ),
               if (available.length > 1) ...[
                 const SizedBox(height: 8),
                 SizedBox(
-                  width: screen == ScreenSize.desktop ? 210 : 200,
+                  width: frameWidth,
                   child: VideoPlatformPicker(
                     selected: entry.$1,
+                    compact: true,
                     onChanged: (value) =>
                         setState(() => _selectedPlatform = value),
                   ),
@@ -133,86 +184,81 @@ class _FeaturedCardState extends State<_FeaturedCard> {
               ],
             ],
           );
-    final text = _CardText(project: widget.project, platform: entry?.$1);
+
+    final text = _TileText(
+      project: project,
+      platform: entry?.$1,
+      hero: widget.hero,
+    );
 
     final Widget body;
-    if (screen == ScreenSize.phone) {
+    if (widget.layout == _TileLayout.stacked) {
       body = Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          if (videoSide != null) ...[
-            Center(child: videoSide),
-            const SizedBox(height: 24),
+          if (media != null) ...[
+            Center(child: media),
+            const SizedBox(height: 20),
           ],
           text,
         ],
       );
     } else {
-      final sides = [
-        ?videoSide,
-        if (videoSide != null) const SizedBox(width: 32),
-        Expanded(child: text),
-      ];
       body = Row(
-        children: widget.index.isEven ? sides : sides.reversed.toList(),
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          if (media != null) ...[
+            media,
+            const SizedBox(width: 24),
+          ],
+          Expanded(child: text),
+        ],
       );
     }
 
-    final card = GlassCard(
-      padding: EdgeInsetsDirectional.all(screen == ScreenSize.phone ? 16 : 24),
-      child: body,
-    );
-
-    if (screen != ScreenSize.desktop ||
-        MediaQuery.disableAnimationsOf(context)) {
-      return card;
-    }
-
-    // Only the transform and glow rebuild on hover, never the card or its video.
     return MouseRegion(
-      onHover: _onHover,
-      onExit: (_) => _tilt.value = null,
-      child: ValueListenableBuilder<Offset?>(
-        valueListenable: _tilt,
-        child: card,
-        builder: (context, tilt, child) {
-          final hovered = tilt != null;
-          final t = tilt ?? Offset.zero;
-          return Transform(
-            alignment: Alignment.center,
-            transform: Matrix4.identity()
-              ..setEntry(3, 2, 0.0008)
-              ..translateByDouble(0, hovered ? -6 : 0, 0, 1)
-              ..rotateX(-t.dy * 0.08)
-              ..rotateY(t.dx * 0.08),
-            child: AnimatedContainer(
-              duration: const Duration(milliseconds: 200),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20),
-                boxShadow: [
-                  if (hovered)
-                    BoxShadow(
-                      color: AppPalette.of(
-                        context,
-                      ).text.withValues(alpha: 0.08),
-                      blurRadius: 32,
-                    ),
-                ],
+      onEnter: (_) => setState(() => _hovered = true),
+      onExit: (_) => setState(() => _hovered = false),
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 200),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(20),
+          boxShadow: [
+            if (_hovered)
+              BoxShadow(
+                color: accent.withValues(alpha: 0.18),
+                blurRadius: 32,
               ),
-              child: child,
-            ),
-          );
-        },
+          ],
+        ),
+        child: GlassCard(
+          padding: EdgeInsetsDirectional.all(
+            screen == ScreenSize.phone ? 16 : 24,
+          ),
+          borderColor: accent.withValues(alpha: 0.45),
+          hoverBorderColor: accent,
+          child: body,
+        ),
       ),
     );
   }
 }
 
-class _CardText extends StatelessWidget {
-  const _CardText({required this.project, this.platform});
+/// The text column of a tile: impact, title, subtitle, chips, badges and the
+/// details button. The summary lives on the project page, not on the tile.
+class _TileText extends StatelessWidget {
+  const _TileText({
+    required this.project,
+    required this.hero,
+    this.platform,
+  });
 
   final Project project;
+  final bool hero;
   final VideoPlatform? platform;
+
+  /// At most four chips; the rest collapse into a "+N" chip.
+  static const _maxChips = 4;
 
   @override
   Widget build(BuildContext context) {
@@ -221,6 +267,8 @@ class _CardText extends StatelessWidget {
     final textTheme = Theme.of(context).textTheme;
     final muted = AppPalette.of(context).mutedText;
     final status = project.status;
+    final chips = project.tech.take(_maxChips).toList();
+    final extra = project.tech.length - chips.length;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -232,7 +280,7 @@ class _CardText extends StatelessWidget {
               color: AppPalette.of(context).accentInk,
             ),
           ),
-          const SizedBox(height: 12),
+          const SizedBox(height: 10),
         ],
         Text(project.title.of(locale), style: textTheme.headlineSmall),
         const SizedBox(height: 4),
@@ -240,24 +288,28 @@ class _CardText extends StatelessWidget {
           project.subtitle.of(locale),
           style: textTheme.bodyMedium?.copyWith(color: muted),
         ),
-        const SizedBox(height: 16),
-        Text(project.summary.of(locale), style: textTheme.bodyMedium),
-        const SizedBox(height: 16),
+        const SizedBox(height: 14),
         Wrap(
           spacing: 8,
           runSpacing: 8,
-          children: [for (final tech in project.tech) TechChip(label: tech)],
+          children: [
+            for (final tech in chips) TechChip(label: tech),
+            if (extra > 0) TechChip(label: '+$extra'),
+          ],
         ),
-        if (status != null) ...[
-          const SizedBox(height: 16),
+        if (hero && status != null) ...[
+          const SizedBox(height: 12),
           Text(
             status.of(locale),
             style: textTheme.bodySmall?.copyWith(color: muted),
           ),
         ],
-        const SizedBox(height: 16),
-        StoreBadges(links: project.links),
-        const SizedBox(height: 12),
+        if (project.links.isNotEmpty) ...[
+          const SizedBox(height: 14),
+          // A small tile shows one city; the rest live on the project page.
+          StoreBadges(links: project.links, maxGroups: hero ? null : 1),
+        ],
+        const SizedBox(height: 8),
         TextButton.icon(
           onPressed: () => context.go(
             Uri(

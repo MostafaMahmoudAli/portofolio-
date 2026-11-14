@@ -17,6 +17,7 @@ class ProjectMediaFrame extends StatelessWidget {
     required this.width,
     this.hero = true,
     this.platform = VideoPlatform.android,
+    this.accent,
   });
 
   final Project project;
@@ -25,12 +26,15 @@ class ProjectMediaFrame extends StatelessWidget {
   final bool hero;
   final VideoPlatform platform;
 
+  /// The project's own tint, used by the fallback placeholder.
+  final Color? accent;
+
   @override
   Widget build(BuildContext context) {
     final poster = PhoneFrame(
       width: width,
       platform: platform,
-      child: ProjectPoster(path: video.poster),
+      child: ProjectPoster(path: video.poster, accent: accent),
     );
     final route = ModalRoute.of(context);
     return AnimatedBuilder(

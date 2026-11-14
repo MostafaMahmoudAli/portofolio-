@@ -12,9 +12,13 @@ class VideoPlatformPicker extends StatelessWidget {
     super.key,
     required this.selected,
     required this.onChanged,
+    this.compact = false,
   });
   final VideoPlatform selected;
   final ValueChanged<VideoPlatform> onChanged;
+
+  /// Uses a smaller label, so the picker fits under a narrow phone frame.
+  final bool compact;
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +30,12 @@ class VideoPlatformPicker extends StatelessWidget {
         for (final platform in VideoPlatform.values)
           ButtonSegment(
             value: platform,
-            label: Text(videoPlatformLabel(l10n, platform)),
+            label: Text(
+              videoPlatformLabel(l10n, platform),
+              style: compact
+                  ? Theme.of(context).textTheme.labelSmall
+                  : null,
+            ),
           ),
       ],
       selected: {selected},

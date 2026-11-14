@@ -5,6 +5,7 @@ import 'package:portfolio/core/data/content.dart';
 import 'package:portfolio/core/data/content_repository.dart';
 import 'package:portfolio/core/localization/locale_controller.dart';
 import 'package:portfolio/core/theme/theme_controller.dart';
+import 'package:portfolio/presentation/widgets/glass_card.dart';
 import 'package:portfolio/presentation/widgets/nav_bar.dart';
 import 'package:portfolio/presentation/widgets/phone_frame.dart';
 import 'package:portfolio/presentation/widgets/tech_chip.dart';
@@ -87,7 +88,7 @@ Future<void> main() async {
 
   for (final arabic in [false, true]) {
     testWidgets(
-      'featured cards alternate sides${arabic ? ', mirrored in Arabic' : ''}',
+      'the featured projects are a bento grid${arabic ? ', mirrored in Arabic' : ''}',
       (tester) async {
         await pumpApp(tester, arabic: arabic);
         await tester.ensureVisible(
@@ -95,15 +96,26 @@ Future<void> main() async {
         );
         await pumpFrames(tester);
 
-        final frames = find.byType(PhoneFrame);
-        final details = find.text(arabic ? 'التفاصيل' : 'Details');
-        // Card 0: video on the reading-start side; card 1: on the end side.
-        final videoLeft0 =
-            centerX(tester, frames.at(0)) < centerX(tester, details.at(0));
-        final videoLeft1 =
-            centerX(tester, frames.at(1)) < centerX(tester, details.at(1));
-        expect(videoLeft0, !arabic);
-        expect(videoLeft1, arabic);
+        final frames = find.byType(PhoneFrame, skipOffstage: false);
+        expect(frames.evaluate().length, greaterThanOrEqualTo(5));
+
+        // The first tile is full width; the four small tiles share two columns.
+        Finder cardOf(int index) => find
+            .ancestor(of: frames.at(index), matching: find.byType(GlassCard))
+            .first;
+        expect(
+          tester.getSize(cardOf(0)).width,
+          greaterThan(tester.getSize(cardOf(1)).width),
+        );
+
+        final top1 = tester.getTopLeft(frames.at(1));
+        final top2 = tester.getTopLeft(frames.at(2));
+        final top3 = tester.getTopLeft(frames.at(3));
+        // Tiles two and three share the first row, tile four starts the next.
+        expect(top1.dy, closeTo(top2.dy, 1));
+        expect(top3.dy, greaterThan(top1.dy));
+        // And they sit in two columns.
+        expect((top1.dx - top2.dx).abs(), greaterThan(100));
         await unmount(tester);
       },
     );

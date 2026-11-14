@@ -302,7 +302,15 @@ class _ProjectVideoControlsState extends State<ProjectVideoControls> {
                                       ],
                                     );
                                     // Four 48px targets already occupy 192px. Give
-                                    // the slider its own row instead of squeezing it.
+                                    // the slider its own row instead of squeezing it,
+                                    // and on a narrow phone frame drop to three
+                                    // targets per row so nothing is cut off.
+                                    final narrowTimeline = Row(
+                                      children: [
+                                        Expanded(child: slider),
+                                        mute,
+                                      ],
+                                    );
                                     return Padding(
                                       padding:
                                           const EdgeInsetsDirectional.symmetric(
@@ -318,7 +326,8 @@ class _ProjectVideoControlsState extends State<ProjectVideoControls> {
                                                 mute,
                                               ],
                                             )
-                                          : Column(
+                                          : constraints.maxWidth >= 200
+                                          ? Column(
                                               mainAxisSize: MainAxisSize.min,
                                               children: [
                                                 Row(
@@ -332,6 +341,17 @@ class _ProjectVideoControlsState extends State<ProjectVideoControls> {
                                                   ],
                                                 ),
                                                 timeline,
+                                              ],
+                                            )
+                                          : Column(
+                                              mainAxisSize: MainAxisSize.min,
+                                              children: [
+                                                Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  children: [back, play, forward],
+                                                ),
+                                                narrowTimeline,
                                               ],
                                             ),
                                     );

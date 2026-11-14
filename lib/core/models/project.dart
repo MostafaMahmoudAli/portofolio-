@@ -1,3 +1,6 @@
+import 'package:flutter/material.dart' show Color;
+
+import '../utils/color_hex.dart';
 import 'localized_text.dart';
 import 'project_link.dart';
 import 'project_screen.dart';
@@ -89,4 +92,7 @@ class Project {
   final ProjectVideos videos;
   final List<ProjectScreen> screens;
   final List<ProjectLink> links;
+
+  /// The project's own tint, parsed from the hex accent in the data file.
+  Color get accentColor => colorFromHex(accent);
 }
