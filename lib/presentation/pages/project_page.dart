@@ -255,7 +255,7 @@ class _ProjectPageState extends State<ProjectPage> {
               child: NavBar(
                 onSectionTap: (section) =>
                     context.go('/?section=${section.name}'),
-                onLogoTap: () => context.go('/'),
+                onLogoTap: () => context.go('/?top=1'),
               ),
             ),
           ],

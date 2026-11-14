@@ -15,9 +15,10 @@ import '../sections/footer_section.dart';
 import 'home_section.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({super.key, this.section});
+  const HomePage({super.key, this.section, this.scrollToTop = false});
 
   final HomeSection? section;
+  final bool scrollToTop;
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -27,6 +28,7 @@ class _HomePageState extends State<HomePage> {
   final _scroll = ScrollController();
   final _keys = {for (final s in HomeSection.values) s: GlobalKey()};
   HomeSection? _pendingSection;
+  bool _pendingTop = false;
   bool _sectionScrollScheduled = false;
   int _scrollRequest = 0;
   final _navigation = ValueNotifier<(HomeSection?, double)>((null, 0));
@@ -36,6 +38,7 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
     _pendingSection = widget.section;
+    _pendingTop = widget.scrollToTop;
     _scroll.addListener(_scheduleNavigationUpdate);
   }
 
@@ -75,6 +78,7 @@ class _HomePageState extends State<HomePage> {
     if (oldWidget.section != widget.section) {
       _pendingSection = widget.section;
     }
+    if (widget.scrollToTop && !oldWidget.scrollToTop) _pendingTop = true;
   }
 
   @override
@@ -125,7 +129,10 @@ class _HomePageState extends State<HomePage> {
   }
 
   void _scheduleSectionScroll() {
-    if (_sectionScrollScheduled || _pendingSection == null) return;
+    if (_sectionScrollScheduled ||
+        (_pendingSection == null && !_pendingTop)) {
+      return;
+    }
     _sectionScrollScheduled = true;
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _sectionScrollScheduled = false;
@@ -145,6 +152,13 @@ class _HomePageState extends State<HomePage> {
       }
       final section = _pendingSection;
       _pendingSection = null;
+      if (_pendingTop) {
+        _pendingTop = false;
+        _scrollRequest++;
+        _scroll.jumpTo(0);
+        GoRouter.of(context).replace('/');
+        return;
+      }
       if (section != null) {
         _scrollTo(section).then((_) {
           if (!mounted || !(ModalRoute.isCurrentOf(context) ?? true)) return;

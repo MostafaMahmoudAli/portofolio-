@@ -18,6 +18,7 @@ GoRouter createRouter({String? initialLocation}) => GoRouter(
         context,
         state,
         HomePage(
+          scrollToTop: state.uri.queryParameters['top'] == '1',
           section: HomeSection.values
               .asNameMap()[state.uri.queryParameters['section']],
         ),
