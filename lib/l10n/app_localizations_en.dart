@@ -44,6 +44,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get navAbout => 'About';
 
   @override
+  String get showAll => 'Show all';
+
+  @override
   String get navProjects => 'Projects';
 
   @override

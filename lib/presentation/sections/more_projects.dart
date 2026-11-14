@@ -7,15 +7,28 @@ import '../../core/theme/app_colors.dart';
 import '../../core/utils/breakpoints.dart';
 import '../../core/utils/open_link.dart';
 import '../../l10n/app_localizations.dart';
+import '../widgets/brand_icon.dart';
 import '../widgets/glass_card.dart';
+import '../widgets/project_placeholder.dart';
 import '../widgets/reveal_on_scroll.dart';
 import '../widgets/section_title.dart';
 import '../widgets/tech_chip.dart';
 
-/// The "More projects" section: a grid of small glass cards for the
-/// non-featured projects, plus a "More on GitHub" button under the grid.
-class MoreProjectsSection extends StatelessWidget {
+/// The "More projects" section: a grid of equal-height cards for the
+/// non-featured projects. The first four are shown; the rest sit behind a
+/// "Show all" button that expands the grid in place.
+class MoreProjectsSection extends StatefulWidget {
   const MoreProjectsSection({super.key});
+
+  @override
+  State<MoreProjectsSection> createState() => _MoreProjectsSectionState();
+}
+
+class _MoreProjectsSectionState extends State<MoreProjectsSection> {
+  /// How many cards are shown before the grid is expanded.
+  static const _collapsedCount = 4;
+
+  bool _expanded = false;
 
   @override
   Widget build(BuildContext context) {
@@ -25,12 +38,21 @@ class MoreProjectsSection extends StatelessWidget {
 
     final more = List<Project>.of(content.projects.where((p) => !p.featured))
       ..sort((a, b) => a.order.compareTo(b.order));
+    final shown = _expanded
+        ? more
+        : more.take(_collapsedCount).toList(growable: false);
 
-    final cardWidth = switch (screen) {
-      ScreenSize.phone => 300.0,
-      ScreenSize.tablet => 300.0,
-      ScreenSize.desktop => 250.0,
+    // Four across on a desktop, two on a tablet, one on a phone.
+    final columns = switch (screen) {
+      ScreenSize.phone => 1,
+      ScreenSize.tablet => 2,
+      ScreenSize.desktop => 4,
     };
+
+    final rows = <List<Project>>[
+      for (var i = 0; i < shown.length; i += columns)
+        shown.sublist(i, (i + columns).clamp(0, shown.length)),
+    ];
 
     return RevealOnScroll(
       child: Padding(
@@ -48,18 +70,33 @@ class MoreProjectsSection extends StatelessWidget {
                     eyebrow: l10n.eyebrowProjects,
                   ),
                   const SizedBox(height: 16),
-                  Wrap(
-                    spacing: 16,
-                    runSpacing: 16,
-                    children: [
-                      for (final project in more)
-                        SizedBox(
-                          width: cardWidth,
-                          child: _MoreCard(project: project),
+                  for (final row in rows)
+                    Padding(
+                      padding: const EdgeInsetsDirectional.only(bottom: 16),
+                      child: IntrinsicHeight(
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: [
+                            for (var i = 0; i < row.length; i++) ...[
+                              if (i > 0) const SizedBox(width: 16),
+                              // The last row shares its width between fewer
+                              // cards, so the grid has no hole.
+                              Expanded(child: _MoreCard(project: row[i])),
+                            ],
+                          ],
                         ),
-                    ],
-                  ),
-                  const SizedBox(height: 32),
+                      ),
+                    ),
+                  if (!_expanded && more.length > _collapsedCount)
+                    Align(
+                      alignment: AlignmentDirectional.centerStart,
+                      child: TextButton.icon(
+                        onPressed: () => setState(() => _expanded = true),
+                        icon: const Icon(Icons.expand_more_rounded),
+                        label: Text(l10n.showAll),
+                      ),
+                    ),
+                  const SizedBox(height: 16),
                   _MoreOnGitHubButton(content.profile.github, l10n),
                 ],
               ),
@@ -76,6 +113,9 @@ class _MoreCard extends StatelessWidget {
 
   final Project project;
 
+  /// The height of the cover thumbnail area at the top of the card.
+  static const _coverHeight = 88.0;
+
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
@@ -90,9 +130,19 @@ class _MoreCard extends StatelessWidget {
 
     return GlassCard(
       padding: const EdgeInsetsDirectional.all(16),
+      borderColor: project.accentColor.withValues(alpha: 0.35),
+      hoverBorderColor: project.accentColor,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          // The cover area renders the placeholder, tinted with the project's
+          // own accent.
+          SizedBox(
+            height: _coverHeight,
+            width: double.infinity,
+            child: ProjectPlaceholder(accent: project.accentColor),
+          ),
+          const SizedBox(height: 12),
           Text(
             title,
             style: textTheme.titleMedium,
@@ -103,7 +153,8 @@ class _MoreCard extends StatelessWidget {
           Text(
             summary,
             style: textTheme.bodySmall?.copyWith(color: palette.mutedText),
-            maxLines: 2,
+            // Three lines, so a short summary is not cut off with an ellipsis.
+            maxLines: 3,
             overflow: TextOverflow.ellipsis,
           ),
           const SizedBox(height: 10),
@@ -112,13 +163,15 @@ class _MoreCard extends StatelessWidget {
             runSpacing: 6,
             children: [for (final tech in project.tech) TechChip(label: tech)],
           ),
-          const SizedBox(height: 14),
+          const SizedBox(height: 12),
+          // The link sits at the bottom of every card, whatever the card height.
+          const Spacer(),
           if (githubLink != null)
             Align(
               alignment: AlignmentDirectional.centerStart,
               child: TextButton.icon(
                 onPressed: () => openLink(githubLink.url),
-                icon: const Icon(Icons.code_rounded, size: 16),
+                icon: const BrandIcon(BrandMark.github, size: 18),
                 label: Text(l10n.viewOnGitHub),
               ),
             ),
@@ -140,7 +193,7 @@ class _MoreOnGitHubButton extends StatelessWidget {
       alignment: AlignmentDirectional.centerStart,
       child: FilledButton.icon(
         onPressed: () => openLink(githubUrl),
-        icon: const Icon(Icons.code_rounded, size: 18),
+        icon: const BrandIcon(BrandMark.github, size: 18),
         label: Text(l10n.moreOnGithub),
       ),
     );

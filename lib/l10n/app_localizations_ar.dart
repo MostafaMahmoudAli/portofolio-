@@ -44,6 +44,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get navAbout => 'نبذة';
 
   @override
+  String get showAll => 'عرض الكل';
+
+  @override
   String get navProjects => 'المشاريع';
 
   @override

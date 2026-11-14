@@ -13,6 +13,7 @@ import '../widgets/aurora_background.dart';
 import '../widgets/brand_icon.dart';
 import '../widgets/glass_card.dart';
 import '../widgets/profile_photo.dart';
+import '../widgets/social_button.dart';
 import '../widgets/typewriter_text.dart';
 
 /// The first screen: photo, name, cycling role, links and the four stats.
@@ -157,19 +158,19 @@ class _HeroSectionState extends State<HeroSection> {
               Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  _SocialButton(
+                  SocialButton(
                     icon: const BrandIcon(BrandMark.github, size: 20),
                     tooltip: l10n.github,
                     onPressed: () => openLink(profile.github),
                   ),
                   const SizedBox(width: 8),
-                  _SocialButton(
+                  SocialButton(
                     icon: const BrandIcon(BrandMark.linkedin, size: 20),
                     tooltip: l10n.linkedin,
                     onPressed: () => openLink(profile.linkedin),
                   ),
                   const SizedBox(width: 8),
-                  _SocialButton(
+                  SocialButton(
                     icon: const Icon(Icons.mail_outline_rounded, size: 20),
                     tooltip: l10n.email,
                     onPressed: () => openLink('mailto:${profile.email}'),
@@ -222,48 +223,6 @@ class _HeroSectionState extends State<HeroSection> {
                         ],
                       ),
               ),
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-/// A round, quiet action used for the social links in the hero.
-class _SocialButton extends StatelessWidget {
-  const _SocialButton({
-    required this.icon,
-    required this.tooltip,
-    required this.onPressed,
-  });
-
-  final Widget icon;
-  final String tooltip;
-  final VoidCallback onPressed;
-
-  @override
-  Widget build(BuildContext context) {
-    final palette = AppPalette.of(context);
-    return IconButton(
-      tooltip: tooltip,
-      onPressed: onPressed,
-      icon: icon,
-      style: ButtonStyle(
-        minimumSize: const WidgetStatePropertyAll(Size(48, 48)),
-        backgroundColor: WidgetStatePropertyAll(palette.surface),
-        foregroundColor: WidgetStatePropertyAll(palette.text),
-        overlayColor: WidgetStatePropertyAll(
-          palette.text.withValues(alpha: 0.04),
-        ),
-        shape: WidgetStateProperty.resolveWith<OutlinedBorder?>(
-          (states) => CircleBorder(
-            side: BorderSide(
-              color:
-                  states.contains(WidgetState.hovered) ||
-                      states.contains(WidgetState.focused)
-                  ? palette.accentInk
-                  : palette.surfaceBorder,
             ),
           ),
         ),

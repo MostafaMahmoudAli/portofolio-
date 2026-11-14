@@ -12,6 +12,7 @@
   "screenshotOf": "Screenshot {number} of {total}",
   "@screenshotOf": { "placeholders": { "number": { "type": "int" }, "total": { "type": "int" } } },
   "navAbout": "About",
+  "showAll": "Show all",
   "navProjects": "Projects",
   "navExperience": "Experience",
   "navSkills": "Skills",

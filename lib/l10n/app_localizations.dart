@@ -164,6 +164,12 @@ abstract class AppLocalizations {
   /// **'About'**
   String get navAbout;
 
+  /// No description provided for @showAll.
+  ///
+  /// In en, this message translates to:
+  /// **'Show all'**
+  String get showAll;
+
   /// No description provided for @navProjects.
   ///
   /// In en, this message translates to:
