@@ -84,6 +84,7 @@ class NavBar extends StatelessWidget {
                               ),
                             const SizedBox(width: 8),
                             const LanguageToggle(),
+                            const SizedBox(width: 8),
                             const ThemeToggle(),
                             const SizedBox(width: 8),
                             OutlinedButton(

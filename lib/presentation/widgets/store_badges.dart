@@ -8,9 +8,10 @@ import '../../core/utils/open_link.dart';
 /// One custom-styled store badge button: an icon plus "Google Play" or
 /// "App Store". These are not the official badge images.
 class StoreBadge extends StatelessWidget {
-  const StoreBadge({super.key, required this.link});
+  const StoreBadge({super.key, required this.link, this.compact = false});
 
   final ProjectLink link;
+  final bool compact;
 
   @override
   Widget build(BuildContext context) {
@@ -19,12 +20,23 @@ class StoreBadge extends StatelessWidget {
 
     return OutlinedButton.icon(
       onPressed: () => openLink(link.url),
-      icon: Icon(isPlay ? Icons.store : Icons.phone_iphone, size: 18),
-      label: Text(isPlay ? 'Google Play' : 'App Store'),
+      icon: Icon(
+        isPlay ? Icons.store : Icons.phone_iphone,
+        size: compact ? 14 : 18,
+      ),
+      label: FittedBox(
+        fit: BoxFit.scaleDown,
+        child: Text(
+          isPlay ? 'Google Play' : 'App Store',
+          maxLines: 1,
+          softWrap: false,
+          style: compact ? const TextStyle(fontSize: 12) : null,
+        ),
+      ),
       style: OutlinedButton.styleFrom(
         foregroundColor: palette.text,
-        padding: const EdgeInsetsDirectional.symmetric(
-          horizontal: 10,
+        padding: EdgeInsetsDirectional.symmetric(
+          horizontal: compact ? 6 : 10,
           vertical: 8,
         ),
         minimumSize: const Size(48, 48),
@@ -72,12 +84,15 @@ class StoreBadges extends StatelessWidget {
         ? entries
         : entries.take(maxGroups!.clamp(0, entries.length)).toList();
 
-    return Wrap(
-      spacing: 10,
-      runSpacing: 10,
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      mainAxisSize: MainAxisSize.min,
       children: [
         for (final entry in shown)
-          _StoreGroup(label: labels[entry.key], links: entry.value),
+          Padding(
+            padding: const EdgeInsetsDirectional.only(bottom: 8),
+            child: _StoreGroup(label: labels[entry.key], links: entry.value),
+          ),
         if (unlabeled.isNotEmpty) _StoreGroup(links: unlabeled),
       ],
     );
@@ -96,25 +111,34 @@ class _StoreGroup extends StatelessWidget {
     final textTheme = Theme.of(context).textTheme;
     final palette = AppPalette.of(context);
 
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisSize: MainAxisSize.min,
+    if (label == null) {
+      return Wrap(
+        spacing: 8,
+        runSpacing: 8,
+        children: [for (final link in links) StoreBadge(link: link)],
+      );
+    }
+    return Row(
+      key: ValueKey('store-city-${label!.en}'),
       children: [
-        if (label != null) ...[
-          Text(
-            label!.of(locale),
-            style: textTheme.labelSmall?.copyWith(
-              color: palette.mutedText,
-              fontWeight: FontWeight.w600,
+        SizedBox(
+          width: 64,
+          child: FittedBox(
+            fit: BoxFit.scaleDown,
+            alignment: AlignmentDirectional.centerStart,
+            child: Text(
+              label!.of(locale),
+              style: textTheme.labelSmall?.copyWith(
+                color: palette.mutedText,
+                fontWeight: FontWeight.w600,
+              ),
             ),
           ),
-          const SizedBox(height: 6),
-        ],
-        Wrap(
-          spacing: 8,
-          runSpacing: 8,
-          children: [for (final link in links) StoreBadge(link: link)],
         ),
+        for (final link in links) ...[
+          const SizedBox(width: 8),
+          Expanded(child: StoreBadge(link: link, compact: true)),
+        ],
       ],
     );
   }

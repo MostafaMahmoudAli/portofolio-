@@ -38,40 +38,54 @@ class ContactBand extends StatelessWidget {
               style: textTheme.displaySmall?.copyWith(color: palette.text),
             ),
             const SizedBox(height: 20),
-            Wrap(
-              crossAxisAlignment: WrapCrossAlignment.center,
-              spacing: 12,
-              runSpacing: 8,
-              children: [
-                Text(
-                  profile.email,
-                  textDirection: TextDirection.ltr,
-                  style:
-                      (compact
-                              ? textTheme.titleMedium
-                              : textTheme.headlineSmall)
-                          ?.copyWith(color: palette.text),
-                ),
-                IconButton(
-                  tooltip: l10n.copyEmail,
-                  onPressed: () async {
-                    await Clipboard.setData(ClipboardData(text: profile.email));
-                    if (!context.mounted) return;
-                    ScaffoldMessenger.of(
-                      context,
-                    ).showSnackBar(SnackBar(content: Text(l10n.emailCopied)));
-                  },
-                  icon: const Icon(Icons.copy_rounded),
-                ),
-                if (phone != null && phone.isNotEmpty)
-                  Text(
-                    phone,
-                    textDirection: TextDirection.ltr,
-                    style: textTheme.titleMedium?.copyWith(
-                      color: palette.mutedText,
+            LayoutBuilder(
+              builder: (context, constraints) => Wrap(
+                crossAxisAlignment: WrapCrossAlignment.center,
+                spacing: 12,
+                runSpacing: 8,
+                children: [
+                  ConstrainedBox(
+                    constraints: BoxConstraints(maxWidth: constraints.maxWidth),
+                    child: FittedBox(
+                      fit: BoxFit.scaleDown,
+                      alignment: AlignmentDirectional.centerStart,
+                      child: Text(
+                        profile.email,
+                        key: const ValueKey('contact-email'),
+                        textDirection: TextDirection.ltr,
+                        maxLines: 1,
+                        softWrap: false,
+                        style:
+                            (compact
+                                    ? textTheme.titleMedium
+                                    : textTheme.headlineSmall)
+                                ?.copyWith(color: palette.text),
+                      ),
                     ),
                   ),
-              ],
+                  IconButton(
+                    tooltip: l10n.copyEmail,
+                    onPressed: () async {
+                      await Clipboard.setData(
+                        ClipboardData(text: profile.email),
+                      );
+                      if (!context.mounted) return;
+                      ScaffoldMessenger.of(
+                        context,
+                      ).showSnackBar(SnackBar(content: Text(l10n.emailCopied)));
+                    },
+                    icon: const Icon(Icons.copy_rounded),
+                  ),
+                  if (phone != null && phone.isNotEmpty)
+                    Text(
+                      phone,
+                      textDirection: TextDirection.ltr,
+                      style: textTheme.titleMedium?.copyWith(
+                        color: palette.mutedText,
+                      ),
+                    ),
+                ],
+              ),
             ),
             const SizedBox(height: 24),
             Wrap(

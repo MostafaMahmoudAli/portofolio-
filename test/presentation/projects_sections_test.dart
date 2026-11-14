@@ -129,7 +129,12 @@ Future<void> main() async {
       find.byType(TechChip, skipOffstage: false).first,
     );
     await pumpFrames(tester);
-    expect(tester.getSize(find.byType(TechChip).first).width, lessThan(200));
+    final chip = find.byType(TechChip).first;
+    final label = find.descendant(of:chip,matching:find.byType(Text));
+    expect(
+      tester.getSize(chip).width,
+      closeTo(tester.getSize(label).width + 26, 0.1),
+    );
     await unmount(tester);
   });
 

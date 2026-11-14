@@ -77,7 +77,7 @@ class _ExperienceSectionState extends State<ExperienceSection> {
                 // The line runs through the middle of the company badges.
                 start: 15,
                 top: 0,
-                bottom: 24,
+                bottom: 0,
                 width: 2,
                 child: Align(
                   alignment: AlignmentDirectional.topCenter,
@@ -98,7 +98,9 @@ class _ExperienceSectionState extends State<ExperienceSection> {
                 children: [
                   for (final (index, entry) in profile.experience.indexed)
                     Padding(
-                      padding: const EdgeInsetsDirectional.only(bottom: 24),
+                      padding: EdgeInsetsDirectional.only(
+                        bottom: index == profile.experience.length - 1 ? 0 : 24,
+                      ),
                       child: Stack(
                         fit: StackFit.passthrough,
                         children: [

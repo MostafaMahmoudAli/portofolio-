@@ -300,7 +300,12 @@ class _TileText extends StatelessWidget {
         if (project.links.isNotEmpty) ...[
           const SizedBox(height: 14),
           // A small tile shows one city; the rest live on the project page.
-          StoreBadges(links: project.links, maxGroups: hero ? null : 1),
+          StoreBadges(
+            links: project.links,
+            maxGroups: hero || ScreenSize.of(context) == ScreenSize.phone
+                ? null
+                : 1,
+          ),
         ],
         const SizedBox(height: 8),
         TextButton.icon(

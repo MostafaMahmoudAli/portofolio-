@@ -78,7 +78,11 @@ class NavMenuSheet extends StatelessWidget {
               children: [
                 const Row(
                   mainAxisSize: MainAxisSize.min,
-                  children: [LanguageToggle(), ThemeToggle()],
+                  children: [
+                    LanguageToggle(),
+                    SizedBox(width: 8),
+                    ThemeToggle(),
+                  ],
                 ),
                 OutlinedButton(
                   onPressed: () => downloadFile(
