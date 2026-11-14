@@ -14,9 +14,11 @@ class ProjectPlatformGallery extends StatefulWidget {
     super.key,
     required this.project,
     this.heroPlatform,
+    this.singlePlatform = false,
   });
   final Project project;
   final VideoPlatform? heroPlatform;
+  final bool singlePlatform;
 
   @override
   State<ProjectPlatformGallery> createState() => _ProjectPlatformGalleryState();
@@ -38,12 +40,13 @@ class _ProjectPlatformGalleryState extends State<ProjectPlatformGallery> {
         ? requestedHero
         : available.first.$1;
     final phone = ScreenSize.of(context) == ScreenSize.phone;
+    final single = phone || widget.singlePlatform;
     final l10n = AppLocalizations.of(context);
     final locale = Localizations.localeOf(context);
 
     return LayoutBuilder(
       builder: (context, constraints) {
-        final width = phone
+        final width = single
             ? math.min(240.0, constraints.maxWidth)
             : math.min(
                 300.0,
@@ -84,14 +87,14 @@ class _ProjectPlatformGalleryState extends State<ProjectPlatformGallery> {
         return Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            if (phone && available.length > 1) ...[
+            if (single && available.length > 1) ...[
               VideoPlatformPicker(
                 selected: selected,
                 onChanged: (value) => setState(() => _selected = value),
               ),
               const SizedBox(height: 16),
             ],
-            if (phone)
+            if (single)
               frame(selected)
             else
               Row(

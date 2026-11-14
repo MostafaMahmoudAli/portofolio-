@@ -27,7 +27,7 @@ Future<void> main() async {
 
   for (final language in ['en', 'ar']) {
     testWidgets(
-      'two frames side by side, same-platform Hero only in $language',
+      'desktop side column selects one platform with matching Hero in $language',
       (tester) async {
         final project = helpers.testProject(2);
         await helpers.pumpPage(
@@ -43,24 +43,15 @@ Future<void> main() async {
           of: gallery,
           matching: find.byType(ProjectMediaFrame),
         );
-        expect(frames, findsNWidgets(2));
+        expect(frames, findsOneWidget);
         final list = tester.widgetList<ProjectMediaFrame>(frames).toList();
-        expect(list.map((frame) => frame.platform), [
-          VideoPlatform.ios,
-          VideoPlatform.android,
-        ]);
+        expect(list.map((frame) => frame.platform), [VideoPlatform.android]);
         expect(
           list.where((frame) => frame.hero).single.platform,
           VideoPlatform.android,
         );
-        expect(find.byType(VideoPlatformPicker), findsNothing);
-        final ios = tester.getRect(find.byKey(const ValueKey('gallery-ios')));
-        final android = tester.getRect(
-          find.byKey(const ValueKey('gallery-android')),
-        );
-        expect(ios.top, android.top);
-        expect(ios.overlaps(android), isFalse);
-        expect(VideoControllerManager.instance.controllerCount, 2);
+        expect(find.byType(VideoPlatformPicker), findsOneWidget);
+        expect(VideoControllerManager.instance.controllerCount, 1);
         expect(platform.live.length, lessThanOrEqualTo(2));
         expect(tester.takeException(), isNull);
         await helpers.unmount(tester);
@@ -169,10 +160,11 @@ Future<void> main() async {
       await helpers.pumpPage(
         tester,
         location: '/projects/egypt-consulate-apps',
+        width: 800,
         language: direction == TextDirection.rtl ? 'ar' : 'en',
       );
       final gallery = find.byType(ProjectPlatformGallery);
-      await tester.ensureVisible(gallery);
+      await tester.scrollUntilVisible(gallery, 500);
       await helpers.frames(tester);
       for (final platform in VideoPlatform.values) {
         final phone = find.descendant(

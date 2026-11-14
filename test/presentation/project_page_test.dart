@@ -336,38 +336,14 @@ Future<void> main() async {
   });
 
   for (final cover in [null, 'media/custom/alternate.jpg']) {
-    testWidgets('cover uses JSON field $cover with null placeholder', (
-      tester,
-    ) async {
+    testWidgets('empty cover banner is omitted for $cover', (tester) async {
       final project = testProject(0, cover: cover);
       await pumpPage(
         tester,
         location: '/projects/${project.slug}',
         data: Content(profile: content.profile, projects: [project]),
       );
-      final poster = tester.widget<ProjectPoster>(find.byType(ProjectPoster));
-      expect(poster.path, cover);
-      if (cover == null) {
-        expect(find.byType(ProjectPlaceholder), findsOneWidget);
-        expect(
-          find.descendant(
-            of: find.byType(ProjectPoster),
-            matching: find.byType(Image),
-          ),
-          findsNothing,
-        );
-      } else {
-        final image = tester.widget<Image>(
-          find.descendant(
-            of: find.byType(ProjectPoster),
-            matching: find.byType(Image),
-          ),
-        );
-        expect(
-          (image.image as NetworkImage).url,
-          Uri.base.resolve(cover).toString(),
-        );
-      }
+      expect(find.byType(ProjectPoster), findsNothing);
       await unmount(tester);
     });
   }
@@ -469,7 +445,7 @@ Future<void> main() async {
     await frames(tester);
     tester.view.physicalSize = const Size(1440, 900);
     await frames(tester);
-    expect(find.text('Caption 0'), findsOneWidget);
+    expect(find.text('Caption 0'), findsNothing);
     expect(find.text('Caption 1'), findsOneWidget);
     tester.view.physicalSize = const Size(375, 900);
     await frames(tester);
@@ -614,12 +590,12 @@ Future<void> main() async {
         );
         await tester.ensureVisible(find.byType(ProjectPlatformGallery));
         await frames(tester);
-        final phone = width < 600;
+        final single = width < 600 || width > 1024;
         final controls = find.byType(VideoPlatformPicker);
-        expect(controls, count == 2 && phone ? findsOneWidget : findsNothing);
+        expect(controls, count == 2 && single ? findsOneWidget : findsNothing);
         expect(find.text('Caption 0'), findsOneWidget);
         if (count == 2) {
-          if (phone) {
+          if (single) {
             await tester.ensureVisible(controls);
             await frames(tester);
             tester
