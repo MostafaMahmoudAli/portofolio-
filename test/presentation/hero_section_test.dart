@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:portfolio/app.dart';
@@ -9,6 +10,7 @@ import 'package:portfolio/core/theme/theme_controller.dart';
 import 'package:portfolio/l10n/app_localizations.dart';
 import 'package:portfolio/presentation/sections/hero_section.dart';
 import 'package:portfolio/presentation/widgets/animated_counter.dart';
+import 'package:portfolio/presentation/widgets/brand_icon.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
@@ -60,8 +62,19 @@ Future<void> main() async {
   TestWidgetsFlutterBinding.ensureInitialized();
   content = await const ContentRepository().load();
 
-  setUpAll(() {
+  setUpAll(() async {
     VisibilityDetectorController.instance.updateInterval = Duration.zero;
+    // Measure the real typography, not Ahm's artificially wide test glyphs.
+    for (final (family, file) in [
+      ('Inter', 'Inter-Regular.ttf'),
+      ('SpaceGrotesk', 'SpaceGrotesk-Bold.ttf'),
+      ('IBMPlexSansArabic', 'IBMPlexSansArabic-Regular.ttf'),
+      ('Tajawal', 'Tajawal-Bold.ttf'),
+    ]) {
+      await (FontLoader(
+        family,
+      )..addFont(rootBundle.load('assets/fonts/$file'))).load();
+    }
   });
   tearDownAll(() {
     VisibilityDetectorController.instance.updateInterval = const Duration(
@@ -78,13 +91,16 @@ Future<void> main() async {
 
     expect(find.text(profile.name.of(const Locale('en'))), findsOneWidget);
     expect(find.text(l10n.heroRoleMobile), findsOneWidget);
-    expect(find.text(profile.title.of(const Locale('en'))), findsOneWidget);
+    // The role appears once: the typewriter replaces the static title line.
+    expect(find.text(profile.title.of(const Locale('en'))), findsNothing);
     expect(find.text('View projects'), findsOneWidget);
     expect(find.text('Download resume'), findsOneWidget);
     // The three secondary links are icon-only, labelled by their tooltip.
     expect(find.byTooltip('GitHub'), findsOneWidget);
     expect(find.byTooltip('LinkedIn'), findsOneWidget);
     expect(find.byTooltip('Email'), findsOneWidget);
+    // The social buttons carry the real brand marks.
+    expect(find.byType(BrandIcon), findsNWidgets(2));
 
     // Final counter values, no count-up and no entrance animation in flight.
     expect(find.text('3+'), findsOneWidget);
@@ -115,6 +131,21 @@ Future<void> main() async {
     // The hero may now sit above the viewport (offstage sliver); check it anyway.
     expect(find.text('310K+', skipOffstage: false), findsOneWidget);
     expect(find.text('0K+', skipOffstage: false), findsNothing);
+  });
+
+  testWidgets('the phone first screen carries the name, role and stats', (
+    tester,
+  ) async {
+    await pumpHome(tester, size: const Size(375, 812));
+
+    // Name, both buttons and the whole stats band have to fit above the fold.
+    final name = find.text(content.profile.name.of(const Locale('en')));
+    final buttons = find.text('View projects');
+    final lastStat = find.byType(AnimatedCounter).last;
+    expect(tester.getBottomLeft(name).dy, lessThan(812));
+    expect(tester.getBottomLeft(buttons).dy, lessThan(812));
+    expect(tester.getBottomLeft(lastStat).dy, lessThan(812));
+    expect(tester.takeException(), isNull);
   });
 
   for (final width in [375.0, 768.0, 1440.0]) {

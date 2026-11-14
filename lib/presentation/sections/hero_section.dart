@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
 import '../../core/app_scope.dart';
+import '../../core/models/stat.dart';
 import '../../core/theme/app_colors.dart';
 import '../../core/utils/breakpoints.dart';
 import '../../core/utils/download_file.dart';
@@ -9,11 +10,13 @@ import '../../core/utils/open_link.dart';
 import '../../l10n/app_localizations.dart';
 import '../widgets/animated_counter.dart';
 import '../widgets/aurora_background.dart';
+import '../widgets/brand_icon.dart';
+import '../widgets/glass_card.dart';
 import '../widgets/profile_photo.dart';
 import '../widgets/typewriter_text.dart';
 
-/// The first screen: photo, name, cycling role, pitch, links and the four
-/// stats. Everything fades and slides in, staggered, once on load.
+/// The first screen: photo, name, cycling role, links and the four stats.
+/// Everything fades and slides in, staggered, once on load.
 ///
 /// The details column and the photo keep their state when the width crosses a
 /// breakpoint and the layout switches between a Column and a Row, so the
@@ -46,7 +49,9 @@ class _HeroSectionState extends State<HeroSection> {
     final reduceMotion = MediaQuery.disableAnimationsOf(context);
 
     final nameStyle = switch (screen) {
-      ScreenSize.phone => textTheme.displaySmall,
+      // A phone first screen has to carry the name, the role, both buttons
+      // and the stats band, so the name drops one step down there.
+      ScreenSize.phone => textTheme.headlineMedium,
       ScreenSize.tablet => textTheme.displayMedium,
       ScreenSize.desktop => textTheme.displayLarge,
     };
@@ -96,12 +101,14 @@ class _HeroSectionState extends State<HeroSection> {
             style: textTheme.labelMedium?.copyWith(color: palette.accentInk),
           ),
         ),
-        const SizedBox(height: 16),
+        SizedBox(height: phone ? 10 : 16),
         entrance(
           0,
           Text(profile.name.of(locale), style: nameStyle, textAlign: align),
         ),
-        const SizedBox(height: 12),
+        SizedBox(height: phone ? 6 : 12),
+        // The typewriter is the only place the role appears. Under reduced
+        // motion it shows the first role in full.
         entrance(
           1,
           TypewriterText(
@@ -110,18 +117,9 @@ class _HeroSectionState extends State<HeroSection> {
             textAlign: align,
           ),
         ),
-        const SizedBox(height: 8),
+        SizedBox(height: phone ? 16 : 28),
         entrance(
           2,
-          Text(
-            profile.title.of(locale),
-            style: textTheme.bodyLarge?.copyWith(color: palette.mutedText),
-            textAlign: align,
-          ),
-        ),
-        const SizedBox(height: 28),
-        entrance(
-          3,
           Wrap(
             alignment: phone ? WrapAlignment.center : WrapAlignment.start,
             spacing: 12,
@@ -132,12 +130,27 @@ class _HeroSectionState extends State<HeroSection> {
                 onPressed: widget.onViewProjects,
                 icon: const Icon(Icons.arrow_forward_rounded),
                 label: Text(l10n.viewProjects),
+                // On a phone both actions share one row.
+                style: phone
+                    ? FilledButton.styleFrom(
+                        padding: const EdgeInsetsDirectional.symmetric(
+                          horizontal: 14,
+                        ),
+                      )
+                    : null,
               ),
               OutlinedButton.icon(
                 onPressed: () =>
                     downloadFile(profile.resumePdf, resumeFileName),
                 icon: const Icon(Icons.download_rounded),
                 label: Text(l10n.downloadResume),
+                style: phone
+                    ? OutlinedButton.styleFrom(
+                        padding: const EdgeInsetsDirectional.symmetric(
+                          horizontal: 14,
+                        ),
+                      )
+                    : null,
               ),
               // Secondary links are icon-only: one filled action, one outlined
               // action, three quiet circles.
@@ -145,19 +158,19 @@ class _HeroSectionState extends State<HeroSection> {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   _SocialButton(
-                    icon: Icons.code_rounded,
+                    icon: const BrandIcon(BrandMark.github, size: 20),
                     tooltip: l10n.github,
                     onPressed: () => openLink(profile.github),
                   ),
                   const SizedBox(width: 8),
                   _SocialButton(
-                    icon: Icons.work_outline_rounded,
+                    icon: const BrandIcon(BrandMark.linkedin, size: 20),
                     tooltip: l10n.linkedin,
                     onPressed: () => openLink(profile.linkedin),
                   ),
                   const SizedBox(width: 8),
                   _SocialButton(
-                    icon: Icons.mail_outline_rounded,
+                    icon: const Icon(Icons.mail_outline_rounded, size: 20),
                     tooltip: l10n.email,
                     onPressed: () => openLink('mailto:${profile.email}'),
                   ),
@@ -166,8 +179,8 @@ class _HeroSectionState extends State<HeroSection> {
             ],
           ),
         ),
-        const SizedBox(height: 36),
-        entrance(4, _Stats(counterDelay: _entranceDelay(4))),
+        SizedBox(height: phone ? 16 : 32),
+        entrance(3, _StatsBand(counterDelay: _entranceDelay(3))),
       ],
     );
 
@@ -176,7 +189,7 @@ class _HeroSectionState extends State<HeroSection> {
       name: profile.name.of(locale),
       photo: profile.photo,
       size: switch (screen) {
-        ScreenSize.phone => 176,
+        ScreenSize.phone => 96,
         ScreenSize.tablet => 200,
         ScreenSize.desktop => 260,
       },
@@ -190,7 +203,7 @@ class _HeroSectionState extends State<HeroSection> {
           minHeight: MediaQuery.sizeOf(context).height * 0.85,
         ),
         child: Padding(
-          padding: const EdgeInsetsDirectional.fromSTEB(24, 104, 24, 48),
+          padding: EdgeInsetsDirectional.fromSTEB(24, phone ? 84 : 104, 24, 48),
           child: Center(
             child: ConstrainedBox(
               constraints: const BoxConstraints(maxWidth: 1200),
@@ -199,7 +212,7 @@ class _HeroSectionState extends State<HeroSection> {
                 child: phone
                     ? Column(
                         mainAxisSize: MainAxisSize.min,
-                        children: [photo, const SizedBox(height: 32), details],
+                        children: [photo, const SizedBox(height: 16), details],
                       )
                     : Row(
                         children: [
@@ -225,7 +238,7 @@ class _SocialButton extends StatelessWidget {
     required this.onPressed,
   });
 
-  final IconData icon;
+  final Widget icon;
   final String tooltip;
   final VoidCallback onPressed;
 
@@ -235,7 +248,7 @@ class _SocialButton extends StatelessWidget {
     return IconButton(
       tooltip: tooltip,
       onPressed: onPressed,
-      icon: Icon(icon, size: 20),
+      icon: icon,
       style: ButtonStyle(
         minimumSize: const WidgetStatePropertyAll(Size(48, 48)),
         backgroundColor: WidgetStatePropertyAll(palette.surface),
@@ -259,48 +272,101 @@ class _SocialButton extends StatelessWidget {
   }
 }
 
-class _Stats extends StatelessWidget {
-  const _Stats({required this.counterDelay});
+/// The four stats as one band: a large number, a small label, and thin
+/// dividers between the cells. Four across on desktop and tablet, two by two
+/// on a phone.
+///
+/// The cells are laid out in one [Wrap] with a stable order, so crossing the
+/// phone breakpoint re-flows them without rebuilding the counters.
+class _StatsBand extends StatelessWidget {
+  const _StatsBand({required this.counterDelay});
 
   final Duration counterDelay;
 
   @override
   Widget build(BuildContext context) {
     final profile = AppScope.of(context).content.profile;
-    final locale = Localizations.localeOf(context);
-    final textTheme = Theme.of(context).textTheme;
     final phone = ScreenSize.of(context) == ScreenSize.phone;
+    final stats = profile.stats;
+    final columns = phone ? 2 : 4;
+    return GlassCard(
+      padding: EdgeInsets.zero,
+      child: LayoutBuilder(
+        builder: (context, constraints) {
+          final cellWidth = constraints.maxWidth / columns;
+          return Wrap(
+            spacing: 0,
+            runSpacing: 0,
+            children: [
+              for (var index = 0; index < stats.length; index++)
+                SizedBox(
+                  width: cellWidth,
+                  child: _StatCell(
+                    stat: stats[index],
+                    delay: counterDelay,
+                    showStartDivider: index % columns != 0,
+                    showTopDivider: index >= columns,
+                  ),
+                ),
+            ],
+          );
+        },
+      ),
+    );
+  }
+}
 
-    return Wrap(
-      alignment: phone ? WrapAlignment.center : WrapAlignment.start,
-      spacing: 24,
-      runSpacing: 20,
-      children: [
-        for (final stat in profile.stats)
-          SizedBox(
-            width: phone ? 130 : 168,
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: phone
-                  ? CrossAxisAlignment.center
-                  : CrossAxisAlignment.start,
-              children: [
-                AnimatedCounter(
-                  value: stat.value,
-                  suffix: stat.suffix,
-                  style: textTheme.headlineMedium,
-                  delay: counterDelay,
-                ),
-                const SizedBox(height: 4),
-                Text(
-                  stat.label.of(locale),
-                  style: textTheme.bodySmall,
-                  textAlign: phone ? TextAlign.center : TextAlign.start,
-                ),
-              ],
+/// One cell of the stats band: the number over its label.
+class _StatCell extends StatelessWidget {
+  const _StatCell({
+    required this.stat,
+    required this.delay,
+    required this.showStartDivider,
+    required this.showTopDivider,
+  });
+
+  final Stat stat;
+  final Duration delay;
+  final bool showStartDivider;
+  final bool showTopDivider;
+
+  @override
+  Widget build(BuildContext context) {
+    final locale = Localizations.localeOf(context);
+    final palette = AppPalette.of(context);
+    final textTheme = Theme.of(context).textTheme;
+
+    return DecoratedBox(
+      decoration: BoxDecoration(
+        border: Border(
+          left: showStartDivider
+              ? BorderSide(color: palette.surfaceBorder)
+              : BorderSide.none,
+          top: showTopDivider
+              ? BorderSide(color: palette.surfaceBorder)
+              : BorderSide.none,
+        ),
+      ),
+      child: Padding(
+        padding: const EdgeInsetsDirectional.symmetric(
+          horizontal: 18,
+          vertical: 16,
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            AnimatedCounter(
+              value: stat.value,
+              suffix: stat.suffix,
+              style: textTheme.headlineMedium,
+              delay: delay,
             ),
-          ),
-      ],
+            const SizedBox(height: 2),
+            Text(stat.label.of(locale), style: textTheme.bodySmall),
+          ],
+        ),
+      ),
     );
   }
 }
