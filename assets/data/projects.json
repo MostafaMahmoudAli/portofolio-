@@ -2,7 +2,7 @@
   "projects": [
     {
       "slug": "egypt-abroad",
-      "impact": { "en": "Built from scratch · live on both stores", "ar": "بُني من الصفر · متاح على المتجرين" },
+      "impact": { "en": "Built from scratch · Arabic and English", "ar": "بُني من الصفر · بالعربية والإنجليزية" },
       "title": { "en": "Egypt Abroad", "ar": "مصري بالخارج" },
       "subtitle": { "en": "Consular services super-app for Egyptians abroad", "ar": "تطبيق شامل للخدمات القنصلية للمصريين بالخارج" },
       "featured": true,
@@ -252,7 +252,7 @@
       "subtitle": { "en": "Responsive & adaptive dashboard for desktop, tablet and mobile", "ar": "لوحة تحكم متجاوبة لسطح المكتب والتابلت والموبايل" },
       "featured": true,
       "order": 6,
-      "accent": "#7C5CFF",
+      "accent": "#FBBF24",
       "summary": {
         "en": "Adaptive dashboard layouts for desktop, tablet and mobile.",
         "ar": "تخطيطات لوحة تحكم متكيفة لسطح المكتب والتابلت والموبايل."
@@ -266,7 +266,7 @@
       "tech": ["Flutter", "Responsive layouts", "Animations"],
       "cover": "media/responsive-dashboard/cover.jpg",
       "screens": [],
-      "videos": {},
+      "videos": { "web": { "src": "media/responsive-dashboard/web.mp4", "poster": "media/responsive-dashboard/web.jpg" } },
       "links": [
         { "type": "github", "url": "https://github.com/MostafaMahmoudAli/responsive_dashboard" }
       ]

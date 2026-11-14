@@ -47,8 +47,8 @@
           "ar": "ساهمت في التحقق من البطاقة القومية عبر **OCR** وساعدت في تعزيز أمان التطبيق باستخدام **البصمة** و **Firebase App Check** وكشف الـ root و jailbreak."
         },
         {
-          "en": "Grew coverage to **57 test suites** and handled full **Play Console / App Store Connect** releases gated by **GitHub Actions**.",
-          "ar": "رفعت التغطية إلى **57 حزمة اختبارات** وتولّيت الإصدار الكامل على **Play Console** و **App Store Connect** عبر إجراءات **GitHub Actions**."
+          "en": "Grew coverage to **57 test suites** and ship release updates to **Play Console / App Store Connect**, gated by **GitHub Actions**.",
+          "ar": "رفعت التغطية إلى **57 حزمة اختبارات** وأرفع تحديثات الإصدارات على **Play Console** و **App Store Connect** عبر إجراءات **GitHub Actions**."
         },
         {
           "en": "**Three build flavors** — dev, staging, prod — each with its own **application ID** and **Firebase** project.",

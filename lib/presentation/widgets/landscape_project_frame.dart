@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 import '../../core/models/project.dart';
 import '../../core/theme/app_colors.dart';
 import 'project_poster.dart';
+import 'project_video_player.dart';
 
-/// A browser-style, landscape frame for projects without phone videos.
+/// A browser-style, landscape frame for projects without phone videos. It
+/// plays the project's `web` video when one is set, else shows the cover.
 class LandscapeProjectFrame extends StatelessWidget {
   const LandscapeProjectFrame({super.key, required this.project});
 
@@ -13,9 +15,11 @@ class LandscapeProjectFrame extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final palette = AppPalette.of(context);
+    final title = project.title.of(Localizations.localeOf(context));
+    final video = project.videos.web;
     return Semantics(
-      image: true,
-      label: project.title.of(Localizations.localeOf(context)),
+      image: video == null,
+      label: title,
       child: AspectRatio(
         aspectRatio: 16 / 10,
         child: DecoratedBox(
@@ -43,10 +47,16 @@ class LandscapeProjectFrame extends StatelessWidget {
                   child: ClipRRect(
                     borderRadius: BorderRadiusDirectional.circular(8),
                     child: SizedBox.expand(
-                      child: ProjectPoster(
-                        path: project.cover,
-                        accent: project.accentColor,
-                      ),
+                      child: video == null
+                          ? ProjectPoster(
+                              path: project.cover,
+                              accent: project.accentColor,
+                            )
+                          : ProjectVideoPlayer(
+                              key: ValueKey(video.src),
+                              video: video,
+                              title: title,
+                            ),
                     ),
                   ),
                 ),

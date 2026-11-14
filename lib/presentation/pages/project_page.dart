@@ -35,6 +35,14 @@ class ProjectPage extends StatefulWidget {
 }
 
 class _ProjectPageState extends State<ProjectPage> {
+  /// Room around the two-line label of the previous and next buttons.
+  static final _neighborStyle = OutlinedButton.styleFrom(
+    padding: const EdgeInsetsDirectional.symmetric(
+      horizontal: 20,
+      vertical: 14,
+    ),
+  );
+
   final _scroll = ScrollController();
   final _galleryKey = GlobalKey();
 
@@ -227,6 +235,7 @@ class _ProjectPageState extends State<ProjectPage> {
                             key: const ValueKey('previous-project'),
                             onPressed: () =>
                                 context.go('/projects/${previous.slug}'),
+                            style: _neighborStyle,
                             icon: const Icon(Icons.arrow_back_rounded),
                             label: Text(
                               '${l10n.previousProject}\n${previous.title.of(locale)}',
@@ -236,6 +245,7 @@ class _ProjectPageState extends State<ProjectPage> {
                             key: const ValueKey('next-project'),
                             onPressed: () =>
                                 context.go('/projects/${next.slug}'),
+                            style: _neighborStyle,
                             icon: const Icon(Icons.arrow_forward_rounded),
                             label: Text(
                               '${l10n.nextProject}\n${next.title.of(locale)}',

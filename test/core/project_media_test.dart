@@ -70,7 +70,7 @@ void main() {
     expect(project.screens.last.caption, isNull);
   });
   for (final (field, value) in <(String, Object)>[
-    ('videos', {'web': video('web')}),
+    ('videos', {'tv': video('tv')}),
     ('videos', []),
     ('videos', {'ios': 'bad'}),
     (
@@ -101,8 +101,8 @@ void main() {
               contains('projects.json'),
               contains('entry "test"'),
               contains(field),
-              if (value is Map && value.containsKey('web'))
-                contains('videos.web'),
+              if (value is Map && value.containsKey('tv'))
+                contains('videos.tv'),
             ]),
           ),
         ),

@@ -96,10 +96,10 @@ Future<void> main() async {
     await helpers.pumpPage(
       tester,
       location: '/projects/${project.slug}',
-      data: Content(profile: helpers.content.profile, projects: [
-        helpers.content.projects.first,
-        project,
-      ]),
+      data: Content(
+        profile: helpers.content.profile,
+        projects: [helpers.content.projects.first, project],
+      ),
       reducedMotion: true,
     );
     await tester.ensureVisible(find.byType(ScreensGallery));

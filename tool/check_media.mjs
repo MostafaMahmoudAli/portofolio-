@@ -38,7 +38,7 @@ for (const project of projects) {
     throw new Error(`${project.slug}: videos must be an object`);
   }
   for (const [platform, video] of Object.entries(videos)) {
-    if (!['ios', 'android'].includes(platform)) {
+    if (!['ios', 'android', 'web'].includes(platform)) {
       throw new Error(`${project.slug}: unknown videos.${platform}`);
     }
     await check(project.slug, `videos.${platform}.src`, video.src);

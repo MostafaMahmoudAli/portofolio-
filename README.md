@@ -46,8 +46,9 @@ Media paths are relative to `web/` (never begin them with `/`, so Pages subpaths
 
 `screens` is optional, allows any number of images, and defaults to `[]`. Screen
 captions are optional. `videos` is an optional object, not an array: omit either
-platform when unavailable, or use `{}`/omit `videos` for no demos. Only `ios` and
-`android` keys are allowed. A configured video requires `src` and `poster`; its
+platform when unavailable, or use `{}`/omit `videos` for no demos. Only `ios`,
+`android` and `web` keys are allowed. `web` is one landscape demo for a web or
+desktop project (`media/<slug>/web.mp4` + `web.jpg`), shown in the wide frame. A configured video requires `src` and `poster`; its
 caption is optional. iOS is primary when present, otherwise Android. Only add an
 iOS demo for an app that actually supports iOS; never add unrelated placeholder media.
 

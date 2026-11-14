@@ -221,7 +221,10 @@ void main() {
       final bullets = content.profile.experience.first.bullets;
       expect(bullets.first.en, contains('**23-module**'));
       expect(bullets.first.en, contains('**Egypt Abroad**'));
-      expect(bullets.first.of(const Locale('ar')), contains('**مصري بالخارج**'));
+      expect(
+        bullets.first.of(const Locale('ar')),
+        contains('**مصري بالخارج**'),
+      );
       expect(bullets[2].en, startsWith('Contributed to **OCR**'));
       expect(bullets[2].en, contains('helped harden'));
       expect(bullets[2].of(const Locale('ar')), startsWith('ساهمت'));
@@ -272,6 +275,12 @@ void main() {
       final rehlati = content.projects.singleWhere(
         (p) => p.slug == 'rehlati-uae',
       );
+      final dashboard = content.projects.singleWhere(
+        (p) => p.slug == 'responsive-dashboard',
+      );
+      // One landscape demo slot, outside the phone platforms.
+      expect(dashboard.videos.available, isEmpty);
+      expect(dashboard.videos.web?.src, 'media/responsive-dashboard/web.mp4');
       expect(rehlati.featured, isFalse);
       expect(rehlati.videos.available, isEmpty);
       expect(rehlati.links, isEmpty);

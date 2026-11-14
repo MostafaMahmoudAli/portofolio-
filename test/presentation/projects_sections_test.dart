@@ -130,7 +130,7 @@ Future<void> main() async {
     );
     await pumpFrames(tester);
     final chip = find.byType(TechChip).first;
-    final label = find.descendant(of:chip,matching:find.byType(Text));
+    final label = find.descendant(of: chip, matching: find.byType(Text));
     expect(
       tester.getSize(chip).width,
       closeTo(tester.getSize(label).width + 26, 0.1),

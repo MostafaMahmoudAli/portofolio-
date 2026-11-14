@@ -57,7 +57,7 @@ class _MoreProjectsSectionState extends State<MoreProjectsSection> {
 
     return RevealOnScroll(
       child: Padding(
-        padding: const EdgeInsetsDirectional.fromSTEB(24, 0, 24, 48),
+        padding: const EdgeInsetsDirectional.fromSTEB(24, 48, 24, 48),
         child: Center(
           child: ConstrainedBox(
             constraints: const BoxConstraints(maxWidth: 1200),
@@ -161,9 +161,9 @@ class _MoreCardState extends State<_MoreCard> {
               ),
               child: InkWell(
                 key: ValueKey('more-open-${project.slug}'),
-                borderRadius: BorderRadiusDirectional.circular(12).resolve(
-                  Directionality.of(context),
-                ),
+                borderRadius: BorderRadiusDirectional.circular(
+                  12,
+                ).resolve(Directionality.of(context)),
                 onTap: openProject,
                 onFocusChange: (focused) => setState(() => _focused = focused),
                 child: Column(

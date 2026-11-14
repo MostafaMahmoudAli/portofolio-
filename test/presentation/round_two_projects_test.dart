@@ -138,9 +138,9 @@ Future<void> main() async {
             w.path == 'media/rick-and-morty-app/cover.jpg',
         skipOffstage: false,
       );
-    await tester.scrollUntilVisible(cover, 500);
-    await Scrollable.ensureVisible(tester.element(cover), alignment:0.5);
-    await helpers.frames(tester,16);
+      await tester.scrollUntilVisible(cover, 500);
+      await Scrollable.ensureVisible(tester.element(cover), alignment: 0.5);
+      await helpers.frames(tester, 16);
       final poster = find.descendant(
         of: cover,
         matching: find.byType(ProjectPoster),
