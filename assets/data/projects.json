@@ -14,20 +14,20 @@
       },
       "bullets": [
         {
-          "en": "Citizens book, reschedule and cancel consulate appointments for themselves and family members.",
-          "ar": "يحجز المواطنون مواعيد القنصلية لأنفسهم ولأفراد أسرهم، مع إمكانية تعديل المواعيد وإلغائها."
+          "en": "Citizens book, reschedule and cancel consulate appointments for themselves and family members, track fees and file complaints with ticket chat.",
+          "ar": "يحجز المواطنون مواعيد القنصلية لأنفسهم ولأفراد أسرهم مع تعديلها وإلغائها، ويتابعون الرسوم ويقدّمون الشكاوى مع محادثة ضمن التذكرة."
         },
         {
-          "en": "Track transactions and fees, file complaints with ticket chat, and follow consulate news, holidays and locations.",
-          "ar": "متابعة المعاملات والرسوم، وتقديم الشكاوى مع محادثة ضمن التذكرة، والاطلاع على أخبار القنصليات وعطلاتها ومواقعها."
+          "en": "Real-time AI assistant on a custom Server-Sent Events client over Dio, with stream cancellation, an idle watchdog and resumption after a dropped connection.",
+          "ar": "مساعد ذكي لحظي مبني على عميل Server-Sent Events مخصص فوق Dio، مع إلغاء البث ومراقبة الخمول واستكمال المحادثة بعد انقطاع الاتصال."
         },
         {
-          "en": "Real-time AI assistant, OCR national-ID verification at sign-up, biometric and Google/Apple sign-in, and QR device linking.",
-          "ar": "مساعد ذكي لحظي، والتحقق من البطاقة القومية عند التسجيل عبر OCR، وتسجيل الدخول بالبصمة أو عبر Google و Apple، وربط الأجهزة برمز QR."
+          "en": "OCR national-ID verification that checks both card sides against typed input, plus root/jailbreak gating, biometric sign-in, Firebase App Check and QR device linking.",
+          "ar": "التحقق من البطاقة القومية عبر OCR بمطابقة وجهي البطاقة مع البيانات المدخلة، مع منع الأجهزة المخترقة (root/jailbreak) والدخول بالبصمة و Firebase App Check وربط الأجهزة برمز QR."
         },
         {
-          "en": "Push notifications that open the right appointment.",
-          "ar": "إشعارات فورية تفتح الموعد المعني مباشرة."
+          "en": "Feature modules owned end-to-end across a 23-module Clean Architecture codebase with 57 test suites, deep links and actionable push notifications.",
+          "ar": "وحدات ميزات أتولاها من البداية للنهاية ضمن كود من 23 وحدة بمعمارية نظيفة و 57 مجموعة اختبار، مع روابط مباشرة وإشعارات تفاعلية."
         }
       ],
       "tech": ["Flutter", "Clean Architecture", "Cubit", "Dio", "SSE", "go_router", "Firebase", "Flavors"],
@@ -75,6 +75,10 @@
         {
           "en": "Together they reach 310K+ Google Play downloads; Riyadh is rated 4.5 stars from 2.2K+ reviews.",
           "ar": "إجمالي التحميلات يتجاوز 310 ألف على Google Play؛ تطبيق الرياض بتقييم 4.5 نجوم من أكثر من 2.2 ألف مراجعة."
+        },
+        {
+          "en": "Releases go to Google Play Console and App Store Connect through signed builds, test tracks, TestFlight and staged rollouts, promoted via GitHub Actions release gates.",
+          "ar": "تُنشر الإصدارات على Google Play Console و App Store Connect عبر نسخ موقّعة ومسارات اختبار و TestFlight ونشر تدريجي، مع بوابات إصدار على GitHub Actions."
         }
       ],
       "tech": ["Flutter", "Flavors", "Deep Links", "Firebase", "Play Console", "App Store Connect"],
@@ -196,12 +200,16 @@
       },
       "bullets": [
         {
-          "en": "Built a TikTok-style remix toolkit — duet, trim and sound reuse — as Cubit state machines with FFmpeg compositing; removed a duet audio echo and made scrubbing lag-free (throttled seeks, 1 s keyframes).",
-          "ar": "بنيت عدة إعادة مزج بأسلوب TikTok — دويت وقص وإعادة استخدام الصوت — كآلات حالات Cubit مع معالجة FFmpeg؛ أزلت صدى الصوت في الدويت وجعلت التمرير سلسًا (تخصيص الطلبات وإطارات مفاتيح بفاصلة ثانية)."
+          "en": "Built video trimming, side-by-side duet recording and sound reuse using Cubit state machines and FFmpeg compositing.",
+          "ar": "بنيت قص الفيديو وتسجيل الدويت جنبًا إلى جنب وإعادة استخدام الصوت باستخدام آلات حالات Cubit ومعالجة FFmpeg."
         },
         {
-          "en": "Added 0.5×–3× speed baked into exports (setpts/atempo), gallery import with a 4-minute limit, saved display modes and a filterable library with share_plus sharing; refactored to sealed Cubit states.",
-          "ar": "أضفت سرعات من 0.5× إلى 3× داخل الملف الناتج (setpts/atempo) واستيرادًا من المعرض بحد أربعة دقائق وأنماط عرض محفوظة ومكتبة قابلة للفلترة بالمشاركة عبر share_plus؛ وأعدت الهيكلة إلى حالات Cubit مغلقة (sealed)."
+          "en": "Added gallery imports, playback-speed export, thumbnail timelines and a filterable saved-video library with sharing and gallery export.",
+          "ar": "أضفت الاستيراد من المعرض وتصدير الفيديو بسرعات مختلفة وشريط صور مصغّرة ومكتبة فيديوهات محفوظة قابلة للفلترة مع المشاركة والحفظ في المعرض."
+        },
+        {
+          "en": "Implemented cancellable FFmpeg processing, temporary-file cleanup and original-audio-only duet recording to prevent microphone echo.",
+          "ar": "نفّذت معالجة FFmpeg قابلة للإلغاء وتنظيف الملفات المؤقتة وتسجيل الدويت بالصوت الأصلي فقط لمنع صدى الميكروفون."
         }
       ],
       "tech": ["Flutter", "Cubit", "FFmpegKit", "CameraX", "video_player", "image_picker"],
@@ -237,6 +245,10 @@
         {
           "en": "PayPal, Stripe and card payments across currencies, with multilingual content.",
           "ar": "مدفوعات عبر PayPal و Stripe والبطاقات بعملات متعددة مع محتوى بعدة لغات."
+        },
+        {
+          "en": "Implemented designs, wrote tests and resolved defects alongside senior developers at Oday Development Foundation.",
+          "ar": "نفّذت التصاميم وكتبت الاختبارات وعالجت الأخطاء مع مطورين أقدم في Oday Development Foundation."
         }
       ],
       "tech": ["Flutter", "BLoC", "Freezed", "MVVM", "Stripe", "PayPal"],
@@ -246,30 +258,42 @@
       "links": []
     },
     {
-      "slug": "responsive-dashboard",
-      "impact": { "en": "Adaptive layouts for desktop, tablet and mobile", "ar": "تخطيطات متكيفة لسطح المكتب والتابلت والموبايل" },
-      "title": { "en": "Responsive Dashboard", "ar": "Responsive Dashboard" },
-      "subtitle": { "en": "Responsive & adaptive dashboard for desktop, tablet and mobile", "ar": "لوحة تحكم متجاوبة لسطح المكتب والتابلت والموبايل" },
+      "slug": "daily-tasks",
+      "impact": { "en": "Fully offline · reminders ring as real alarms", "ar": "يعمل بدون إنترنت · التذكيرات منبّهات حقيقية" },
+      "title": { "en": "Daily Tasks", "ar": "المهام اليومية" },
+      "subtitle": { "en": "Offline task app with real ringing alarms — Android & iOS", "ar": "تطبيق مهام بدون إنترنت بمنبّهات حقيقية — أندرويد و iOS" },
       "featured": true,
       "order": 6,
       "accent": "#FBBF24",
       "summary": {
-        "en": "Adaptive dashboard layouts for desktop, tablet and mobile.",
-        "ar": "تخطيطات لوحة تحكم متكيفة لسطح المكتب والتابلت والموبايل."
+        "en": "An offline task app for Android and iOS whose reminders ring as real alarms. No account, no internet: everything stays on the device.",
+        "ar": "تطبيق مهام لأندرويد و iOS يعمل بدون إنترنت وتذكيراته منبّهات حقيقية. بلا حساب وبلا اتصال: كل شيء يبقى على الجهاز."
       },
       "bullets": [
         {
-          "en": "Layouts adapt between desktop, tablet and mobile screen sizes.",
-          "ar": "تتكيّف تخطيطات اللوحة بين أحجام شاشات سطح المكتب والتابلت والموبايل."
+          "en": "Tasks with sub-tasks and repeat rules (once, daily, chosen weekdays or days of the month), each ringing a full-screen alarm with Stop and Mark done.",
+          "ar": "مهام بمهام فرعية وقواعد تكرار (مرة واحدة، يوميًا، أيام محددة من الأسبوع أو الشهر)، وكل مهمة تطلق منبّهًا بملء الشاشة مع إيقاف وتمّ الإنجاز."
+        },
+        {
+          "en": "Today view with a week strip and progress bar, a monthly commitment figure, Arabic (RTL), English and Spanish, and light and dark themes.",
+          "ar": "عرض اليوم بشريط أسبوعي وشريط تقدّم، ونسبة التزام شهرية، مع العربية (من اليمين لليسار) والإنجليزية والإسبانية، ووضعين فاتح وداكن."
+        },
+        {
+          "en": "Clean Architecture with Riverpod and Hive; a scheduler keeps a rolling window of upcoming alarms under the iOS limit, with recurrence and statistics unit-tested.",
+          "ar": "معمارية نظيفة مع Riverpod و Hive؛ مجدول يحافظ على نافذة متجددة من المنبّهات القادمة ضمن حد iOS، مع اختبارات وحدة للتكرار والإحصاءات."
         }
       ],
-      "tech": ["Flutter", "Responsive layouts", "Animations"],
-      "cover": "media/responsive-dashboard/cover.jpg",
+      "tech": ["Flutter", "Riverpod", "Hive", "Clean Architecture", "Material 3", "Localization"],
+      "cover": "media/daily-tasks/cover.jpg",
       "screens": [],
-      "videos": { "web": { "src": "media/responsive-dashboard/web.mp4", "poster": "media/responsive-dashboard/web.jpg" } },
-      "links": [
-        { "type": "github", "url": "https://github.com/MostafaMahmoudAli/responsive_dashboard" }
-      ]
+      "videos": {
+        "android": {
+          "src": "media/daily-tasks/android.mp4",
+          "poster": "media/daily-tasks/android.jpg",
+          "caption": { "en": "Tasks and a ringing alarm", "ar": "المهام ومنبّه يرن" }
+        }
+      },
+      "links": []
     },
     {
       "slug": "rick-and-morty-app",

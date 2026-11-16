@@ -9,7 +9,6 @@ import 'package:portfolio/presentation/widgets/phone_frame.dart';
 import 'package:portfolio/presentation/widgets/lazy_project_cover.dart';
 import 'package:portfolio/presentation/widgets/project_poster.dart';
 import 'package:portfolio/presentation/widgets/project_placeholder.dart';
-import 'package:portfolio/presentation/widgets/project_video_player.dart';
 import 'package:portfolio/presentation/pages/project_page.dart';
 import 'package:video_player_platform_interface/video_player_platform_interface.dart';
 import 'package:visibility_detector/visibility_detector.dart';
@@ -25,88 +24,46 @@ Future<void> main() async {
     VisibilityDetectorController.instance.updateInterval = Duration.zero;
   });
 
-  testWidgets('landscape playback belongs only to the settled current route', (
-    tester,
-  ) async {
-    final router = await helpers.pumpPage(tester, location: '/');
-    final frame = find.byType(LandscapeProjectFrame);
-    await tester.scrollUntilVisible(frame, 500);
-    await Scrollable.ensureVisible(tester.element(frame), alignment: 0.5);
-    await helpers.frames(tester);
-    Finder players() => find.descendant(
-      of: find.byType(LandscapeProjectFrame, skipOffstage: false),
-      matching: find.byType(ProjectVideoPlayer, skipOffstage: false),
-      skipOffstage: false,
-    );
-    expect(players(), findsOneWidget);
-    router.go('/projects/responsive-dashboard');
-    await tester.pump();
-    await tester.pump(const Duration(milliseconds: 50));
-    expect(players(), findsNothing);
-    await helpers.frames(tester, 16);
-    expect(players(), findsOneWidget);
-    expect(
-      find.byType(LandscapeProjectFrame, skipOffstage: false),
-      findsNWidgets(2),
-    );
-    router.pop();
-    await tester.pump();
-    await tester.pump(const Duration(milliseconds: 50));
-    expect(players(), findsNothing);
-    await helpers.frames(tester, 16);
-    expect(players(), findsOneWidget);
-    expect(tester.takeException(), isNull);
-    await helpers.unmount(tester);
-  });
-
   for (final width in [375.0, 800.0, 1440.0]) {
-    testWidgets('last bento tile fills its row with a wide frame at $width', (
-      tester,
-    ) async {
+    testWidgets('last bento tile fills its row at $width', (tester) async {
       await helpers.pumpPage(
         tester,
         location: '/',
         width: width,
         reducedMotion: true,
       );
-      await tester.scrollUntilVisible(find.byType(LandscapeProjectFrame), 500);
+      // The tile can show its title twice, which scrollUntilVisible rejects.
+      final title = find.descendant(
+        of: find.byType(FeaturedProjectsSection),
+        matching: find.text('Daily Tasks'),
+      );
+      for (var i = 0; i < 40 && title.evaluate().isEmpty; i++) {
+        await tester.drag(find.byType(Scrollable).first, const Offset(0, -500));
+        await tester.pump();
+      }
       await helpers.frames(tester);
-      final frame = find.byType(LandscapeProjectFrame);
       final card = find
-          .ancestor(of: frame, matching: find.byType(GlassCard))
+          .ancestor(of: title.first, matching: find.byType(GlassCard))
           .first;
       expect(
         tester.getSize(card).width,
         closeTo(width > 1248 ? 1200 : width - 48, 0.1),
       );
-      expect(
-        tester.getSize(frame).width,
-        greaterThan(tester.getSize(frame).height),
-      );
-      expect(
-        find.ancestor(
-          of: frame,
-          matching: find.byType(FeaturedProjectsSection),
-        ),
-        findsOneWidget,
-      );
       expect(tester.takeException(), isNull);
       await helpers.unmount(tester);
     });
 
-    testWidgets('dashboard page uses landscape rather than phone at $width', (
+    testWidgets('daily tasks page uses a phone frame at $width', (
       tester,
     ) async {
       await helpers.pumpPage(
         tester,
-        location: '/projects/responsive-dashboard',
+        location: '/projects/daily-tasks',
         width: width,
         reducedMotion: true,
       );
-      expect(find.byType(LandscapeProjectFrame), findsOneWidget);
-      expect(find.byType(PhoneFrame), findsNothing);
-      final size = tester.getSize(find.byType(LandscapeProjectFrame));
-      expect(size.width, greaterThan(size.height));
+      expect(find.byType(PhoneFrame), findsWidgets);
+      expect(find.byType(LandscapeProjectFrame), findsNothing);
       expect(tester.takeException(), isNull);
       await helpers.unmount(tester);
     });

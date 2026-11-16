@@ -644,7 +644,7 @@ Future<void> main() async {
       for (final slug in [
         'remix',
         'egypt-consulate-apps',
-        'responsive-dashboard',
+        'daily-tasks',
       ]) {
         testWidgets('$slug fits $width px in $language throughout scroll', (
           tester,

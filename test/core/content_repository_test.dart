@@ -270,17 +270,15 @@ void main() {
         'new-courier-app',
         'alkharj-business-guide',
         'remix',
-        'responsive-dashboard',
+        'daily-tasks',
       ]);
       final rehlati = content.projects.singleWhere(
         (p) => p.slug == 'rehlati-uae',
       );
-      final dashboard = content.projects.singleWhere(
-        (p) => p.slug == 'responsive-dashboard',
+      final dailyTasks = content.projects.singleWhere(
+        (p) => p.slug == 'daily-tasks',
       );
-      // One landscape demo slot, outside the phone platforms.
-      expect(dashboard.videos.available, isEmpty);
-      expect(dashboard.videos.web?.src, 'media/responsive-dashboard/web.mp4');
+      expect(dailyTasks.videos.android?.src, 'media/daily-tasks/android.mp4');
       expect(rehlati.featured, isFalse);
       expect(rehlati.videos.available, isEmpty);
       expect(rehlati.links, isEmpty);
