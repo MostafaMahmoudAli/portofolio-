@@ -33,7 +33,7 @@
       "tech": ["Flutter", "Clean Architecture", "Cubit", "Dio", "SSE", "go_router", "Firebase", "Flavors"],
       "status": { "en": "Live on both stores", "ar": "متاح على المتجرين" },
       "cover": "media/egypt-abroad/cover.jpg",
-      "screens": [],
+      "screens": [{ "src": "media/egypt-abroad/screens/01.jpg" }, { "src": "media/egypt-abroad/screens/02.jpg" }, { "src": "media/egypt-abroad/screens/03.jpg" }, { "src": "media/egypt-abroad/screens/04.jpg" }, { "src": "media/egypt-abroad/screens/05.jpg" }, { "src": "media/egypt-abroad/screens/06.jpg" }, { "src": "media/egypt-abroad/screens/07.jpg" }, { "src": "media/egypt-abroad/screens/08.jpg" }],
       "videos": {
         "ios": {
           "src": "media/egypt-abroad/ios.mp4",
@@ -84,7 +84,7 @@
       "tech": ["Flutter", "Flavors", "Deep Links", "Firebase", "Play Console", "App Store Connect"],
       "status": { "en": "Live on Google Play & App Store — 8 listings", "ar": "متاح على Google Play و App Store — 8 قوائم" },
       "cover": "media/egypt-consulate-apps/cover.jpg",
-      "screens": [],
+      "screens": [{ "src": "media/egypt-consulate-apps/screens/01.jpg" }, { "src": "media/egypt-consulate-apps/screens/02.jpg" }, { "src": "media/egypt-consulate-apps/screens/03.jpg" }],
       "videos": {
         "ios": {
           "src": "media/egypt-consulate-apps/ios.mp4",
