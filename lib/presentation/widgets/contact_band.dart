@@ -16,7 +16,6 @@ String phoneDigits(String phone) => phone.replaceAll(RegExp(r'\D'), '');
 /// phone number, and one button per way to get in touch.
 class ContactBand extends StatelessWidget {
   const ContactBand({super.key});
-
   @override
   Widget build(BuildContext context) {
     final profile = AppScope.of(context).content.profile;

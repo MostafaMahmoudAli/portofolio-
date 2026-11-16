@@ -29,11 +29,12 @@ class VideoControllerManager {
     Uri resolved, {
     required VoidCallback onEvicted,
   }) {
-    _onEvicted[url] = onEvicted;
+    // A URL identifies media, not its owner. Transfer ownership by evicting
+    // the previous player rather than returning its initialized controller.
     if (_byUrl.containsKey(url)) {
+      _onEvicted.remove(url)?.call();
+      _byUrl.remove(url)?.dispose();
       _order.remove(url);
-      _order.insert(0, url);
-      return _byUrl[url]!;
     }
     if (_order.length >= _maxControllers) {
       final oldest = _order.removeLast();
@@ -42,6 +43,7 @@ class VideoControllerManager {
     }
     final controller = VideoPlayerController.networkUrl(resolved);
     _byUrl[url] = controller;
+    _onEvicted[url] = onEvicted;
     _order.insert(0, url);
     return controller;
   }
@@ -141,6 +143,7 @@ class _ProjectVideoPlayerState extends State<ProjectVideoPlayer> {
       // One rebuild so the VideoPlayer widget appears in place of the poster.
       if (mounted) setState(() {});
     } catch (_) {
+      if (!mounted || _controller != controller) return;
       _videoError = true;
       if (mounted) setState(() {});
     }
@@ -207,7 +210,7 @@ class _ProjectVideoPlayerState extends State<ProjectVideoPlayer> {
     }
 
     return VisibilityDetector(
-      key: ValueKey(widget.video.src),
+      key: ObjectKey(this),
       onVisibilityChanged: _onVisibilityChanged,
       child: GestureDetector(
         onTap: _reduceMotion ? null : _onPlayTap,

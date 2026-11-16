@@ -207,6 +207,57 @@ void main() {
     await unmount(tester);
   });
 
+  testWidgets('same URL transfers ownership without sharing or leaking', (
+    tester,
+  ) async {
+    Widget player(String owner) => SizedBox(
+      key: ValueKey(owner),
+      height: 200,
+      child: const ProjectVideoPlayer(
+        video: ProjectVideo(
+          src: 'media/shared/web.mp4',
+          poster: 'media/shared/web.jpg',
+          caption: null,
+        ),
+        title: 'Shared demo',
+      ),
+    );
+    Widget app({required bool first, required bool second}) => MaterialApp(
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      supportedLocales: AppLocalizations.supportedLocales,
+      theme: ThemeData(extensions: const [AppPalette.light]),
+      home: Column(
+        children: [if (first) player('home'), if (second) player('details')],
+      ),
+    );
+    await tester.pumpWidget(app(first: true, second: false));
+    await settle(tester);
+    final original = VideoControllerManager.instance.controllerFor(
+      'media/shared/web.mp4',
+    );
+    expect(original, isNotNull);
+    await tester.pumpWidget(app(first: true, second: true));
+    await settle(tester);
+    final current = VideoControllerManager.instance.controllerFor(
+      'media/shared/web.mp4',
+    );
+    expect(current, isNot(same(original)));
+    expect(find.byType(VideoPlayer), findsOneWidget);
+    await tester.pumpWidget(app(first: false, second: true));
+    await settle(tester);
+    expect(
+      VideoControllerManager.instance.controllerFor('media/shared/web.mp4'),
+      same(current),
+    );
+    expect(current!.value.isPlaying, isTrue);
+    await unmount(tester);
+    await tester.runAsync(
+      () => Future<void>.delayed(const Duration(milliseconds: 20)),
+    );
+    expect(platform.live, isEmpty);
+    expect(tester.takeException(), isNull);
+  });
+
   testWidgets(
     'never more than two controllers; an evicted player drops back to its poster',
     (tester) async {

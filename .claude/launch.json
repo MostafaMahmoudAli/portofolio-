@@ -1,0 +1,14 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "web-release",
+      "runtimeExecutable": "python",
+      "runtimeArgs": [
+        "-c",
+        "import functools, http.server as h; h.SimpleHTTPRequestHandler.extensions_map.update({'.mjs': 'text/javascript', '.wasm': 'application/wasm'}); h.test(functools.partial(h.SimpleHTTPRequestHandler, directory='build/web'), port=8081)"
+      ],
+      "port": 8081
+    }
+  ]
+}

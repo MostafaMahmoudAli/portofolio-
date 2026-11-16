@@ -9,6 +9,7 @@ import 'package:portfolio/presentation/widgets/phone_frame.dart';
 import 'package:portfolio/presentation/widgets/lazy_project_cover.dart';
 import 'package:portfolio/presentation/widgets/project_poster.dart';
 import 'package:portfolio/presentation/widgets/project_placeholder.dart';
+import 'package:portfolio/presentation/widgets/project_video_player.dart';
 import 'package:portfolio/presentation/pages/project_page.dart';
 import 'package:video_player_platform_interface/video_player_platform_interface.dart';
 import 'package:visibility_detector/visibility_detector.dart';
@@ -22,6 +23,40 @@ Future<void> main() async {
   setUp(() {
     VideoPlayerPlatform.instance = FakeVideoPlatform();
     VisibilityDetectorController.instance.updateInterval = Duration.zero;
+  });
+
+  testWidgets('landscape playback belongs only to the settled current route', (
+    tester,
+  ) async {
+    final router = await helpers.pumpPage(tester, location: '/');
+    final frame = find.byType(LandscapeProjectFrame);
+    await tester.scrollUntilVisible(frame, 500);
+    await Scrollable.ensureVisible(tester.element(frame), alignment: 0.5);
+    await helpers.frames(tester);
+    Finder players() => find.descendant(
+      of: find.byType(LandscapeProjectFrame, skipOffstage: false),
+      matching: find.byType(ProjectVideoPlayer, skipOffstage: false),
+      skipOffstage: false,
+    );
+    expect(players(), findsOneWidget);
+    router.go('/projects/responsive-dashboard');
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 50));
+    expect(players(), findsNothing);
+    await helpers.frames(tester, 16);
+    expect(players(), findsOneWidget);
+    expect(
+      find.byType(LandscapeProjectFrame, skipOffstage: false),
+      findsNWidgets(2),
+    );
+    router.pop();
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 50));
+    expect(players(), findsNothing);
+    await helpers.frames(tester, 16);
+    expect(players(), findsOneWidget);
+    expect(tester.takeException(), isNull);
+    await helpers.unmount(tester);
   });
 
   for (final width in [375.0, 800.0, 1440.0]) {

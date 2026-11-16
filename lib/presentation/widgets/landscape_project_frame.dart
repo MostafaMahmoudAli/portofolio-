@@ -17,6 +17,7 @@ class LandscapeProjectFrame extends StatelessWidget {
     final palette = AppPalette.of(context);
     final title = project.title.of(Localizations.localeOf(context));
     final video = project.videos.web;
+    final route = ModalRoute.of(context);
     return Semantics(
       image: video == null,
       label: title,
@@ -47,16 +48,31 @@ class LandscapeProjectFrame extends StatelessWidget {
                   child: ClipRRect(
                     borderRadius: BorderRadiusDirectional.circular(8),
                     child: SizedBox.expand(
-                      child: video == null
-                          ? ProjectPoster(
-                              path: project.cover,
-                              accent: project.accentColor,
-                            )
-                          : ProjectVideoPlayer(
-                              key: ValueKey(video.src),
-                              video: video,
-                              title: title,
-                            ),
+                      child: AnimatedBuilder(
+                        animation: Listenable.merge([
+                          route?.animation,
+                          route?.secondaryAnimation,
+                        ]),
+                        builder: (context, _) {
+                          final settled =
+                              route == null ||
+                              (route.isCurrent &&
+                                  route.animation?.status ==
+                                      AnimationStatus.completed &&
+                                  route.secondaryAnimation?.status ==
+                                      AnimationStatus.dismissed);
+                          return video == null || !settled
+                              ? ProjectPoster(
+                                  path: video?.poster ?? project.cover,
+                                  accent: project.accentColor,
+                                )
+                              : ProjectVideoPlayer(
+                                  key: ValueKey(video.src),
+                                  video: video,
+                                  title: title,
+                                );
+                        },
+                      ),
                     ),
                   ),
                 ),
