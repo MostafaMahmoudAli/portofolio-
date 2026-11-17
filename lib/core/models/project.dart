@@ -26,6 +26,7 @@ class Project {
     required this.links,
     this.impact,
     this.screens = const [],
+    this.additionalVideos = const [],
   });
 
   factory Project.fromJson(
@@ -60,6 +61,14 @@ class Project {
         ? null
         : LocalizedText.fromJson(json['impact'], where: where, field: 'impact'),
     videos: ProjectVideos.fromJson(json['videos'], where: where),
+    additionalVideos: [
+      for (final (i, videos) in optionalMaps(
+        json,
+        'additionalVideos',
+        where,
+      ).indexed)
+        ProjectVideos.fromJson(videos, where: '$where: additionalVideos[$i]'),
+    ],
     screens: [
       for (final (i, screen) in optionalMaps(json, 'screens', where).indexed)
         ProjectScreen.fromJson(screen, where: '$where: screens[$i]'),
@@ -90,6 +99,7 @@ class Project {
   final LocalizedText? impact;
   final String? cover;
   final ProjectVideos videos;
+  final List<ProjectVideos> additionalVideos;
   final List<ProjectScreen> screens;
   final List<ProjectLink> links;
 

@@ -19,6 +19,7 @@ import '../widgets/landscape_project_frame.dart';
 import '../widgets/nav_bar.dart';
 import '../widgets/page_title.dart';
 import '../widgets/project_platform_gallery.dart';
+import '../widgets/project_media_frame.dart';
 import '../widgets/screens_gallery.dart';
 import '../widgets/store_badges.dart';
 import '../widgets/tech_chip.dart';
@@ -164,6 +165,24 @@ class _ProjectPageState extends State<ProjectPage> {
             screens: project.screens,
           ),
         ],
+        for (final videos in project.additionalVideos)
+          for (final (platform, video) in videos.available) ...[
+            const SizedBox(height: 32),
+            Center(
+              child: ProjectMediaFrame(
+                key: ValueKey(video.src),
+                project: project,
+                video: video,
+                platform: platform,
+                width: math.min(240, MediaQuery.sizeOf(context).width - 48),
+                hero: false,
+              ),
+            ),
+            if (video.caption case final caption?) ...[
+              const SizedBox(height: 12),
+              Text(caption.of(locale), textAlign: TextAlign.center),
+            ],
+          ],
       ],
     );
     final gallery = project.videos.primary == null

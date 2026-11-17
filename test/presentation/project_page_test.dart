@@ -171,6 +171,43 @@ Future<void> main() async {
     VideoPlayerPlatform.instance = platform;
   });
 
+  for (final language in ['en', 'ar']) {
+    testWidgets('Milan demo stays Android with no duplicate Hero ($language)', (
+      tester,
+    ) async {
+      await pumpPage(
+        tester,
+        location: '/projects/egypt-consulate-apps',
+        language: language,
+        width: 390,
+      );
+      final extraFinder = find.byWidgetPredicate(
+        (widget) =>
+            widget is ProjectMediaFrame &&
+            widget.video.src == 'media/egypt-consulate-apps/milan-android.mp4',
+      );
+      final scroll = scrollOf(tester, ProjectPage);
+      for (var i = 0; i < 20 && extraFinder.evaluate().isEmpty; i++) {
+        scroll.jumpTo((scroll.pixels + 400).clamp(0, scroll.maxScrollExtent));
+        await frames(tester, 2);
+      }
+      await Scrollable.ensureVisible(
+        tester.element(extraFinder),
+        alignment: 0.5,
+      );
+      await frames(tester);
+      final extra = tester.widget<ProjectMediaFrame>(extraFinder);
+      expect(extra.platform, VideoPlatform.android);
+      expect(extra.hero, isFalse);
+      expect(
+        find.descendant(of: extraFinder, matching: find.byType(Hero)),
+        findsNothing,
+      );
+      expect(tester.takeException(), isNull);
+      await unmount(tester);
+    });
+  }
+
   testWidgets('pasted project link has Home underneath; Back returns home', (
     tester,
   ) async {
@@ -641,11 +678,7 @@ Future<void> main() async {
       });
     }
     for (final language in ['en', 'ar']) {
-      for (final slug in [
-        'remix',
-        'egypt-consulate-apps',
-        'daily-tasks',
-      ]) {
+      for (final slug in ['remix', 'egypt-consulate-apps', 'daily-tasks']) {
         testWidgets('$slug fits $width px in $language throughout scroll', (
           tester,
         ) async {

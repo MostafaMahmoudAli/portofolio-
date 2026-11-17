@@ -70,8 +70,13 @@ web/media/my-app/
     02.webp
 ```
 
-Images/posters: JPG or WebP, at most 1280 px on the long side. Videos must be under
-10 MB each. Use the encoding commands from `docs/PORTFOLIO_PLAN.md`, section 5,
+Existing images are preserved when importing project media; append new screenshots
+rather than replacing covers or gallery entries. Multiple recordings for the same
+platform can be added as `additionalVideos`, an array of platform objects with the
+same shape as `videos`; these appear on the project page.
+
+Images/posters: JPG or WebP, at most 1280 px on the long side. Videos must be at most
+50 MB (50,000,000 bytes) each. Use the encoding commands from `docs/PORTFOLIO_PLAN.md`, section 5,
 for each platform (substitute `ios` for `android` for the iOS recording):
 
 ```sh

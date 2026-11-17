@@ -243,8 +243,8 @@ void main() {
       expect(project.bullets, hasLength(4));
       expect(project.summary.en, contains('with the team at AppRock'));
       expect(project.summary.of(const Locale('ar')), contains('فريق AppRock'));
-      expect(project.videos.available, hasLength(2));
-      expect(project.videos.ios!.src, 'media/egypt-abroad/ios.mp4');
+      expect(project.videos.available, hasLength(1));
+      expect(project.videos.ios, isNull);
       expect(project.videos.android!.poster, 'media/egypt-abroad/android.jpg');
       expect(project.cover, 'media/egypt-abroad/cover.jpg');
       expect(

@@ -54,6 +54,21 @@ void main() {
     final project = parse(entry());
     expect(project.videos.primary, isNull);
     expect(project.screens, isEmpty);
+    expect(project.additionalVideos, isEmpty);
+  });
+  test('additional Android recordings keep their identity and captions', () {
+    final project = parse(
+      entry()
+        ..['videos'] = {'android': video('kuwait')}
+        ..['additionalVideos'] = [
+          {'android': video('milan')},
+        ],
+    );
+    expect(project.videos.primary!.$2.src, 'media/test/kuwait.mp4');
+    final extra = project.additionalVideos.single.primary!;
+    expect(extra.$1, VideoPlatform.android);
+    expect(extra.$2.src, 'media/test/milan.mp4');
+    expect(extra.$2.caption!.of(const Locale('en')), 'milan');
   });
   test('screens have optional bilingual captions', () {
     final project = parse(
@@ -80,6 +95,15 @@ void main() {
       },
     ),
     ('screens', 'bad'),
+    ('additionalVideos', 'bad'),
+    (
+      'additionalVideos',
+      [
+        {
+          'android': {'src': 'missing-poster.mp4'},
+        },
+      ],
+    ),
     ('screens', [42]),
     (
       'screens',

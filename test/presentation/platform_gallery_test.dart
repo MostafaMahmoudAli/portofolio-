@@ -113,7 +113,12 @@ Future<void> main() async {
   testWidgets('home platform choice travels to the matching page Hero', (
     tester,
   ) async {
-    final router = await helpers.pumpPage(tester, location: '/');
+    final project = helpers.testProject(2);
+    final router = await helpers.pumpPage(
+      tester,
+      location: '/',
+      data: Content(profile: helpers.content.profile, projects: [project]),
+    );
     final frame = find.byType(ProjectMediaFrame, skipOffstage: false).first;
     await tester.ensureVisible(frame);
     await helpers.frames(tester);
@@ -124,7 +129,7 @@ Future<void> main() async {
       find.descendant(of: picker, matching: find.text('Android')),
     );
     await helpers.frames(tester);
-    final slug = helpers.content.projects.first.slug;
+    final slug = project.slug;
     final homeFrame = tester.widget<ProjectMediaFrame>(
       find.byType(ProjectMediaFrame).first,
     );
@@ -157,9 +162,11 @@ Future<void> main() async {
     tester,
   ) async {
     for (final direction in TextDirection.values) {
+      final project = helpers.testProject(2);
       await helpers.pumpPage(
         tester,
-        location: '/projects/egypt-consulate-apps',
+        location: '/projects/${project.slug}',
+        data: Content(profile: helpers.content.profile, projects: [project]),
         width: 800,
         language: direction == TextDirection.rtl ? 'ar' : 'en',
       );

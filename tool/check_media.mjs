@@ -17,8 +17,8 @@ async function check(owner, field, path) {
   try {
     const info = await stat(file);
     if (!info.isFile() || info.size === 0) throw new Error('empty or not a file');
-    if (path.endsWith('.mp4') && info.size >= 10_000_000) {
-      throw new Error('video must be under 10 MB');
+    if (path.endsWith('.mp4') && info.size > 50_000_000) {
+      throw new Error('video must be at most 50 MB');
     }
   } catch (error) {
     console.error(`[${owner}] ${field}: web/${path} — ${error.code === 'ENOENT' ? 'missing' : error.message}`);
@@ -34,6 +34,15 @@ for (const project of projects) {
     await check(project.slug, `screens[${i}].src`, screen.src);
   }
   const videos = project.videos ?? {};
+  for (const [i, group] of (project.additionalVideos ?? []).entries()) {
+    for (const [platform, video] of Object.entries(group)) {
+      if (!['ios', 'android', 'web'].includes(platform)) {
+        throw new Error(`${project.slug}: unknown additionalVideos[${i}].${platform}`);
+      }
+      await check(project.slug, `additionalVideos[${i}].${platform}.src`, video.src);
+      await check(project.slug, `additionalVideos[${i}].${platform}.poster`, video.poster);
+    }
+  }
   if (Array.isArray(videos) || typeof videos !== 'object') {
     throw new Error(`${project.slug}: videos must be an object`);
   }

@@ -349,7 +349,12 @@ Future<void> main() async {
   }
 
   testWidgets('empty project screens omit the entire section', (tester) async {
-    await helpers.pumpPage(tester);
+    final project = helpers.testProject(1);
+    await helpers.pumpPage(
+      tester,
+      location: '/projects/${project.slug}',
+      data: Content(profile: helpers.content.profile, projects: [project]),
+    );
     expect(find.byType(ScreensGallery), findsNothing);
     await helpers.unmount(tester);
   });

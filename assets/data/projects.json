@@ -35,11 +35,6 @@
       "cover": "media/egypt-abroad/cover.jpg",
       "screens": [{ "src": "media/egypt-abroad/screens/01.jpg" }, { "src": "media/egypt-abroad/screens/02.jpg" }, { "src": "media/egypt-abroad/screens/03.jpg" }, { "src": "media/egypt-abroad/screens/04.jpg" }, { "src": "media/egypt-abroad/screens/05.jpg" }, { "src": "media/egypt-abroad/screens/06.jpg" }, { "src": "media/egypt-abroad/screens/07.jpg" }, { "src": "media/egypt-abroad/screens/08.jpg" }],
       "videos": {
-        "ios": {
-          "src": "media/egypt-abroad/ios.mp4",
-          "poster": "media/egypt-abroad/ios.jpg",
-          "caption": { "en": "Consular services walkthrough", "ar": "جولة في الخدمات القنصلية" }
-        },
         "android": {
           "src": "media/egypt-abroad/android.mp4",
           "poster": "media/egypt-abroad/android.jpg",
@@ -85,16 +80,20 @@
       "status": { "en": "Live on Google Play & App Store — 8 listings", "ar": "متاح على Google Play و App Store — 8 قوائم" },
       "cover": "media/egypt-consulate-apps/cover.jpg",
       "screens": [{ "src": "media/egypt-consulate-apps/screens/01.jpg" }, { "src": "media/egypt-consulate-apps/screens/02.jpg" }, { "src": "media/egypt-consulate-apps/screens/03.jpg" }],
+      "additionalVideos": [
+        {
+          "android": {
+            "src": "media/egypt-consulate-apps/milan-android.mp4",
+            "poster": "media/egypt-consulate-apps/milan-android.jpg",
+            "caption": { "en": "Milan consulate walkthrough", "ar": "جولة في تطبيق قنصلية ميلانو" }
+          }
+        }
+      ],
       "videos": {
-        "ios": {
-          "src": "media/egypt-consulate-apps/ios.mp4",
-          "poster": "media/egypt-consulate-apps/ios.jpg",
-          "caption": { "en": "Consulate app walkthrough", "ar": "جولة داخل التطبيق القنصلي" }
-        },
         "android": {
           "src": "media/egypt-consulate-apps/android.mp4",
           "poster": "media/egypt-consulate-apps/android.jpg",
-          "caption": { "en": "Consulate app walkthrough", "ar": "جولة داخل التطبيق القنصلي" }
+          "caption": { "en": "Kuwait consulate walkthrough", "ar": "جولة في تطبيق قنصلية الكويت" }
         }
       },
       "links": [
@@ -215,7 +214,14 @@
       "tech": ["Flutter", "Cubit", "FFmpegKit", "CameraX", "video_player", "image_picker"],
       "status": { "en": "Private repository — walkthrough on request", "ar": "مستودع خاص — عرض توضيحي عند الطلب" },
       "cover": "media/remix/cover.jpg",
-      "screens": [],
+      "screens": [
+        { "src": "media/remix/screens/android-import-01.jpg" },
+        { "src": "media/remix/screens/android-import-02.jpg" },
+        { "src": "media/remix/screens/android-import-03.jpg" },
+        { "src": "media/remix/screens/android-import-04.jpg" },
+        { "src": "media/remix/screens/android-import-05.jpg" },
+        { "src": "media/remix/screens/android-import-06.jpg" }
+      ],
       "videos": {
         "android": {
           "src": "media/remix/android.mp4",
@@ -285,7 +291,12 @@
       ],
       "tech": ["Flutter", "Riverpod", "Hive", "Clean Architecture", "Material 3", "Localization"],
       "cover": "media/daily-tasks/cover.jpg",
-      "screens": [],
+      "screens": [
+        { "src": "media/daily-tasks/screens/android-import-01.jpg" },
+        { "src": "media/daily-tasks/screens/android-import-02.jpg" },
+        { "src": "media/daily-tasks/screens/android-import-03.jpg" },
+        { "src": "media/daily-tasks/screens/android-import-04.jpg" }
+      ],
       "videos": {
         "android": {
           "src": "media/daily-tasks/android.mp4",
@@ -348,7 +359,13 @@
       "tech": ["Flutter", "SQLite", "BLoC"],
       "cover": "media/vocabs-app/cover.jpg",
       "screens": [],
-      "videos": {},
+      "videos": {
+        "android": {
+          "src": "media/vocabs-app/android.mp4",
+          "poster": "media/vocabs-app/android.jpg",
+          "caption": { "en": "Vocabulary practice walkthrough", "ar": "جولة في التدريب على المفردات" }
+        }
+      },
       "links": [
         { "type": "github", "url": "https://github.com/MostafaMahmoudAli/vocabs_app" }
       ]
