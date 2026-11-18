@@ -219,14 +219,30 @@ class _ProjectVideoPlayerState extends State<ProjectVideoPlayer> {
             Positioned.fill(
               // A missing poster shows the placeholder in its place; the video
               // still loads and plays over it when visible.
-              child: Image.network(
-                _posterUrl,
-                fit: BoxFit.cover,
-                errorBuilder: (context, error, stackTrace) =>
-                    ProjectPlaceholder(title: widget.title),
+              child: ColoredBox(
+                color: Colors.black,
+                child: Image.network(
+                  _posterUrl,
+                  fit: BoxFit.contain,
+                  errorBuilder: (context, error, stackTrace) =>
+                      ProjectPlaceholder(title: widget.title),
+                ),
               ),
             ),
-            if (_showVideo) Positioned.fill(child: VideoPlayer(_controller!)),
+            if (_showVideo)
+              Positioned.fill(
+                child: ColoredBox(
+                  color: Colors.black,
+                  child: FittedBox(
+                    fit: BoxFit.contain,
+                    child: SizedBox(
+                      width: _controller!.value.size.width,
+                      height: _controller!.value.size.height,
+                      child: VideoPlayer(_controller!),
+                    ),
+                  ),
+                ),
+              ),
             // Reduced motion never autoplays: the paused bar offers play.
             if (_controller?.value.isInitialized ?? false)
               Positioned.fill(

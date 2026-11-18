@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:video_player/video_player.dart';
 
-import '../../core/theme/app_colors.dart';
 import '../../l10n/app_localizations.dart';
 
 /// Western digits in both languages, independent of the surrounding locale.
@@ -36,6 +35,8 @@ class _ProjectVideoControlsState extends State<ProjectVideoControls> {
   bool _shown = true;
   late bool _playing;
   double? _drag;
+  // The mouse left mid-drag; hide once the drag ends, even while paused.
+  bool _exitedDuringDrag = false;
 
   @override
   void initState() {
@@ -68,7 +69,7 @@ class _ProjectVideoControlsState extends State<ProjectVideoControls> {
   void _armIdle() {
     _idle?.cancel();
     if (!_playing || _drag != null) return;
-    _idle = Timer(const Duration(seconds: 3), () {
+    _idle = Timer(const Duration(seconds: 1), () {
       if (mounted && widget.controller.value.isPlaying) {
         setState(() => _shown = false);
       }
@@ -134,7 +135,7 @@ class _ProjectVideoControlsState extends State<ProjectVideoControls> {
 
   @override
   Widget build(BuildContext context) {
-    final palette = AppPalette.of(context);
+    const shadows = [Shadow(color: Color(0x80000000), blurRadius: 4)];
     final l10n = AppLocalizations.of(context);
     final reduced = MediaQuery.disableAnimationsOf(context);
     return Focus(
@@ -142,8 +143,19 @@ class _ProjectVideoControlsState extends State<ProjectVideoControls> {
       focusNode: _focus,
       onKeyEvent: _onKey,
       child: MouseRegion(
-        onEnter: (_) => _reveal(),
+        onEnter: (_) {
+          _exitedDuringDrag = false;
+          _reveal();
+        },
         onHover: (_) => _reveal(),
+        onExit: (_) {
+          _idle?.cancel();
+          if (_drag == null) {
+            setState(() => _shown = false);
+          } else {
+            _exitedDuringDrag = true;
+          }
+        },
         child: GestureDetector(
           behavior: HitTestBehavior.opaque,
           onTap: () {
@@ -154,7 +166,7 @@ class _ProjectVideoControlsState extends State<ProjectVideoControls> {
           child: ValueListenableBuilder<VideoPlayerValue>(
             valueListenable: widget.controller,
             builder: (context, value, _) {
-              final shown = _shown || !value.isPlaying;
+              final shown = _shown;
               return Stack(
                 fit: StackFit.expand,
                 children: [
@@ -173,7 +185,7 @@ class _ProjectVideoControlsState extends State<ProjectVideoControls> {
                                 ? Duration.zero
                                 : const Duration(milliseconds: 180),
                             child: Material(
-                              color: palette.background.withValues(alpha: 0.96),
+                              color: Colors.transparent,
                               child: Directionality(
                                 textDirection: TextDirection.ltr,
                                 child: LayoutBuilder(
@@ -192,12 +204,17 @@ class _ProjectVideoControlsState extends State<ProjectVideoControls> {
                                     ) => IconButton(
                                       tooltip: label,
                                       onPressed: onTap,
-                                      icon: Icon(icon, size: 20),
+                                      icon: Icon(
+                                        icon,
+                                        size: 20,
+                                        color: Colors.white,
+                                        shadows: shadows,
+                                      ),
                                       style: IconButton.styleFrom(
                                         minimumSize: const Size(48, 48),
                                         maximumSize: const Size(48, 48),
                                         padding: EdgeInsetsDirectional.zero,
-                                        foregroundColor: palette.text,
+                                        foregroundColor: Colors.white,
                                       ),
                                     );
                                     final back = button(
@@ -232,12 +249,13 @@ class _ProjectVideoControlsState extends State<ProjectVideoControls> {
                                         .toDouble();
                                     final slider = SliderTheme(
                                       data: SliderTheme.of(context).copyWith(
-                                        activeTrackColor: palette.accentInk,
-                                        thumbColor: palette.accentInk,
-                                        inactiveTrackColor:
-                                            palette.surfaceBorder,
-                                        overlayColor: palette.accentInk
-                                            .withValues(alpha: 0.12),
+                                        activeTrackColor: Colors.white,
+                                        thumbColor: Colors.white,
+                                        inactiveTrackColor: Colors.white
+                                            .withValues(alpha: 0.4),
+                                        overlayColor: Colors.white.withValues(
+                                          alpha: 0.12,
+                                        ),
                                       ),
                                       child: Slider(
                                         key: const ValueKey('video-position'),
@@ -271,7 +289,13 @@ class _ProjectVideoControlsState extends State<ProjectVideoControls> {
                                                   ),
                                                 );
                                                 if (!mounted) return;
-                                                setState(() => _drag = null);
+                                                setState(() {
+                                                  _drag = null;
+                                                  if (_exitedDuringDrag) {
+                                                    _shown = false;
+                                                  }
+                                                  _exitedDuringDrag = false;
+                                                });
                                                 _armIdle();
                                               },
                                       ),
@@ -279,7 +303,10 @@ class _ProjectVideoControlsState extends State<ProjectVideoControls> {
                                     final style = Theme.of(context)
                                         .textTheme
                                         .labelSmall
-                                        ?.copyWith(color: palette.text);
+                                        ?.copyWith(
+                                          color: Colors.white,
+                                          shadows: shadows,
+                                        );
                                     final timeline = Row(
                                       children: [
                                         if (constraints.maxWidth >= 220)
@@ -349,7 +376,11 @@ class _ProjectVideoControlsState extends State<ProjectVideoControls> {
                                                 Row(
                                                   mainAxisAlignment:
                                                       MainAxisAlignment.center,
-                                                  children: [back, play, forward],
+                                                  children: [
+                                                    back,
+                                                    play,
+                                                    forward,
+                                                  ],
                                                 ),
                                                 narrowTimeline,
                                               ],

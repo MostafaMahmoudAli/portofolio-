@@ -7,6 +7,7 @@ import 'package:portfolio/core/theme/app_theme.dart';
 import 'package:portfolio/l10n/app_localizations.dart';
 import 'package:portfolio/presentation/widgets/project_video_controls.dart';
 import 'package:portfolio/presentation/widgets/project_video_player.dart';
+import 'package:video_player/video_player.dart' show VideoPlayer;
 import 'package:video_player_platform_interface/video_player_platform_interface.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
@@ -20,6 +21,7 @@ Future<void> pumpPlayer(
   double width = 300,
   String language = 'en',
   bool reduced = true,
+  Brightness brightness = Brightness.light,
 }) async {
   tester.platformDispatcher.accessibilityFeaturesTestValue =
       FakeAccessibilityFeatures(disableAnimations: reduced);
@@ -29,7 +31,7 @@ Future<void> pumpPlayer(
       locale: Locale(language),
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
-      theme: AppTheme.build(Brightness.light, Locale(language)),
+      theme: AppTheme.build(brightness, Locale(language)),
       home: Scaffold(
         body: Center(
           child: SizedBox(
@@ -134,12 +136,60 @@ void main() {
             .data,
         formatVideoTime(Duration(milliseconds: dragged.round())),
       );
+      final mouse = await tester.createGesture(kind: PointerDeviceKind.mouse);
+      await mouse.addPointer(
+        location: tester.getCenter(find.byType(ProjectVideoControls)),
+      );
+      await mouse.moveTo(Offset.zero);
+      await tester.pump(const Duration(seconds: 2));
+      expect(
+        tester
+            .widget<AnimatedOpacity>(
+              find.byKey(const ValueKey('video-controls-bar')),
+            )
+            .opacity,
+        1,
+      );
+      await mouse.removePointer();
       await gesture.up();
       await frames(tester, 2);
       expect(platform.seeks, hasLength(1));
       expect(platform.seeks.single.$2, Duration(milliseconds: dragged.round()));
     },
   );
+
+  for (final exit in [true, false]) {
+    testWidgets(
+      'paused drag ${exit ? 'hides after a mouse exit' : 'keeps controls without one'}',
+      (tester) async {
+        await pumpPlayer(tester);
+        double opacity() => tester
+            .widget<AnimatedOpacity>(
+              find.byKey(const ValueKey('video-controls-bar')),
+            )
+            .opacity;
+        final rect = tester.getRect(
+          find.byKey(const ValueKey('video-position')),
+        );
+        final gesture = await tester.startGesture(
+          Offset(rect.left + rect.width * 0.3, rect.center.dy),
+        );
+        await gesture.moveBy(const Offset(35, 0));
+        await frames(tester, 2);
+        final mouse = await tester.createGesture(kind: PointerDeviceKind.mouse);
+        await mouse.addPointer(
+          location: tester.getCenter(find.byType(ProjectVideoControls)),
+        );
+        if (exit) await mouse.moveTo(Offset.zero);
+        await frames(tester, 2);
+        expect(opacity(), 1);
+        await gesture.up();
+        await frames(tester, 2);
+        expect(opacity(), exit ? 0 : 1);
+        await mouse.removePointer();
+      },
+    );
+  }
 
   testWidgets('position ticks update labels live', (tester) async {
     await pumpPlayer(tester, reduced: false);
@@ -148,8 +198,35 @@ void main() {
     expect(find.text('0:12'), findsOneWidget);
   });
 
+  testWidgets('poster and video contain their natural shape on black', (
+    tester,
+  ) async {
+    await pumpPlayer(tester, reduced: false);
+    final poster = tester.widget<Image>(
+      find.descendant(
+        of: find.byType(ProjectVideoPlayer),
+        matching: find.byType(Image),
+      ),
+    );
+    expect(poster.fit, BoxFit.contain);
+    final video = find.byType(VideoPlayer);
+    final fitted = find.ancestor(of: video, matching: find.byType(FittedBox));
+    expect(tester.widget<FittedBox>(fitted).fit, BoxFit.contain);
+    final controller = VideoControllerManager.instance.controllerFor(
+      'media/test/android.mp4',
+    )!;
+    expect(tester.getSize(video), controller.value.size);
+    for (final media in [video, find.byWidget(poster)]) {
+      final background = find.ancestor(
+        of: media,
+        matching: find.byType(ColoredBox),
+      );
+      expect(tester.widget<ColoredBox>(background.first).color, Colors.black);
+    }
+  });
+
   testWidgets(
-    'controls hide at 3s, reveal on hover/tap and stay while paused',
+    'controls hide after 1s or mouse exit and stay paused while hovered',
     (tester) async {
       await pumpPlayer(tester, reduced: false);
       double opacity() => tester
@@ -157,18 +234,33 @@ void main() {
             find.byKey(const ValueKey('video-controls-bar')),
           )
           .opacity;
-      await tester.pump(const Duration(milliseconds: 2400));
+      // Start the idle interval from a known interaction.
+      await tester.tapAt(tester.getCenter(find.byType(ProjectVideoControls)));
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 900));
       expect(opacity(), 1);
-      await tester.pump(const Duration(milliseconds: 700));
+      await tester.pump(const Duration(milliseconds: 101));
       expect(opacity(), 0);
       final mouse = await tester.createGesture(kind: PointerDeviceKind.mouse);
       await mouse.addPointer(location: Offset.zero);
       await mouse.moveTo(tester.getCenter(find.byType(ProjectVideoControls)));
       await frames(tester, 2);
       expect(opacity(), 1);
+      await mouse.moveTo(Offset.zero);
+      await tester.pump();
+      expect(opacity(), 0);
+      await mouse.moveTo(tester.getCenter(find.byType(ProjectVideoControls)));
+      await tester.pump();
+      expect(opacity(), 1);
       await tester.tap(find.byTooltip('Pause video'));
       await frames(tester, 2);
       await tester.pump(const Duration(seconds: 4));
+      expect(opacity(), 1);
+      await mouse.moveTo(Offset.zero);
+      await tester.pump();
+      expect(opacity(), 0);
+      await tester.tapAt(tester.getCenter(find.byType(ProjectVideoControls)));
+      await tester.pump();
       expect(opacity(), 1);
       await mouse.removePointer();
     },
@@ -190,6 +282,40 @@ void main() {
     await frames(tester, 2);
     expect(platform.seeks.last.$2, Duration.zero);
   });
+
+  for (final brightness in Brightness.values) {
+    testWidgets('transparent controls stay white in $brightness', (
+      tester,
+    ) async {
+      await pumpPlayer(tester, brightness: brightness);
+      final controls = find.byType(ProjectVideoControls);
+      final material = find.descendant(
+        of: controls,
+        matching: find.byType(Material),
+      );
+      expect(tester.widget<Material>(material.first).color, Colors.transparent);
+      for (final icon in tester.widgetList<Icon>(
+        find.descendant(of: controls, matching: find.byType(Icon)),
+      )) {
+        expect(icon.color, Colors.white);
+        expect(icon.shadows, isNotEmpty);
+      }
+      final text = tester.widget<Text>(
+        find.byKey(const ValueKey('video-current-time')),
+      );
+      expect(text.style!.color, Colors.white);
+      expect(text.style!.shadows, isNotEmpty);
+      final slider = tester.widget<SliderTheme>(
+        find.descendant(of: controls, matching: find.byType(SliderTheme)),
+      );
+      expect(slider.data.thumbColor, Colors.white);
+      expect(slider.data.activeTrackColor, Colors.white);
+      expect(
+        slider.data.inactiveTrackColor,
+        Colors.white.withValues(alpha: 0.4),
+      );
+    });
+  }
 
   for (final language in ['en', 'ar']) {
     testWidgets(
